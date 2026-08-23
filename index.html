@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جوانترینەکانی کوردستان</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #ffffff;
+            --subtext-color: #94a3b8;
+            --border-color: #334155;
+        }
+
+        .light-mode {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #0f172a;
+            --subtext-color: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .header h1 {
+            font-size: 18px;
+            color: #f1c40f;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 6px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .upload-btn {
+            background-color: #f39c12;
+            color: #000;
+            border: none;
+            padding: 8px 10px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 12px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        /* Live Activity Ticker */
+        .live-ticker {
+            background: #10b98122;
+            border: 1px solid #10b981;
+            color: #10b981;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 12px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        /* Feature Buttons Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .feature-btn {
+            background: linear-gradient(135deg, #6366f1, #a855f7);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 4px 10px rgba(168, 85, 247, 0.2);
+        }
+
+        .feature-btn.wheel-btn {
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
+        }
+
+        /* Search & Inputs */
+        .search-box {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            font-size: 14px;
+            outline: none;
+        }
+
+        /* Timer */
+        .timer-box {
+            background: var(--card-bg);
+            border: 1px solid #f39c12;
+            border-radius: 12px;
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .timer-title {
+            font-size: 12px;
+            color: var(--subtext-color);
+            margin-bottom: 6px;
+        }
+
+        .timer-display {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            font-weight: bold;
+            color: #f1c40f;
+            font-size: 14px;
+        }
+
+        .timer-unit {
+            background: var(--bg-color);
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        /* Podium Section */
+        .podium-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 10px;
+            margin-bottom: 25px;
+            padding: 10px 0;
+        }
+
+        .podium-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 8px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            flex: 1;
+            position: relative;
+        }
+
+        .podium-card.rank-1 {
+            order: 2;
+            border-color: #f1c40f;
+            transform: scale(1.08);
+            z-index: 2;
+        }
+
+        .podium-card.rank-2 { order: 1; }
+        .podium-card.rank-3 { order: 3; }
+
+        .podium-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 6px;
+            border: 2px solid #f39c12;
+        }
+
+        .podium-name {
+            font-size: 11px;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .podium-votes {
+            font-size: 10px;
+            color: #f39c12;
+        }
+
+        .podium-crown {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 16px;
+        }
+
+        /* Packages */
+        .packages-section {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .packages-title {
+            font-size: 13px;
+            color: #f1c40f;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .packages-grid {
+            display: flex;
+            gap: 8px;
+        }
+
+        .pkg-card {
+            flex: 1;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 10px 5px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        .pkg-votes {
+            font-size: 12px;
+            font-weight: bold;
+            color: #10b981;
+        }
+
+        .pkg-price {
+            font-size: 11px;
+            color: var(--subtext-color);
+            margin-top: 4px;
+        }
+
+        /* Tabs */
+        .tabs-container {
+            background-color: var(--card-bg);
+            padding: 6px;
+            border-radius: 14px;
+            display: flex;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: transparent;
+            color: var(--subtext-color);
+            font-weight: bold;
+            font-size: 14px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .tab-btn.active {
+            background-color: #f39c12;
+            color: #000;
+        }
+
+        /* Feed Cards */
+        .feed {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid var(--border-color);
+        }
+
+        .rank-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            color: #f39c12;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 12px;
+            z-index: 2;
+        }
+
+        .card-img-wrapper {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .floating-heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 80px;
+            pointer-events: none;
+            animation: heartPop 0.8s ease-out forwards;
+        }
+
+        @keyframes heartPop {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+            50% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.9; }
+            100% { transform: translate(-50%, -50%) scale(1.6); opacity: 0; }
+        }
+
+        .card-info { padding: 15px; }
+
+        .card-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .card-votes {
+            font-size: 13px;
+            color: #f39c12;
+            margin-bottom: 12px;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .btn-free {
+            flex: 1 1 45%;
+            background-color: #334155;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .btn-free:disabled {
+            background-color: var(--card-bg);
+            color: var(--subtext-color);
+            border: 1px solid var(--border-color);
+            cursor: not-allowed;
+        }
+
+        .btn-paid {
+            flex: 1 1 45%;
+            background-color: #10b981;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 12px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-share, .btn-poster, .btn-comment, .btn-badge {
+            flex: 1 1 22%;
+            border: none;
+            padding: 8px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 11px;
+            cursor: pointer;
+            color: white;
+            text-align: center;
+        }
+
+        .btn-share { background-color: #0284c7; }
+        .btn-poster { background-color: #8b5cf6; }
+        .btn-comment { background-color: #475569; }
+        .btn-badge { background-color: #ec4899; }
+
+        .comments-section {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border-color);
+            display: none;
+        }
+
+        .comment-item {
+            background-color: var(--bg-color);
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            margin-bottom: 6px;
+            color: var(--subtext-color);
+        }
+
+        .comment-input-box {
+            display: flex;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .comment-input {
+            flex: 1;
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-size: 12px;
+        }
+
+        .btn-send-comment {
+            background-color: #f39c12;
+            color: black;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        /* Modal Screens */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 12px;
+            object-fit: contain;
+        }
+
+        .overlay-screen {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-color);
+            z-index: 200;
+            padding: 20px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        /* Wheel Styling */
+        .wheel-container {
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            border: 8px solid #f39c12;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            background: conic-gradient(#ef4444 0deg 90deg, #3b82f6 90deg 180deg, #10b981 180deg 270deg, #f59e0b 270deg 360deg);
+            margin: 20px 0;
+            transition: transform 3s cubic-bezier(0.1, 2.7, 0.1, 1);
+        }
+
+        .wheel-pointer {
+            font-size: 30px;
+            position: absolute;
+            top: -25px;
+            z-index: 10;
+        }
+
+        /* Swipe Card Screen */
+        .swipe-card {
+            width: 100%;
+            max-width: 320px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .swipe-card img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+        }
+
+        .swipe-controls {
+            display: flex;
+            gap: 20px;
+        }
+
+        .swipe-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .swipe-pass { background: #ef4444; }
+        .swipe-vote { background: #10b981; }
+
+        .close-overlay-btn {
+            margin-top: 20px;
+            background: #64748b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<!-- موزیکی فۆلکلۆری کوردی -->
+<audio id="bg-music" loop preload="auto">
+    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=oriental-middle-east-track-112028.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+    
+    <div class="header">
+        <h1>👑 جوانترینەکانی کوردستان</h1>
+        <div class="header-controls">
+            <button class="icon-btn" onclick="toggleTheme()" id="theme-btn">🌙</button>
+            <button class="icon-btn" onclick="toggleMusic()" id="music-btn">🔇</button>
+            <a href="https://t.me/KURDPS_ADMIN" target="_blank" class="upload-btn">📷 وێنەکەت دابنێ</a>
+        </div>
+    </div>
+
+    <!-- Live Activity Ticker -->
+    <div class="live-ticker">
+        <span>⚡ ڕاستەوخۆ:</span>
+        <span id="ticker-text">پێش ۱۰ چرکە: دەنگێک بۆ (لیا هوسێن) تۆمارکرا!</span>
+    </div>
+
+    <!-- Features Buttons -->
+    <div class="features-grid">
+        <button class="feature-btn wheel-btn" onclick="openWheel()">
+            🎡 چەرخی چانس
+        </button>
+        <button class="feature-btn" onclick="openVSMode()">
+            ⚔️ کێ جوانترە؟
+        </button>
+        <button class="feature-btn" style="background: linear-gradient(135deg, #10b981, #059669);" onclick="openSwipeMode()">
+            🃏 سوایپ و دەنگدان
+        </button>
+        <button class="feature-btn" style="background: linear-gradient(135deg, #ec4899, #8b5cf6);" onclick="openPrediction()">
+            🔮 پێشبینی براوە
+        </button>
+    </div>
+
+    <div class="search-box">
+        <input type="text" id="search-input" class="search-input" placeholder="🔍 گەڕان بەدوای بەشداربوو..." oninput="handleSearch()">
+    </div>
+
+    <div class="timer-box">
+        <div class="timer-title">⏳ کاتی مابوو بۆ راگەیاندنی براوەی ئەم مانگە:</div>
+        <div class="timer-display" id="countdown">
+            <span class="timer-unit"><span id="days">30</span> ڕۆژ</span> : 
+            <span class="timer-unit"><span id="hours">00</span> کاتژمێر</span> : 
+            <span class="timer-unit"><span id="minutes">00</span> خولەک</span> : 
+            <span class="timer-unit"><span id="seconds">00</span> چرکە</span>
+        </div>
+    </div>
+
+    <!-- Podium -->
+    <div class="podium-container" id="podium-section"></div>
+
+    <!-- Packages -->
+    <div class="packages-section">
+        <div class="packages-title">⚡ پاکێجەکانی دەنگی VIP (کڕینی خێرا)</div>
+        <div class="packages-grid">
+            <a href="https://t.me/KURDPS_ADMIN" target="_blank" class="pkg-card">
+                <div class="pkg-votes">10 دەنگ</div>
+                <div class="pkg-price">5$</div>
+            </a>
+            <a href="https://t.me/KURDPS_ADMIN" target="_blank" class="pkg-card">
+                <div class="pkg-votes">25 دەنگ</div>
+                <div class="pkg-price">10$</div>
+            </a>
+            <a href="https://t.me/KURDPS_ADMIN" target="_blank" class="pkg-card">
+                <div class="pkg-votes">60 دەنگ</div>
+                <div class="pkg-price">20$</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- VIP Code Redemption Box -->
+    <div class="packages-section" style="border: 1px solid #f39c12;">
+        <div class="packages-title">🎟️ تۆمارکردنی کۆدی VIP</div>
+        <div style="display: flex; gap: 8px; flex-direction: column;">
+            <input type="text" id="vip-code-input" class="search-input" placeholder="کۆدە ٧ ژمارەیییەکە بنووسە..." maxlength="7" style="text-align: center; font-weight: bold; letter-spacing: 2px;">
+            <select id="vip-target-profile" class="search-input" style="cursor: pointer;">
+                <option value="">کەسێک هەڵبژێرە بۆ پێدانی دەنگەکە...</option>
+            </select>
+            <button class="upload-btn" style="width: 100%; padding: 12px;" onclick="redeemVipCode()">تۆمارکردن و ڕەوانەکردنی دەنگ</button>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs-container">
+        <button class="tab-btn" onclick="filterCategory('boys', event)">♂ بەشی کوڕان</button>
+        <button class="tab-btn active" onclick="filterCategory('girls', event)">♀ بەشی کچان</button>
+    </div>
+
+    <div class="feed" id="profiles-feed"></div>
+
+</div>
+
+<!-- Image Modal -->
+<div class="modal" id="img-modal" onclick="closeModal()">
+    <img class="modal-content" id="modal-img">
+</div>
+
+<!-- Lucky Wheel Overlay -->
+<div class="overlay-screen" id="wheel-screen">
+    <h2>🎡 چەرخی چانسی ڕۆژانە</h2>
+    <p style="font-size: 12px; color: var(--subtext-color); margin-top: 5px;">بیخولێنەرەوە و دەنگی دیاری بباتەوە!</p>
+    <div style="position: relative;">
+        <div class="wheel-pointer">👇</div>
+        <div class="wheel-container" id="wheel-disc">🎁</div>
+    </div>
+    <button class="upload-btn" style="padding: 12px 25px; font-size: 15px;" onclick="spinWheel()">خولاندنەوە</button>
+    <button class="close-overlay-btn" onclick="closeOverlay('wheel-screen')">داخستن</button>
+</div>
+
+<!-- VS Mode Overlay -->
+<div class="overlay-screen" id="vs-window">
+    <h2 style="color: #f39c12; margin-bottom: 15px;">⚔️ کامەیان جوانترە؟</h2>
+    <div style="display: flex; gap: 10px; width: 100%; max-width: 440px;" id="vs-cards-container"></div>
+    <button class="close-overlay-btn" onclick="closeOverlay('vs-window')">داخستن</button>
+</div>
+
+<!-- Swipe Mode Overlay -->
+<div class="overlay-screen" id="swipe-screen">
+    <h2 style="margin-bottom: 15px;">🃏 سوایپ بکە و دەنگ بدە</h2>
+    <div class="swipe-card" id="swipe-card-content"></div>
+    <div class="swipe-controls">
+        <button class="swipe-btn swipe-pass" onclick="nextSwipeCard()">❌</button>
+        <button class="swipe-btn swipe-vote" onclick="swipeVoteCurrent()">❤️</button>
+    </div>
+    <button class="close-overlay-btn" onclick="closeOverlay('swipe-screen')">داخستن</button>
+</div>
+
+<!-- Prediction Overlay -->
+<div class="overlay-screen" id="prediction-screen">
+    <h2 style="color: #ec4899; margin-bottom: 10px;">🔮 پێشبینی براوەی ئەم مانگە</h2>
+    <p style="font-size: 13px; color: var(--subtext-color); margin-bottom: 20px;">بە ڕای تۆ کێ دەبێتە پلەی یەکەم؟</p>
+    <div id="prediction-list" style="width: 100%; max-width: 320px; display: flex; flex-direction: column; gap: 10px;"></div>
+    <button class="close-overlay-btn" onclick="closeOverlay('prediction-screen')">داخستن</button>
+</div>
+
+<script>
+    // Theme
+    function toggleTheme() {
+        document.body.classList.toggle('light-mode');
+        const isLight = document.body.classList.contains('light-mode');
+        document.getElementById('theme-btn').innerText = isLight ? '☀️' : '🌙';
+    }
+
+    // Kurdish Music Control
+    let musicPlaying = false;
+    function toggleMusic() {
+        const music = document.getElementById('bg-music');
+        if (musicPlaying) {
+            music.pause();
+            document.getElementById('music-btn').innerText = '🔇';
+        } else {
+            music.play().then(() => {
+                document.getElementById('music-btn').innerText = '🔊';
+            }).catch(err => {
+                console.log("پێویستە بەکارهێنەر کلیک بکات بۆ لێدانی دەنگەکە");
+            });
+        }
+        musicPlaying = !musicPlaying;
+    }
+
+    // Timer
+    let targetDate = localStorage.getItem('competition_end_date');
+    if (!targetDate) {
+        targetDate = new Date().getTime() + (30 * 24 * 60 * 60 * 1000);
+        localStorage.setItem('competition_end_date', targetDate);
+    }
+
+    function updateTimer() {
+        const now = new Date().getTime();
+        const diff = targetDate - now;
+        if (diff <= 0) return;
+
+        document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+        document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        document.getElementById('minutes').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        document.getElementById('seconds').innerText = Math.floor((diff % (1000 * 60)) / 1000);
+    }
+    setInterval(updateTimer, 1000);
+    updateTimer();
+
+    // Profiles Data
+    const initialProfiles = [
+        { id: 16, name: "لیا هوسێن uk", category: "girls", votes: 129, image: "https://i.ibb.co/VYzrzDxW/852-D1-BFD-9414-4183-AF73-46279-AD09136.png", comments: ["زۆر جوانی ❤️"] },
+        { id: 1, name: "شەنێ هەولێری", category: "girls", votes: 65, image: "https://i.ibb.co/M532tY6s/IMG-5149.jpg", comments: [] },
+        { id: 2, name: "کانی سلێمانی", category: "girls", votes: 58, image: "https://i.ibb.co/5W3bXjRh/IMG-5148.jpg", comments: [] },
+        { id: 3, name: "ژینۆ زاخۆیی", category: "girls", votes: 51, image: "https://i.ibb.co/rR1Hp36X/IMG-5147.jpg", comments: [] },
+        { id: 4, name: "نیشتمان ئامێدی", category: "girls", votes: 44, image: "https://i.ibb.co/zVr87NXh/IMG-5146.jpg", comments: [] },
+        { id: 5, name: "سۆما هەڵەبجەیی", category: "girls", votes: 39, image: "https://i.ibb.co/Qv4pmrW5/IMG-5145.jpg", comments: [] },
+        { id: 6, name: "شنۆ ڕواندزی", category: "girls", votes: 32, image: "https://i.ibb.co/XT2tvby/IMG-5143.jpg", comments: [] },
+        { id: 7, name: "لانە کەرکووکی", category: "girls", votes: 27, image: "https://i.ibb.co/2Yt1XcSy/IMG-5142.jpg", comments: [] },
+        { id: 8, name: "ئەکتەر گەیمینگ", category: "boys", votes: 72, image: "https://i.ibb.co/tppK11JD/IMG-5141.jpg", comments: [] },
+        { id: 9, name: "شاهۆ", category: "boys", votes: 68, image: "https://i.ibb.co/PZgv3r81/IMG-5135.jpg", comments: [] },
+        { id: 10, name: "ئاریان ئەحمەد", category: "boys", votes: 60, image: "https://i.ibb.co/MDKdJ5Ws/IMG-5140.jpg", comments: [] },
+        { id: 11, name: "ڕێبین کۆیی", category: "boys", votes: 54, image: "https://i.ibb.co/sJFsYfvc/IMG-5139.jpg", comments: [] },
+        { id: 12, name: "دیار دەربەندیخان", category: "boys", votes: 49, image: "https://i.ibb.co/nss3Myq6/IMG-5138.jpg", comments: [] },
+        { id: 13, name: "مەتین ئاکرێیی", category: "boys", votes: 43, image: "https://i.ibb.co/GvJK7sPb/IMG-5137.jpg", comments: [] },
+        { id: 14, name: "میران ڕانیەیی", category: "boys", votes: 38, image: "https://i.ibb.co/9kNQ9Gkk/IMG-5136.jpg", comments: [] },
+        { id: 15, name: "هەڵگورد دهۆکی", category: "boys", votes: 31, image: "https://i.ibb.co/5hGG0Y1v/IMG-5134.jpg", comments: [] }
+    ];
+
+    let profiles = JSON.parse(localStorage.getItem('kurdish_beauty_profiles')) || initialProfiles;
+
+    // VIP Codes Database
+    const vipCodesDatabase = {
+        "pkg_5": [
+            "7391048", "2846193", "9150382", "4628195", "8302714", 
+            "1947263", "6283915", "5038172", "3719408", "8462019"
+        ],
+        "pkg_10": [
+            "8204917", "3915820", "6140392", "7582914", "1093847", 
+            "5472019", "9381624", "2604815", "4819370", "7152943"
+        ],
+        "pkg_20": [
+            "9418203", "5039281", "1827394", "6392018", "2740195", 
+            "8591032", "3104928", "7263910", "4918273", "6029418"
+        ]
+    };
+
+    let usedVipCodes = JSON.parse(localStorage.getItem('used_vip_codes')) || [];
+
+    function populateVipProfileDropdown() {
+        const select = document.getElementById('vip-target-profile');
+        if (!select) return;
+        
+        select.innerHTML = '<option value="">کەسێک هەڵبژێرە بۆ پێدانی دەنگەکە...</option>';
+        profiles.forEach(p => {
+            const option = document.createElement('option');
+            option.value = p.id;
+            option.innerText = `${p.name} (${p.category === 'girls' ? 'کچ' : 'کوڕ'})`;
+            select.appendChild(option);
+        });
+    }
+
+    function redeemVipCode() {
+        const inputCode = document.getElementById('vip-code-input').value.trim();
+        const selectedProfileId = parseInt(document.getElementById('vip-target-profile').value);
+
+        if (!inputCode || inputCode.length !== 7) {
+            alert('تکایە کۆدێکی دروستی ٧ ژمارەیی بنووسە!');
+            return;
+        }
+
+        if (!selectedProfileId) {
+            alert('تکایە ئەو کەسە هەڵبژێرە کە دەتەوێت دەنگەکەی پێ بدەیت!');
+            return;
+        }
+
+        if (usedVipCodes.includes(inputCode)) {
+            alert('ئەم کۆدە پێشتر بەکارهاتووە و ناتوانرێت دووبارە بەکاربهێنرێتەوە!');
+            return;
+        }
+
+        let addedVotes = 0;
+
+        if (vipCodesDatabase.pkg_5.includes(inputCode)) {
+            addedVotes = 10;
+        } else if (vipCodesDatabase.pkg_10.includes(inputCode)) {
+            addedVotes = 25;
+        } else if (vipCodesDatabase.pkg_20.includes(inputCode)) {
+            addedVotes = 60;
+        } else {
+            alert('ئەم کۆدە هەڵەیە یان بوونی نییە!');
+            return;
+        }
+
+        const targetProfile = profiles.find(p => p.id === selectedProfileId);
+        if (targetProfile) {
+            targetProfile.votes += addedVotes;
+            
+            usedVipCodes.push(inputCode);
+            localStorage.setItem('used_vip_codes', JSON.stringify(usedVipCodes));
+            
+            saveProfiles();
+            renderProfiles();
+            
+            document.getElementById('vip-code-input').value = '';
+            alert(`پیرۆزە! بە سەرکەوتوویی (${addedVotes}) دەنگ بەخشرا بە (${targetProfile.name}).`);
+        }
+    }
+
+    function applyDailyAutoVotes() {
+        const lastVoteTime = localStorage.getItem('last_auto_vote_time');
+        const now = new Date().getTime();
+
+        if (!lastVoteTime || (now - parseInt(lastVoteTime)) > (24 * 60 * 60 * 1000)) {
+            profiles.forEach(p => p.votes += Math.floor(Math.random() * 6) + 2);
+            localStorage.setItem('last_auto_vote_time', now.toString());
+            saveProfiles();
+        }
+    }
+
+    function saveProfiles() {
+        localStorage.setItem('kurdish_beauty_profiles', JSON.stringify(profiles));
+    }
+
+    let currentCategory = 'girls';
+    let searchQuery = '';
+
+    function renderProfiles() {
+        const feed = document.getElementById('profiles-feed');
+        const podium = document.getElementById('podium-section');
+        feed.innerHTML = '';
+        podium.innerHTML = '';
+
+        const lastUserVote = localStorage.getItem('last_user_free_vote');
+        const now = new Date().getTime();
+        const hasVotedToday = lastUserVote && (now - parseInt(lastUserVote) < 24 * 60 * 60 * 1000);
+
+        let filtered = profiles.filter(p => p.category === currentCategory);
+        if (searchQuery.trim() !== '') {
+            filtered = filtered.filter(p => p.name.includes(searchQuery.trim()));
+        }
+
+        filtered.sort((a, b) => b.votes - a.votes);
+
+        // Podium Top 3
+        if (filtered.length >= 3) {
+            const top3 = filtered.slice(0, 3);
+            podium.innerHTML = `
+                <div class="podium-card rank-2">
+                    <img class="podium-img" src="${top3[1].image}">
+                    <div class="podium-name">${top3[1].name}</div>
+                    <div class="podium-votes">🥈 ${top3[1].votes}</div>
+                </div>
+                <div class="podium-card rank-1">
+                    <div class="podium-crown">👑</div>
+                    <img class="podium-img" src="${top3[0].image}">
+                    <div class="podium-name">${top3[0].name}</div>
+                    <div class="podium-votes">🥇 ${top3[0].votes}</div>
+                </div>
+                <div class="podium-card rank-3">
+                    <img class="podium-img" src="${top3[2].image}">
+                    <div class="podium-name">${top3[2].name}</div>
+                    <div class="podium-votes">🥉 ${top3[2].votes}</div>
+                </div>
+            `;
+        }
+
+        filtered.forEach((profile, index) => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            let commentsHtml = (profile.comments || []).map(c => `<div class="comment-item">${c}</div>`).join('');
+
+            card.innerHTML = `
+                <div class="rank-badge">#${index + 1}</div>
+                <div class="card-img-wrapper" id="img-container-${profile.id}" onclick="openModal('${profile.image}')">
+                    <img class="card-img" src="${profile.image}" alt="${profile.name}">
+                </div>
+                <div class="card-info">
+                    <div class="card-name">${profile.name}</div>
+                    <div class="card-votes">💛 <span>${profile.votes}</span> دەنگ</div>
+                    <div class="actions">
+                        <button class="btn-free" ${hasVotedToday ? 'disabled' : ''} onclick="addVote(${profile.id})">
+                            ${hasVotedToday ? 'ئەمڕۆ دەنگت داوە' : 'دەنگی بەخۆڕایی'}
+                        </button>
+                        <a href="https://t.me/KURDPS_ADMIN" target="_blank" class="btn-paid">کڕینی دەنگ</a>
+                        <button class="btn-share" onclick="shareProfile('${profile.name}')">📲 شەیر</button>
+                        <button class="btn-poster" onclick="generateStoryText('${profile.name}')">📸 پۆستەر</button>
+                        <button class="btn-badge" onclick="generateBadge('${profile.name}')">🖼️ فرەیم</button>
+                        <button class="btn-comment" onclick="toggleComments(${profile.id})">💬 کۆمێنت</button>
+                    </div>
+
+                    <div class="comments-section" id="comments-${profile.id}">
+                        <div>${commentsHtml}</div>
+                        <div class="comment-input-box">
+                            <input type="text" class="comment-input" id="input-${profile.id}" placeholder="نووسینی کۆمێنت...">
+                            <button class="btn-send-comment" onclick="addComment(${profile.id})">ناردن</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            feed.appendChild(card);
+        });
+
+        populateVipProfileDropdown();
+    }
+
+    function filterCategory(category, event) {
+        currentCategory = category;
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+        renderProfiles();
+    }
+
+    function handleSearch() {
+        searchQuery = document.getElementById('search-input').value;
+        renderProfiles();
+    }
+
+    function addVote(id) {
+        const lastUserVote = localStorage.getItem('last_user_free_vote');
+        const now = new Date().getTime();
+
+        if (lastUserVote && (now - parseInt(lastUserVote) < 24 * 60 * 60 * 1000)) {
+            alert('تۆ ئەمڕۆ دەنگی بەخۆڕایی خۆت بەکارهێناوە!');
+            return;
+        }
+
+        const profile = profiles.find(p => p.id === id);
+        if (profile) {
+            profile.votes += 1;
+            localStorage.setItem('last_user_free_vote', now.toString());
+            saveProfiles();
+
+            const imgContainer = document.getElementById(`img-container-${id}`);
+            if (imgContainer) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.innerHTML = '❤️';
+                imgContainer.appendChild(heart);
+                setTimeout(() => heart.remove(), 800);
+            }
+
+            setTimeout(() => renderProfiles(), 500);
+        }
+    }
+
+    function closeOverlay(id) {
+        document.getElementById(id).style.display = 'none';
+    }
+
+    // Modal
+    function openModal(src) {
+        document.getElementById('modal-img').src = src;
+        document.getElementById('img-modal').style.display = 'flex';
+    }
+    function closeModal() {
+        document.getElementById('img-modal').style.display = 'none';
+    }
+
+    // Lucky Wheel Logic
+    function openWheel() {
+        document.getElementById('wheel-screen').style.display = 'flex';
+    }
+
+    function spinWheel() {
+        const lastSpin = localStorage.getItem('last_wheel_spin');
+        const now = new Date().getTime();
+
+        if (lastSpin && (now - parseInt(lastSpin) < 24 * 60 * 60 * 1000)) {
+            alert('تۆ ئەمڕۆ چەرخی چانست خولاندۆتەوە! سبەینێ بێرەوە.');
+            return;
+        }
+
+        const disc = document.getElementById('wheel-disc');
+        const randomDegree = 1800 + Math.floor(Math.random() * 360);
+        disc.style.transform = `rotate(${randomDegree}deg)`;
+
+        setTimeout(() => {
+            const prizes = [1, 2, 3, 5];
+            const wonVotes = prizes[Math.floor(Math.random() * prizes.length)];
+            alert(`پیرۆزە! تۆ ${wonVotes} دەنگی دیاریت بردەوە! 🎉`);
+            localStorage.setItem('last_wheel_spin', now.toString());
+        }, 3200);
+    }
+
+    // VS Mode Logic
+    function openVSMode() {
+        document.getElementById('vs-window').style.display = 'flex';
+        loadVSPair();
+    }
+
+    function loadVSPair() {
+        const filtered = profiles.filter(p => p.category === currentCategory);
+        if (filtered.length < 2) return;
+
+        const p1 = filtered[Math.floor(Math.random() * filtered.length)];
+        let p2 = filtered[Math.floor(Math.random() * filtered.length)];
+        while (p1.id === p2.id) {
+            p2 = filtered[Math.floor(Math.random() * filtered.length)];
+        }
+
+        const container = document.getElementById('vs-cards-container');
+        container.innerHTML = `
+            <div style="flex:1; background:var(--card-bg); border-radius:12px; overflow:hidden; cursor:pointer;" onclick="vsVote(${p1.id})">
+                <img src="${p1.image}" style="width:100%; height:200px; object-fit:cover;">
+                <div style="padding:8px; font-weight:bold; font-size:12px;">${p1.name}</div>
+            </div>
+            <div style="flex:1; background:var(--card-bg); border-radius:12px; overflow:hidden; cursor:pointer;" onclick="vsVote(${p2.id})">
+                <img src="${p2.image}" style="width:100%; height:200px; object-fit:cover;">
+                <div style="padding:8px; font-weight:bold; font-size:12px;">${p2.name}</div>
+            </div>
+        `;
+    }
+
+    function vsVote(id) {
+        const profile = profiles.find(p => p.id === id);
+        if (profile) {
+            profile.votes += 1;
+            saveProfiles();
+            renderProfiles();
+            loadVSPair();
+        }
+    }
+
+    // Swipe Mode Logic
+    let currentSwipeIndex = 0;
+    function openSwipeMode() {
+        document.getElementById('swipe-screen').style.display = 'flex';
+        currentSwipeIndex = 0;
+        loadSwipeCard();
+    }
+
+    function loadSwipeCard() {
+        const filtered = profiles.filter(p => p.category === currentCategory);
+        if (currentSwipeIndex >= filtered.length) currentSwipeIndex = 0;
+        const profile = filtered[currentSwipeIndex];
+
+        document.getElementById('swipe-card-content').innerHTML = `
+            <img src="${profile.image}">
+            <div style="padding:15px; font-weight:bold; font-size:16px; text-align:center;">${profile.name}</div>
+        `;
+    }
+
+    function nextSwipeCard() {
+        currentSwipeIndex++;
+        loadSwipeCard();
+    }
+
+    function swipeVoteCurrent() {
+        const filtered = profiles.filter(p => p.category === currentCategory);
+        const profile = filtered[currentSwipeIndex];
+        if (profile) {
+            profile.votes += 1;
+            saveProfiles();
+            renderProfiles();
+            nextSwipeCard();
+        }
+    }
+
+    // Prediction Logic
+    function openPrediction() {
+        document.getElementById('prediction-screen').style.display = 'flex';
+        const filtered = profiles.filter(p => p.category === currentCategory);
+        const list = document.getElementById('prediction-list');
+        list.innerHTML = '';
+
+        filtered.slice(0, 5).forEach(p => {
+            const btn = document.createElement('button');
+            btn.className = 'btn-free';
+            btn.style.padding = '12px';
+            btn.innerText = `👑 ${p.name}`;
+            btn.onclick = () => {
+                alert(`پێشبینییەکەت بۆ (${p.name}) بە سەرکەوتوویی تۆمارکرا! 🎯`);
+                closeOverlay('prediction-screen');
+            };
+            list.appendChild(btn);
+        });
+    }
+
+    // Ticker Updates
+    function updateLiveTicker() {
+        const p = profiles[Math.floor(Math.random() * profiles.length)];
+        const times = ['٥ چرکە', '١٠ چرکە', '١ خولەک', '٢ خولەک'];
+        const randomTime = times[Math.floor(Math.random() * times.length)];
+        document.getElementById('ticker-text').innerText = `پێش ${randomTime}: دەنگێک بۆ (${p.name}) تۆمارکرا!`;
+    }
+    setInterval(updateLiveTicker, 5000);
+
+    // Badge / Frame
+    function generateBadge(name) {
+        alert(`فۆتۆ فرەیمی پشتیوانی بۆ (${name}) ئامادەیە! دەتوانیت وەک ستۆری لە تیکتۆک بڵاوی بکەیتەوە.`);
+    }
+
+    function generateStoryText(name) {
+        const text = `تکایە هەمووتان دەنگم پێبدەن لە جوانترینەکانی کوردستان! 👑✨\nدەنگ بدەن بە: ${name}\nلینک: ${window.location.href}`;
+        navigator.clipboard.writeText(text);
+        alert('تێکستی ستۆری کۆپی کرا!');
+    }
+
+    function shareProfile(name) {
+        const text = `دەنگ بدە بە ${name} لە جوانترینەکانی کوردستان! 👇`;
+        const url = window.location.href;
+        if (navigator.share) {
+            navigator.share({ title: 'جوانترینەکانی کوردستان', text: text, url: url });
+        } else {
+            window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text + " " + url)}`, '_blank');
+        }
+    }
+
+    function toggleComments(id) {
+        const elem = document.getElementById(`comments-${id}`);
+        elem.style.display = elem.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function addComment(id) {
+        const input = document.getElementById(`input-${id}`);
+        const text = input.value.trim();
+        if (text) {
+            const profile = profiles.find(p => p.id === id);
+            if (profile) {
+                if (!profile.comments) profile.comments = [];
+                profile.comments.push(text);
+                saveProfiles();
+                renderProfiles();
+                toggleComments(id);
+            }
+        }
+    }
+
+    applyDailyAutoVotes();
+    renderProfiles();
+</script>
+
+</body>
+</html>
