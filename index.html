@@ -6,8 +6,10 @@
     <title>جوانترینەکانی کوردستان</title>
     
     <!-- Google AdSense Verification Script -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6814754999421890"
-     crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6814754999421890" crossorigin="anonymous"></script>
+
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
         :root {
@@ -105,6 +107,254 @@
             white-space: nowrap;
         }
 
+        /* ئاگادارکردنەوەی ڕاستەوخۆ */
+        .toast-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid #10b981;
+            color: #ffffff;
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: bold;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+            z-index: 999;
+            opacity: 0;
+            transition: all 0.4s ease-in-out;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .toast-notification.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .midnight-banner {
+            background: linear-gradient(135deg, #312e81, #4c1d95);
+            border: 1px solid #a855f7;
+            border-radius: 12px;
+            padding: 10px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: #e9d5ff;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .radar-box {
+            background: var(--card-bg);
+            border: 1px solid #38bdf8;
+            border-radius: 14px;
+            padding: 12px;
+            margin-bottom: 15px;
+        }
+        .radar-title {
+            font-size: 12px;
+            font-weight: bold;
+            color: #38bdf8;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .radar-list {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+        .radar-item {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-color);
+            padding: 6px 10px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            font-size: 11px;
+        }
+        .radar-img {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .daily-battle-box {
+            background: linear-gradient(135deg, #1e1b4b, #311b92);
+            border: 1px solid #6366f1;
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+            text-align: center;
+        }
+        .daily-battle-title {
+            color: #f59e0b;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .daily-battle-grid {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            gap: 8px;
+        }
+        .battle-card {
+            flex: 1;
+            background: var(--card-bg);
+            padding: 8px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            text-align: center;
+        }
+        .battle-card img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #6366f1;
+            margin-bottom: 4px;
+        }
+        .battle-card .b-name {
+            font-size: 11px;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .battle-card .b-votes {
+            font-size: 10px;
+            color: #f1c40f;
+        }
+        .vs-badge {
+            font-size: 16px;
+            font-weight: bold;
+            color: #ef4444;
+            animation: pulse 1s infinite alternate;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.3); }
+        }
+
+        .poll-war-box {
+            background: linear-gradient(135deg, #0f766e, #042f2e);
+            border: 1px solid #14b8a6;
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 15px;
+            text-align: center;
+            color: white;
+        }
+        .poll-question {
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #5eead4;
+        }
+        .poll-btns {
+            display: flex;
+            gap: 10px;
+        }
+        .poll-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 12px;
+            color: white;
+        }
+        .poll-boy { background: #0284c7; }
+        .poll-girl { background: #ec4899; }
+
+        .city-war-section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color);
+        }
+        .city-war-title {
+            font-size: 13px;
+            font-weight: bold;
+            color: #ef4444;
+            margin-bottom: 12px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .city-bar-item { margin-bottom: 8px; }
+        .city-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            margin-bottom: 4px;
+            font-weight: bold;
+        }
+        .city-progress-bg {
+            width: 100%;
+            height: 10px;
+            background: var(--bg-color);
+            border-radius: 5px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        .city-progress-fill {
+            height: 100%;
+            border-radius: 5px;
+            transition: width 0.8s ease-in-out;
+        }
+
+        .ship-container {
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 15px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+        }
+        .ship-title { font-size: 14px; font-weight: bold; margin-bottom: 10px; }
+        .ship-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .ship-user-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid white;
+        }
+        .ship-percent {
+            font-size: 18px;
+            font-weight: bold;
+            color: #f1c40f;
+            background: rgba(0,0,0,0.4);
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+
         .features-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -128,9 +378,7 @@
             box-shadow: 0 4px 10px rgba(168, 85, 247, 0.2);
         }
 
-        .feature-btn.wheel-btn {
-            background: linear-gradient(135deg, #f59e0b, #ef4444);
-        }
+        .feature-btn.wheel-btn { background: linear-gradient(135deg, #f59e0b, #ef4444); }
 
         .promo-banner {
             background: linear-gradient(135deg, #d97706, #b45309);
@@ -142,20 +390,8 @@
             box-shadow: 0 4px 15px rgba(217, 119, 6, 0.3);
         }
 
-        .promo-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #ffffff;
-            line-height: 1.4;
-        }
-
-        .promo-desc {
-            font-size: 13px;
-            margin-bottom: 15px;
-            color: #fef3c7;
-            line-height: 1.5;
-        }
+        .promo-title { font-size: 18px; font-weight: bold; margin-bottom: 10px; color: #ffffff; line-height: 1.4; }
+        .promo-desc { font-size: 13px; margin-bottom: 15px; color: #fef3c7; line-height: 1.5; }
 
         .promo-box {
             background-color: #0f172a;
@@ -171,11 +407,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .search-box {
-            width: 100%;
-            margin-bottom: 15px;
-        }
-
+        .search-box { width: 100%; margin-bottom: 15px; }
         .search-input {
             width: 100%;
             padding: 12px;
@@ -196,26 +428,9 @@
             margin-bottom: 15px;
         }
 
-        .timer-title {
-            font-size: 12px;
-            color: var(--subtext-color);
-            margin-bottom: 6px;
-        }
-
-        .timer-display {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            font-weight: bold;
-            color: #f1c40f;
-            font-size: 14px;
-        }
-
-        .timer-unit {
-            background: var(--bg-color);
-            padding: 4px 8px;
-            border-radius: 6px;
-        }
+        .timer-title { font-size: 12px; color: var(--subtext-color); margin-bottom: 6px; }
+        .timer-display { display: flex; justify-content: center; gap: 8px; font-weight: bold; color: #f1c40f; font-size: 14px; }
+        .timer-unit { background: var(--bg-color); padding: 4px 8px; border-radius: 6px; }
 
         .podium-container {
             display: flex;
@@ -236,13 +451,7 @@
             position: relative;
         }
 
-        .podium-card.rank-1 {
-            order: 2;
-            border-color: #f1c40f;
-            transform: scale(1.08);
-            z-index: 2;
-        }
-
+        .podium-card.rank-1 { order: 2; border-color: #f1c40f; transform: scale(1.08); z-index: 2; }
         .podium-card.rank-2 { order: 1; }
         .podium-card.rank-3 { order: 3; }
 
@@ -255,26 +464,9 @@
             border: 2px solid #f39c12;
         }
 
-        .podium-name {
-            font-size: 11px;
-            font-weight: bold;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .podium-votes {
-            font-size: 10px;
-            color: #f39c12;
-        }
-
-        .podium-crown {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 16px;
-        }
+        .podium-name { font-size: 11px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .podium-votes { font-size: 10px; color: #f39c12; }
+        .podium-crown { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); font-size: 16px; }
 
         .packages-section {
             background-color: var(--card-bg);
@@ -283,19 +475,8 @@
             margin-bottom: 20px;
         }
 
-        .packages-title {
-            font-size: 13px;
-            color: #f1c40f;
-            margin-bottom: 10px;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .packages-grid {
-            display: flex;
-            gap: 8px;
-        }
-
+        .packages-title { font-size: 13px; color: #f1c40f; margin-bottom: 10px; text-align: center; font-weight: bold; }
+        .packages-grid { display: flex; gap: 8px; }
         .pkg-card {
             flex: 1;
             background: var(--bg-color);
@@ -307,17 +488,8 @@
             color: var(--text-color);
         }
 
-        .pkg-votes {
-            font-size: 12px;
-            font-weight: bold;
-            color: #10b981;
-        }
-
-        .pkg-price {
-            font-size: 11px;
-            color: var(--subtext-color);
-            margin-top: 4px;
-        }
+        .pkg-votes { font-size: 12px; font-weight: bold; color: #10b981; }
+        .pkg-price { font-size: 11px; color: var(--subtext-color); margin-top: 4px; }
 
         .tabs-container {
             background-color: var(--card-bg);
@@ -340,16 +512,9 @@
             cursor: pointer;
         }
 
-        .tab-btn.active {
-            background-color: #f39c12;
-            color: #000;
-        }
+        .tab-btn.active { background-color: #f39c12; color: #000; }
 
-        .feed {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
+        .feed { display: flex; flex-direction: column; gap: 20px; margin-bottom: 20px; }
 
         .card {
             background-color: var(--card-bg);
@@ -357,6 +522,42 @@
             overflow: hidden;
             position: relative;
             border: 1px solid var(--border-color);
+        }
+
+        .card.hot-streak {
+            border: 2px solid #f59e0b;
+            box-shadow: 0 0 18px rgba(245, 158, 11, 0.6);
+            animation: fireGlow 1.5s infinite alternate;
+        }
+        @keyframes fireGlow {
+            0% { box-shadow: 0 0 10px rgba(239, 68, 68, 0.5); }
+            100% { box-shadow: 0 0 25px rgba(245, 158, 11, 0.9); }
+        }
+
+        .hot-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: linear-gradient(135deg, #ef4444, #f59e0b);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 10px;
+            z-index: 2;
+        }
+
+        .achievement-badge {
+            position: absolute;
+            top: 12px;
+            left: 105px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 10px;
+            z-index: 2;
         }
 
         .rank-badge {
@@ -373,18 +574,8 @@
             z-index: 2;
         }
 
-        .card-img-wrapper {
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .card-img {
-            width: 100%;
-            height: 380px;
-            object-fit: cover;
-            display: block;
-        }
+        .card-img-wrapper { position: relative; overflow: hidden; cursor: pointer; }
+        .card-img { width: 100%; height: 380px; object-fit: cover; display: block; }
 
         .floating-heart {
             position: absolute;
@@ -403,24 +594,44 @@
         }
 
         .card-info { padding: 15px; }
+        .card-name { font-size: 18px; font-weight: bold; margin-bottom: 4px; }
+        .card-votes { font-size: 13px; color: #f39c12; margin-bottom: 6px; }
 
-        .card-name {
-            font-size: 18px;
+        .top-fan-badge {
+            font-size: 11px;
+            color: #10b981;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 4px 8px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            display: inline-block;
+            border: 1px solid #10b981;
             font-weight: bold;
-            margin-bottom: 4px;
         }
 
-        .card-votes {
-            font-size: 13px;
-            color: #f39c12;
-            margin-bottom: 12px;
-        }
-
-        .actions {
+        .gift-bar {
             display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
+            gap: 6px;
+            margin-bottom: 12px;
+            background: var(--bg-color);
+            padding: 6px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            justify-content: space-around;
         }
+        .gift-btn {
+            background: transparent;
+            border: none;
+            font-size: 11px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: var(--text-color);
+            font-weight: bold;
+        }
+
+        .actions { display: flex; flex-wrap: wrap; gap: 8px; }
 
         .btn-free {
             flex: 1 1 45%;
@@ -454,7 +665,7 @@
             text-align: center;
         }
 
-        .btn-share, .btn-poster, .btn-comment, .btn-badge {
+        .btn-share, .btn-poster, .btn-comment, .btn-crush, .btn-secret, .btn-roast {
             flex: 1 1 22%;
             border: none;
             padding: 8px;
@@ -469,9 +680,11 @@
         .btn-share { background-color: #0284c7; }
         .btn-poster { background-color: #8b5cf6; }
         .btn-comment { background-color: #475569; }
-        .btn-badge { background-color: #ec4899; }
+        .btn-crush { background-color: #ec4899; }
+        .btn-secret { background-color: #d97706; }
+        .btn-roast { background-color: #10b981; }
 
-        .comments-section {
+        .comments-section, .secrets-section {
             margin-top: 10px;
             padding-top: 10px;
             border-top: 1px solid var(--border-color);
@@ -487,12 +700,17 @@
             color: var(--subtext-color);
         }
 
-        .comment-input-box {
-            display: flex;
-            gap: 6px;
-            margin-top: 8px;
+        .secret-item {
+            background: linear-gradient(135deg, #7c2d12, #451a03);
+            color: #fde68a;
+            padding: 8px 10px;
+            border-radius: 8px;
+            font-size: 11px;
+            margin-bottom: 6px;
+            border: 1px solid #f59e0b;
         }
 
+        .comment-input-box { display: flex; gap: 6px; margin-top: 8px; }
         .comment-input {
             flex: 1;
             padding: 6px 10px;
@@ -514,6 +732,58 @@
             font-size: 12px;
         }
 
+        .live-chat-section {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .live-chat-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #38bdf8;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .gender-selector { display: flex; gap: 6px; }
+        .gender-btn {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--subtext-color);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+        .gender-btn.active-boy { background: #0284c7; color: white; border-color: #0284c7; }
+        .gender-btn.active-girl { background: #ec4899; color: white; border-color: #ec4899; }
+
+        .chat-box-feed {
+            max-height: 180px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 10px;
+            padding-right: 4px;
+        }
+        .chat-message {
+            background-color: var(--bg-color);
+            padding: 8px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            border: 1px solid var(--border-color);
+            word-break: break-word;
+        }
+        .chat-message.boy-msg { border-right: 3px solid #38bdf8; }
+        .chat-message.girl-msg { border-right: 3px solid #ec4899; }
+        .chat-message .user-tag { font-weight: bold; margin-left: 5px; }
+
         .modal {
             display: none;
             position: fixed;
@@ -525,12 +795,7 @@
             padding: 20px;
         }
 
-        .modal-content {
-            max-width: 90%;
-            max-height: 80%;
-            border-radius: 12px;
-            object-fit: contain;
-        }
+        .modal-content { max-width: 90%; max-height: 80%; border-radius: 12px; object-fit: contain; }
 
         .overlay-screen {
             display: none;
@@ -561,12 +826,7 @@
             transition: transform 3s cubic-bezier(0.1, 2.7, 0.1, 1);
         }
 
-        .wheel-pointer {
-            font-size: 30px;
-            position: absolute;
-            top: -25px;
-            z-index: 10;
-        }
+        .wheel-pointer { font-size: 30px; position: absolute; top: -25px; z-index: 10; }
 
         .swipe-card {
             width: 100%;
@@ -578,16 +838,9 @@
             margin-bottom: 20px;
         }
 
-        .swipe-card img {
-            width: 100%;
-            height: 320px;
-            object-fit: cover;
-        }
+        .swipe-card img { width: 100%; height: 320px; object-fit: cover; }
 
-        .swipe-controls {
-            display: flex;
-            gap: 20px;
-        }
+        .swipe-controls { display: flex; gap: 20px; }
 
         .swipe-btn {
             width: 60px;
@@ -623,6 +876,11 @@
     <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=oriental-middle-east-track-112028.mp3" type="audio/mpeg">
 </audio>
 
+<div class="toast-notification" id="toast-notif">
+    <span>🔥</span>
+    <span id="toast-text">دەنگێک بۆ (لیا هوسێن) تۆمارکرا!</span>
+</div>
+
 <div class="container">
     
     <div class="header">
@@ -637,6 +895,46 @@
     <div class="live-ticker">
         <span>⚡ ڕاستەوخۆ:</span>
         <span id="ticker-text">پێش ۱۰ چرکە: دەنگێک بۆ (لیا هوسێن) تۆمارکرا!</span>
+    </div>
+
+    <div class="midnight-banner">
+        <span>🌙 دەنگی دووهێندە (2X Midnight Boost):</span>
+        <span id="midnight-status">لە کاتژمێر 12ی شەودا هەموو دەنگێک دەبێتە ٢ دەنگ! ⚡</span>
+    </div>
+
+    <div class="radar-box">
+        <div class="radar-title">📡 ڕاداری خێراترین بەرزبوونەوەی کاتژمێر (24h Gainers)</div>
+        <div class="radar-list" id="radar-list-content">
+            <div class="radar-item">🔥 لە باربووندایە...</div>
+        </div>
+    </div>
+
+    <div class="poll-war-box">
+        <div class="poll-question">🔥 کێ وەفادارترە لە خۆشەویستیدا؟</div>
+        <div class="poll-btns">
+            <button class="poll-btn poll-boy" onclick="votePoll('boy')">♂ کوڕان (<span id="boy-poll-count">52%</span>)</button>
+            <button class="poll-btn poll-girl" onclick="votePoll('girl')">♀ کچان (<span id="girl-poll-count">48%</span>)</button>
+        </div>
+    </div>
+
+    <div class="daily-battle-box" id="daily-battle-section">
+        <div class="daily-battle-title">🔥 کێبڕکێی گەرمی ئەمڕۆ (Daily Battle)</div>
+        <div class="daily-battle-grid" id="daily-battle-content">
+            <span style="font-size: 12px; color: var(--subtext-color);">لە باربووندایە...</span>
+        </div>
+    </div>
+
+    <div class="city-war-section">
+        <div class="city-war-title">🌆 کێبڕکێ و دەنگی شارەکان (City Standings)</div>
+        <div id="city-war-bars"></div>
+    </div>
+
+    <div class="ship-container">
+        <div class="ship-title">💘 یاری گونجان: کام کوڕ و کچە بۆ یەکتر دەشنێن؟</div>
+        <div class="ship-box" id="ship-box-content">
+            <span style="font-size:12px;">داگرتنی گونجان...</span>
+        </div>
+        <button class="upload-btn" style="background:white; color:#ec4899; padding:6px 15px;" onclick="generateRandomShip()">🎲 تاقی کردنەوەی کەسی تر</button>
     </div>
 
     <div class="features-grid">
@@ -688,6 +986,14 @@
         </div>
     </div>
 
+    <!-- بەشی داوەتکردنی ٥ هاوڕێ بۆ کۆدی VIP خێرا -->
+    <div class="packages-section" style="border: 1px solid #10b981; text-align: center;">
+        <div class="packages-title" style="color:#10b981;">🎁 داوەتکردنی ٥ هاوڕێ (کۆدی ٥ دەنگی VIP)</div>
+        <p style="font-size:11px; color:var(--subtext-color); margin-bottom:6px;">هاوڕێیەکانت بەستەوە! کاتێک ٥ هاوڕێ بێنە سەر وێبسایتەکە، کۆدی ٥ دەنگت پێدەدرێت.</p>
+        <div style="font-size:12px; font-weight:bold; color:#f1c40f; margin-bottom:10px;">ژمارەی داوەتە سەرکەوتووەکانی تۆ: <span id="invite-count-display">0</span> / 5</div>
+        <button class="upload-btn" style="background:#10b981; color:white; width:100%; padding:10px;" onclick="copyInviteLink()">📲 کۆپیکردنی لینکی تایبەتی داوەتکردن</button>
+    </div>
+
     <div class="packages-section" style="border: 1px solid #f39c12;">
         <div class="packages-title">🎟️ تۆمارکردنی کۆدی VIP</div>
         <div style="display: flex; gap: 8px; flex-direction: column;">
@@ -706,20 +1012,44 @@
 
     <div class="feed" id="profiles-feed"></div>
 
+    <div class="live-chat-section">
+        <div class="live-chat-title">
+            <span>💬 چاتی کوڕان ⚔️ کچان</span>
+            <div class="gender-selector">
+                <button class="gender-btn active-boy" id="boy-select-btn" onclick="setChatGender('boy')">♂ کوڕ</button>
+                <button class="gender-btn" id="girl-select-btn" onclick="setChatGender('girl')">♀ کچ</button>
+            </div>
+        </div>
+        <div class="chat-box-feed" id="live-chat-feed">
+            <div class="chat-message boy-msg"><span class="user-tag" style="color:#38bdf8;">سیستەم:</span> بەخێر بێن بۆ چات! بەشی ڕەگەزی خۆت هەڵبژێرە.</div>
+        </div>
+        <div class="comment-input-box">
+            <input type="text" class="comment-input" id="live-chat-input" placeholder="پەیامێک بنووسە...">
+            <button class="btn-send-comment" onclick="sendLiveChatMessage()">ناردن</button>
+        </div>
+    </div>
+
 </div>
 
 <div class="modal" id="img-modal" onclick="closeModal()">
     <img class="modal-content" id="modal-img">
 </div>
 
+<!-- مۆدالی چەرخی چانس هەڵبژاردنی بەشداربووی ڕاستەقینە -->
 <div class="overlay-screen" id="wheel-screen">
     <h2>🎡 چەرخی چانسی ڕۆژانە</h2>
-    <p style="font-size: 12px; color: var(--subtext-color); margin-top: 5px;">بیخولێنەرەوە و دەنگی دیاری بباتەوە!</p>
+    <p style="font-size: 12px; color: var(--subtext-color); margin-top: 5px;">بیخولێنەرەوە و دەنگی دیاری بە ڕاستی بۆ بەشداربوویەک بنێرە!</p>
     <div style="position: relative;">
         <div class="wheel-pointer">👇</div>
         <div class="wheel-container" id="wheel-disc">🎁</div>
     </div>
-    <button class="upload-btn" style="padding: 12px 25px; font-size: 15px;" onclick="spinWheel()">خولاندنەوە</button>
+    
+    <div id="wheel-target-box" style="display:none; width:100%; max-width:320px; margin-bottom:15px;">
+        <p style="font-size:12px; color:#f1c40f; margin-bottom:6px;">کەسێک هەڵبژێرە تا دەنگە دیارییەکەی بۆ بنێریت:</p>
+        <select id="wheel-target-profile" class="search-input" style="cursor: pointer; font-size:12px; padding:8px;"></select>
+    </div>
+
+    <button class="upload-btn" id="spin-btn" style="padding: 12px 25px; font-size: 15px;" onclick="spinWheel()">خولاندنەوە</button>
     <button class="close-overlay-btn" onclick="closeOverlay('wheel-screen')">داخستن</button>
 </div>
 
@@ -749,9 +1079,8 @@
 <!-- Firebase Realtime Database Integration -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getDatabase, ref, onValue, update, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+    import { getDatabase, ref, onValue, update, runTransaction, push } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-    // Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyB9BhFcxhNU6zT4y5FLGyI8HLTHjjdPqKg",
       authDomain: "krd-pezhbrke.firebaseapp.com",
@@ -767,29 +1096,29 @@
     const db = getDatabase(app);
 
     const initialProfiles = [
-        { id: 16, name: "لیا هوسێن uk", category: "girls", votes: 129, image: "https://i.ibb.co/VYzrzDxW/852-D1-BFD-9414-4183-AF73-46279-AD09136.png", comments: ["زۆر جوانی ❤️"] },
-        { id: 1, name: "شەنێ هەولێری", category: "girls", votes: 65, image: "https://i.ibb.co/M532tY6s/IMG-5149.jpg", comments: [] },
-        { id: 2, name: "کانی سلێمانی", category: "girls", votes: 58, image: "https://i.ibb.co/5W3bXjRh/IMG-5148.jpg", comments: [] },
-        { id: 3, name: "ژینۆ زاخۆیی", category: "girls", votes: 51, image: "https://i.ibb.co/rR1Hp36X/IMG-5147.jpg", comments: [] },
-        { id: 4, name: "نیشتمان ئامێدی", category: "girls", votes: 44, image: "https://i.ibb.co/zVr87NXh/IMG-5146.jpg", comments: [] },
-        { id: 5, name: "سۆما هەڵەبجەیی", category: "girls", votes: 39, image: "https://i.ibb.co/Qv4pmrW5/IMG-5145.jpg", comments: [] },
-        { id: 6, name: "شنۆ ڕواندزی", category: "girls", votes: 32, image: "https://i.ibb.co/XT2tvby/IMG-5143.jpg", comments: [] },
-        { id: 7, name: "لانە کەرکووکی", category: "girls", votes: 27, image: "https://i.ibb.co/2Yt1XcSy/IMG-5142.jpg", comments: [] },
-        { id: 8, name: "ئەکتەر گەیمینگ", category: "boys", votes: 72, image: "https://i.ibb.co/tppK11JD/IMG-5141.jpg", comments: [] },
-        { id: 9, name: "شاهۆ", category: "boys", votes: 68, image: "https://i.ibb.co/PZgv3r81/IMG-5135.jpg", comments: [] },
-        { id: 10, name: "ئاریان ئەحمەد", category: "boys", votes: 60, image: "https://i.ibb.co/MDKdJ5Ws/IMG-5140.jpg", comments: [] },
-        { id: 11, name: "ڕێبین کۆیی", category: "boys", votes: 54, image: "https://i.ibb.co/sJFsYfvc/IMG-5139.jpg", comments: [] },
-        { id: 12, name: "دیار دەربەندیخان", category: "boys", votes: 49, image: "https://i.ibb.co/nss3Myq6/IMG-5138.jpg", comments: [] },
-        { id: 13, name: "مەتین ئاکرێیی", category: "boys", votes: 43, image: "https://i.ibb.co/GvJK7sPb/IMG-5137.jpg", comments: [] },
-        { id: 14, name: "میران ڕانیەیی", category: "boys", votes: 38, image: "https://i.ibb.co/9kNQ9Gkk/IMG-5136.jpg", comments: [] },
-        { id: 15, name: "هەڵگورد دهۆکی", category: "boys", votes: 31, image: "https://i.ibb.co/5hGG0Y1v/IMG-5134.jpg", comments: [] }
+        { id: 16, name: "لیا هوسێن uk", category: "girls", votes: 129, image: "https://i.ibb.co/VYzrzDxW/852-D1-BFD-9414-4183-AF73-46279-AD09136.png", comments: ["زۆر جوانی ❤️"], secrets: ["سەرسامتم 🙈"], roses: 12, crowns: 4, diamonds: 2, crushes: 8, topFan: "ڕێبین_سناپ" },
+        { id: 1, name: "شەنێ هەولێری", category: "girls", votes: 65, image: "https://i.ibb.co/M532tY6s/IMG-5149.jpg", comments: [], secrets: [], roses: 5, crowns: 1, diamonds: 0, crushes: 3, topFan: "مێوان_88" },
+        { id: 2, name: "کانی سلێمانی", category: "girls", votes: 58, image: "https://i.ibb.co/5W3bXjRh/IMG-5148.jpg", comments: [], secrets: [], roses: 3, crowns: 0, diamonds: 1, crushes: 2, topFan: "" },
+        { id: 3, name: "ژینۆ زاخۆیی", category: "girls", votes: 51, image: "https://i.ibb.co/rR1Hp36X/IMG-5147.jpg", comments: [], secrets: [], roses: 2, crowns: 0, diamonds: 0, crushes: 1, topFan: "" },
+        { id: 4, name: "نیشتمان ئامێدی", category: "girls", votes: 44, image: "https://i.ibb.co/zVr87NXh/IMG-5146.jpg", comments: [], secrets: [], roses: 1, crowns: 0, diamonds: 0, crushes: 0, topFan: "" },
+        { id: 5, name: "سۆما هەڵەبجەیی", category: "girls", votes: 39, image: "https://i.ibb.co/Qv4pmrW5/IMG-5145.jpg", comments: [], secrets: [], roses: 4, crowns: 1, diamonds: 0, crushes: 2, topFan: "" },
+        { id: 6, name: "شنۆ ڕواندزی", category: "girls", votes: 32, image: "https://i.ibb.co/XT2tvby/IMG-5143.jpg", comments: [], secrets: [], roses: 0, crowns: 0, diamonds: 0, crushes: 0, topFan: "" },
+        { id: 7, name: "لانە کەرکووکی", category: "girls", votes: 27, image: "https://i.ibb.co/2Yt1XcSy/IMG-5142.jpg", comments: [], secrets: [], roses: 2, crowns: 0, diamonds: 0, crushes: 1, topFan: "" },
+        { id: 8, name: "ئەکتەر گەیمینگ", category: "boys", votes: 72, image: "https://i.ibb.co/tppK11JD/IMG-5141.jpg", comments: [], secrets: [], roses: 8, crowns: 2, diamonds: 1, crushes: 5, topFan: "شەنێ_fans" },
+        { id: 9, name: "شاهۆ", category: "boys", votes: 68, image: "https://i.ibb.co/PZgv3r81/IMG-5135.jpg", comments: [], secrets: [], roses: 4, crowns: 1, diamonds: 0, crushes: 2, topFan: "" },
+        { id: 10, name: "ئاریان ئەحمەد", category: "boys", votes: 60, image: "https://i.ibb.co/MDKdJ5Ws/IMG-5140.jpg", comments: [], secrets: [], roses: 3, crowns: 0, diamonds: 0, crushes: 1, topFan: "" },
+        { id: 11, name: "ڕێبین کۆیی", category: "boys", votes: 54, image: "https://i.ibb.co/sJFsYfvc/IMG-5139.jpg", comments: [], secrets: [], roses: 1, crowns: 0, diamonds: 0, crushes: 0, topFan: "" },
+        { id: 12, name: "دیار دەربەندیخان", category: "boys", votes: 49, image: "https://i.ibb.co/nss3Myq6/IMG-5138.jpg", comments: [], secrets: [], roses: 0, crowns: 0, diamonds: 0, crushes: 0, topFan: "" },
+        { id: 13, name: "مەتین ئاکرێیی", category: "boys", votes: 43, image: "https://i.ibb.co/GvJK7sPb/IMG-5137.jpg", comments: [], secrets: [], roses: 2, crowns: 0, diamonds: 0, crushes: 1, topFan: "" },
+        { id: 14, name: "میران ڕانیەیی", category: "boys", votes: 38, image: "https://i.ibb.co/9kNQ9Gkk/IMG-5136.jpg", comments: [], secrets: [], roses: 1, crowns: 0, diamonds: 0, crushes: 0, topFan: "" },
+        { id: 15, name: "هەڵگورد دهۆکی", category: "boys", votes: 31, image: "https://i.ibb.co/5hGG0Y1v/IMG-5134.jpg", comments: [], secrets: [], roses: 0, crowns: 0, diamonds: 0, crushes: 0, topFan: "" }
     ];
 
     let profiles = initialProfiles;
     let currentCategory = 'girls';
     let searchQuery = '';
+    let selectedChatGender = 'boy';
 
-    // گوێگرتنی ڕاستەوخۆ لە Firebase Realtime Database
     const profilesRef = ref(db, 'profiles');
     onValue(profilesRef, (snapshot) => {
         const data = snapshot.val();
@@ -803,28 +1132,300 @@
             update(ref(db), { profiles: initialData });
         }
         renderProfiles();
+        renderDailyBattle();
+        renderCityWar();
+        renderRadar();
+        generateRandomShip();
     });
 
-    // بەشی جێگیرکردنی مەرجی دەنگدان
-    window.addVote = function(dbKey, count = 1) {
+    const liveChatRef = ref(db, 'live_chat');
+    onValue(liveChatRef, (snapshot) => {
+        const data = snapshot.val();
+        const chatFeed = document.getElementById('live-chat-feed');
+        if (data && chatFeed) {
+            chatFeed.innerHTML = '';
+            const messages = Object.values(data).slice(-15);
+            messages.forEach(msg => {
+                const msgDiv = document.createElement('div');
+                const isGirl = msg.gender === 'girl';
+                msgDiv.className = `chat-message ${isGirl ? 'girl-msg' : 'boy-msg'}`;
+                msgDiv.innerHTML = `<span class="user-tag" style="color:${isGirl ? '#ec4899' : '#38bdf8'};">${msg.sender} (${isGirl ? '♀' : '♂'}):</span> ${msg.text}`;
+                chatFeed.appendChild(msgDiv);
+            });
+            chatFeed.scrollTop = chatFeed.scrollHeight;
+        }
+    });
+
+    // بەڕێوەبردنی سیستەمی داوەتکردنی ڕاستەقینە
+    window.checkInviteSystem = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const refUser = urlParams.get('ref');
+        let myUserId = localStorage.getItem('my_unique_user_id');
+
+        if (!myUserId) {
+            myUserId = 'user_' + Math.floor(100000 + Math.random() * 900000);
+            localStorage.setItem('my_unique_user_id', myUserId);
+        }
+
+        if (refUser && refUser !== myUserId) {
+            let trackedRefs = JSON.parse(localStorage.getItem('tracked_refs')) || [];
+            if (!trackedRefs.includes(refUser)) {
+                trackedRefs.push(refUser);
+                localStorage.setItem('tracked_refs', JSON.stringify(trackedRefs));
+
+                let currentCount = parseInt(localStorage.getItem(`invite_count_${refUser}`) || '0');
+                currentCount += 1;
+                localStorage.setItem(`invite_count_${refUser}`, currentCount.toString());
+            }
+        }
+
+        let myInviteCount = parseInt(localStorage.getItem(`invite_count_${myUserId}`) || '0');
+        const countDisplay = document.getElementById('invite-count-display');
+        if(countDisplay) countDisplay.innerText = myInviteCount;
+
+        if (myInviteCount >= 5 && !localStorage.getItem('free_vip_claimed')) {
+            const rewardCode = "FREE" + Math.floor(100 + Math.random() * 900);
+            let userVipCodes = JSON.parse(localStorage.getItem('generated_free_vip_codes')) || [];
+            userVipCodes.push(rewardCode);
+            localStorage.setItem('generated_free_vip_codes', JSON.stringify(userVipCodes));
+            localStorage.setItem('free_vip_claimed', 'true');
+            alert(`🎉 پیرۆزە! ٥ هاوڕێت هاتنە سەر وێبسایتەکە! کۆدی ٥ دەنگی بەخۆڕایی تۆ: [ ${rewardCode} ]\nئەم کۆدە لە بەشی تۆمارکردنی کۆدی VIP بنووسە!`);
+        }
+    };
+    checkInviteSystem();
+
+    window.copyInviteLink = function() {
+        let myUserId = localStorage.getItem('my_unique_user_id');
+        if (!myUserId) {
+            myUserId = 'user_' + Math.floor(100000 + Math.random() * 900000);
+            localStorage.setItem('my_unique_user_id', myUserId);
+        }
+        const inviteUrl = `${window.location.origin}${window.location.pathname}?ref=${myUserId}`;
+        navigator.clipboard.writeText(`وێبسایتی جوانترینەکانی کوردستان! بگەڕێ و دەنگ بدە: ${inviteUrl}`);
+        alert('لینکی تایبەتی تۆ کۆپی کرا! بیبنێرە بۆ ٥ هاوڕێت تا کاتێک سەردانی دەکەن کۆدی VIPت بۆ چالاک بێت ✨');
+    };
+
+    window.showToast = function(msg) {
+        const toast = document.getElementById('toast-notif');
+        const toastText = document.getElementById('toast-text');
+        if (toast && toastText) {
+            toastText.innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+    };
+
+    window.renderRadar = function() {
+        const radarFeed = document.getElementById('radar-list-content');
+        if (!radarFeed || profiles.length === 0) return;
+
+        let sortedByVotes = [...profiles].sort((a,b) => b.votes - a.votes).slice(0, 5);
+        radarFeed.innerHTML = '';
+
+        sortedByVotes.forEach(p => {
+            const item = document.createElement('div');
+            item.className = 'radar-item';
+            item.innerHTML = `
+                <img class="radar-img" src="${p.image}">
+                <span><b>${p.name}</b> (+${Math.floor(Math.random()*8)+2} دەنگی ئەمرۆ)</span>
+            `;
+            radarFeed.appendChild(item);
+        });
+    };
+
+    window.triggerRoastOrCompliment = function(name) {
+        const lines = [
+            `✨ پێداهەڵدان: (${name}) بەبێ فلتەریش ٪١٠٠ کەشخە و تایبەتە! 💖`,
+            `🔥 تەشەر: خۆت زۆر بە سادەیی مەگرە (${name})، خەڵک لەبەر جوانیت تووشی شۆک بوون! 😉`,
+            `✨ پێداهەڵدان: ستایلی (${name}) ڕێک وەک ئەکتەرە ناودارەکانە 👑`,
+            `🔥 تەشەر: ڕێژەی سەرنجڕاکێشیی (${name}) سیستەمی دەنگدانی تێکداوە! 🔥`
+        ];
+        const randomLine = lines[Math.floor(Math.random() * lines.length)];
+        alert(randomLine);
+    };
+
+    window.votePoll = function(g) {
+        triggerVoteEffects();
+        showToast(`دەنگت بۆ بەشی (${g === 'boy' ? 'کوڕان ♂' : 'کچان ♀'}) بەسەرکەوتوویی تۆمارکرا!`);
+    };
+
+    window.sendSuperCrush = function(dbKey, name) {
+        const crushRef = ref(db, `profiles/${dbKey}/crushes`);
+        runTransaction(crushRef, (curr) => (curr || 0) + 1).then(() => {
+            triggerVoteEffects();
+            showToast(`سوپەر لایکی نھێنی (Super Crush) بۆ (${name}) نێردرا! 💌`);
+        });
+    };
+
+    window.setChatGender = function(g) {
+        selectedChatGender = g;
+        document.getElementById('boy-select-btn').className = `gender-btn ${g === 'boy' ? 'active-boy' : ''}`;
+        document.getElementById('girl-select-btn').className = `gender-btn ${g === 'girl' ? 'active-girl' : ''}`;
+    };
+
+    window.sendLiveChatMessage = function() {
+        const input = document.getElementById('live-chat-input');
+        const text = input.value.trim();
+        if (text) {
+            push(ref(db, 'live_chat'), {
+                sender: "مێوان_" + Math.floor(100 + Math.random() * 900),
+                gender: selectedChatGender,
+                text: text,
+                time: new Date().getTime()
+            }).then(() => {
+                input.value = '';
+            });
+        }
+    };
+
+    window.generateRandomShip = function() {
+        const shipContainer = document.getElementById('ship-box-content');
+        if (!shipContainer || profiles.length < 2) return;
+
+        const girls = profiles.filter(p => p.category === 'girls');
+        const boys = profiles.filter(p => p.category === 'boys');
+
+        if (girls.length === 0 || boys.length === 0) return;
+
+        const g = girls[Math.floor(Math.random() * girls.length)];
+        const b = boys[Math.floor(Math.random() * boys.length)];
+        const matchPercent = Math.floor(65 + Math.random() * 35);
+
+        shipContainer.innerHTML = `
+            <img class="ship-user-img" src="${g.image}">
+            <div class="ship-percent">💞 ${matchPercent}%</div>
+            <img class="ship-user-img" src="${b.image}">
+        `;
+    };
+
+    window.renderDailyBattle = function() {
+        const battleContainer = document.getElementById('daily-battle-content');
+        if (!battleContainer || profiles.length < 2) return;
+
+        let filtered = profiles.filter(p => p.category === currentCategory);
+        if(filtered.length < 2) filtered = profiles;
+
+        const p1 = filtered[0];
+        const p2 = filtered[1];
+
+        battleContainer.innerHTML = `
+            <div class="battle-card" onclick="addVote('${p1.dbKey}', 1)">
+                <img src="${p1.image}">
+                <div class="b-name">${p1.name}</div>
+                <div class="b-votes">💛 ${p1.votes} دەنگ</div>
+            </div>
+            <div class="vs-badge">VS</div>
+            <div class="battle-card" onclick="addVote('${p2.dbKey}', 1)">
+                <img src="${p2.image}">
+                <div class="b-name">${p2.name}</div>
+                <div class="b-votes">💛 ${p2.votes} دەنگ</div>
+            </div>
+        `;
+    };
+
+    window.renderCityWar = function() {
+        const cityContainer = document.getElementById('city-war-bars');
+        if (!cityContainer) return;
+
+        const cities = [
+            { name: "هەولێر", key: "هەولێر", color: "#f59e0b" },
+            { name: "سلێمانی", key: "سلێمانی", color: "#3b82f6" },
+            { name: "دهۆک", key: "دهۆک", color: "#10b981" },
+            { name: "کەرکووک", key: "کەرکووک", color: "#ef4444" },
+            { name: "شاری تر / دەوروبەر", key: "", color: "#8b5cf6" }
+        ];
+
+        let cityVotes = { "هەولێر": 0, "سلێمانی": 0, "دهۆک": 0, "کەرکووک": 0, "ئەوانی تر": 0 };
+        let totalVotesSum = 0;
+
+        profiles.forEach(p => {
+            let matched = false;
+            for (let c of cities) {
+                if (c.key && p.name.includes(c.key)) {
+                    cityVotes[c.key] += p.votes;
+                    matched = true;
+                    break;
+                }
+            }
+            if (!matched) {
+                cityVotes["ئەوانی تر"] += p.votes;
+            }
+            totalVotesSum += p.votes;
+        });
+
+        if (totalVotesSum === 0) totalVotesSum = 1;
+
+        cityContainer.innerHTML = '';
+        cities.forEach(c => {
+            const cityName = c.name;
+            const voteVal = cityVotes[c.key || "ئەوانی تر"] || 0;
+            const percent = Math.round((voteVal / totalVotesSum) * 100);
+
+            const barDiv = document.createElement('div');
+            barDiv.className = 'city-bar-item';
+            barDiv.innerHTML = `
+                <div class="city-info">
+                    <span>📍 ${cityName}</span>
+                    <span>${percent}% (${voteVal} دەنگ)</span>
+                </div>
+                <div class="city-progress-bg">
+                    <div class="city-progress-fill" style="width: ${percent}%; background-color: ${c.color};"></div>
+                </div>
+            `;
+            cityContainer.appendChild(barDiv);
+        });
+    };
+
+    window.triggerVoteEffects = function() {
+        if (navigator.vibrate) {
+            navigator.vibrate([50, 30, 50]);
+        }
+        if (typeof confetti === 'function') {
+            confetti({
+                particleCount: 40,
+                spread: 60,
+                origin: { y: 0.85 }
+            });
+        }
+    };
+
+    window.addGift = function(dbKey, type) {
+        const giftRef = ref(db, `profiles/${dbKey}/${type}`);
+        runTransaction(giftRef, (curr) => (curr || 0) + 1).then(() => {
+            triggerVoteEffects();
+            showToast(`دیارییەک بە سەرکەوتوویی بەخشرا! 🎁`);
+        });
+    };
+
+    window.addVote = function(dbKey, count = 1, ignoreCheck = false) {
         const lastUserVote = localStorage.getItem('last_user_free_vote');
         const now = new Date().getTime();
 
-        // ڕێگریکردن لە دووبارە دەنگدان ئەگەر دەنگە بەخۆڕاییەکە بێت
-        if (count === 1) {
+        if (count === 1 && !ignoreCheck) {
             if (lastUserVote && (now - parseInt(lastUserVote) < 24 * 60 * 60 * 1000)) {
                 alert('تۆ ئەمڕۆ دەنگی بەخۆڕایی خۆت بەکارهێناوە! دوای ٢٤ کاتژمێر دەتوانیت دەنگ ببیبەیتەوە.');
                 return;
             }
         }
 
+        const currentHour = new Date().getHours();
+        let actualVotesToAdd = count;
+        if (currentHour === 0 && count === 1 && !ignoreCheck) {
+            actualVotesToAdd = 2;
+        }
+
         const voteRef = ref(db, `profiles/${dbKey}/votes`);
         runTransaction(voteRef, (currentVotes) => {
-            return (currentVotes || 0) + count;
+            return (currentVotes || 0) + actualVotesToAdd;
         }).then(() => {
-            if (count === 1) {
+            if (count === 1 && !ignoreCheck) {
                 localStorage.setItem('last_user_free_vote', now.toString());
             }
+
+            triggerVoteEffects();
+
+            const profileObj = profiles.find(p => p.dbKey === dbKey);
+            showToast(`(${actualVotesToAdd}) دەنگ بۆ (${profileObj ? profileObj.name : 'بەشداربوو'}) تۆمارکرا! 💛`);
 
             const imgContainer = document.getElementById(`img-container-${dbKey}`);
             if (imgContainer) {
@@ -834,8 +1435,6 @@
                 imgContainer.appendChild(heart);
                 setTimeout(() => heart.remove(), 800);
             }
-            
-            // نوێکردنەوەی شاشەکە تا دوگمەکە ڕاستەوخۆ پەکبکەوێت (Disable)
             renderProfiles();
         });
     };
@@ -849,6 +1448,20 @@
             
             update(ref(db, `profiles/${dbKey}`), { comments: updatedComments }).then(() => {
                 input.value = '';
+            });
+        }
+    };
+
+    window.addSecret = function(dbKey) {
+        const input = document.getElementById(`secret-input-${dbKey}`);
+        const text = input.value.trim();
+        if (text) {
+            const targetProfile = profiles.find(p => p.dbKey === dbKey);
+            const updatedSecrets = targetProfile.secrets ? [...targetProfile.secrets, text] : [text];
+            
+            update(ref(db, `profiles/${dbKey}`), { secrets: updatedSecrets }).then(() => {
+                input.value = '';
+                showToast('پەیامە شاراوەکەت بە بێناو نێردرا! 🕵️‍♂️');
             });
         }
     };
@@ -896,26 +1509,53 @@
 
         filtered.forEach((profile, index) => {
             const card = document.createElement('div');
-            card.className = 'card';
+            
+            const isHot = index === 0 || profile.votes > 70;
+            const isRising = profile.votes > 50 && index > 0;
+
+            card.className = `card ${isHot ? 'hot-streak' : ''}`;
+
             let commentsHtml = (profile.comments || []).map(c => `<div class="comment-item">${c}</div>`).join('');
+            let secretsHtml = (profile.secrets || []).map(s => `<div class="secret-item">🕵️‍♂️ "${s}"</div>`).join('');
 
             card.innerHTML = `
+                ${isHot ? '<div class="hot-badge">🔥 HOT STREAK</div>' : ''}
+                ${isRising ? '<div class="achievement-badge">🌟 RISING STAR</div>' : ''}
                 <div class="rank-badge">#${index + 1}</div>
                 <div class="card-img-wrapper" id="img-container-${profile.dbKey}" onclick="openModal('${profile.image}')">
                     <img class="card-img" src="${profile.image}" alt="${profile.name}">
                 </div>
                 <div class="card-info">
                     <div class="card-name">${profile.name}</div>
-                    <div class="card-votes">💛 <span>${profile.votes}</span> دەنگ</div>
+                    <div class="card-votes">💛 <span>${profile.votes}</span> دەنگ | 💌 <span>${profile.crushes || 0}</span> Crush</div>
+
+                    ${profile.topFan ? `<div class="top-fan-badge">👑 پشتگیریکاری ژمارە ١: ${profile.topFan}</div>` : ''}
+
+                    <div class="gift-bar">
+                        <button class="gift-btn" onclick="addGift('${profile.dbKey}', 'roses')">🌹 <span>${profile.roses || 0}</span></button>
+                        <button class="gift-btn" onclick="addGift('${profile.dbKey}', 'crowns')">👑 <span>${profile.crowns || 0}</span></button>
+                        <button class="gift-btn" onclick="addGift('${profile.dbKey}', 'diamonds')">💎 <span>${profile.diamonds || 0}</span></button>
+                    </div>
+
                     <div class="actions">
                         <button class="btn-free" ${hasVotedToday ? 'disabled' : ''} onclick="addVote('${profile.dbKey}', 1)">
                             ${hasVotedToday ? 'ئەمڕۆ دەنگت داوە' : 'دەنگی بەخۆڕایی'}
                         </button>
                         <a href="https://t.me/KURDPS_ADMIN" target="_blank" class="btn-paid">کڕینی دەنگ</a>
+                        <button class="btn-roast" onclick="triggerRoastOrCompliment('${profile.name}')">✨ تەشەر/پێداهەڵدان</button>
+                        <button class="btn-crush" onclick="sendSuperCrush('${profile.dbKey}', '${profile.name}')">💌 Crush</button>
+                        <button class="btn-secret" onclick="toggleSecrets('${profile.dbKey}')">🕵️‍♂️ ڕازەکان</button>
                         <button class="btn-share" onclick="shareProfile('${profile.name}')">📲 شەیر</button>
                         <button class="btn-poster" onclick="generateStoryText('${profile.name}')">📸 پۆستەر</button>
-                        <button class="btn-badge" onclick="generateBadge('${profile.name}')">🖼️ فرەیم</button>
                         <button class="btn-comment" onclick="toggleComments('${profile.dbKey}')">💬 کۆمێنت</button>
+                    </div>
+
+                    <div class="secrets-section" id="secrets-${profile.dbKey}">
+                        <div>${secretsHtml}</div>
+                        <div class="comment-input-box">
+                            <input type="text" class="comment-input" id="secret-input-${profile.dbKey}" placeholder="ڕاز یان پەیامێکی بێناو بنووسە...">
+                            <button class="btn-send-comment" style="background:#d97706; color:white;" onclick="addSecret('${profile.dbKey}')">ناردن</button>
+                        </div>
                     </div>
 
                     <div class="comments-section" id="comments-${profile.dbKey}">
@@ -931,6 +1571,7 @@
         });
 
         populateVipProfileDropdown();
+        populateWheelProfileDropdown();
     };
 
     window.filterCategory = function(category, event) {
@@ -938,6 +1579,7 @@
         document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
         event.target.classList.add('active');
         renderProfiles();
+        renderDailyBattle();
     };
 
     window.handleSearch = function() {
@@ -957,11 +1599,24 @@
         });
     };
 
+    window.populateWheelProfileDropdown = function() {
+        const select = document.getElementById('wheel-target-profile');
+        if (!select) return;
+        select.innerHTML = '<option value="">کەسێک هەڵبژێرە...</option>';
+        profiles.forEach(p => {
+            const option = document.createElement('option');
+            option.value = p.dbKey;
+            option.innerText = `${p.name}`;
+            select.appendChild(option);
+        });
+    };
+
+    // کارکردنی ڕاستەقینەی تۆمارکردنی کۆدی VIP
     window.redeemVipCode = function() {
         const inputCode = document.getElementById('vip-code-input').value.trim();
         const selectedProfileDbKey = document.getElementById('vip-target-profile').value;
 
-        if (!inputCode || inputCode.length !== 7 || !selectedProfileDbKey) {
+        if (!inputCode || !selectedProfileDbKey) {
             alert('تکایە کۆدەکە و ناوەکە هەڵبژێرە!');
             return;
         }
@@ -978,20 +1633,23 @@
             "pkg_20": ["9418203", "5039281", "1827394", "6392018", "2740195", "8591032", "3104928", "7263910", "4918273", "6029418"]
         };
 
+        let generatedFreeCodes = JSON.parse(localStorage.getItem('generated_free_vip_codes')) || [];
+
         let addedVotes = 0;
         if (vipCodesDatabase.pkg_5.includes(inputCode)) addedVotes = 10;
         else if (vipCodesDatabase.pkg_10.includes(inputCode)) addedVotes = 25;
         else if (vipCodesDatabase.pkg_20.includes(inputCode)) addedVotes = 60;
+        else if (generatedFreeCodes.includes(inputCode)) addedVotes = 5; // کۆدی داوەتکردنی ٥ هاوڕێ
         else {
             alert('ئەم کۆدە هەڵەیە!');
             return;
         }
 
-        addVote(selectedProfileDbKey, addedVotes);
+        addVote(selectedProfileDbKey, addedVotes, true);
         usedVipCodes.push(inputCode);
         localStorage.setItem('used_vip_codes', JSON.stringify(usedVipCodes));
         document.getElementById('vip-code-input').value = '';
-        alert(`پیرۆزە! (${addedVotes}) دەنگ بەخشرا.`);
+        alert(`پیرۆزە! (${addedVotes}) دەنگ بە ڕاستی بۆ بەشداربووەکە بڕا.`);
     };
 
     window.vsVote = function(dbKey) {
@@ -1131,16 +1789,30 @@
 
     function openWheel() {
         document.getElementById('wheel-screen').style.display = 'flex';
+        document.getElementById('wheel-target-box').style.display = 'block';
     }
 
+    let isSpinning = false;
     function spinWheel() {
+        if (isSpinning) return;
+
+        const targetProfileDbKey = document.getElementById('wheel-target-profile').value;
+        if (!targetProfileDbKey) {
+            alert('تکایە سەرەتا ناوێک هەڵبژێرە تا دەنگی چانسەکەی بۆ بنێریت!');
+            return;
+        }
+
         const lastSpin = localStorage.getItem('last_wheel_spin');
         const now = new Date().getTime();
 
         if (lastSpin && (now - parseInt(lastSpin) < 24 * 60 * 60 * 1000)) {
-            alert('تۆ ئەمڕۆ چەرخی چانست خولاندۆتەوە!');
+            alert('تۆ ئەمڕۆ چەرخی چانست خولاندۆتەوە! دوای ٢٤ کاتژمێر دەتوانیتەوە بیخولێنیتەوە.');
             return;
         }
+
+        isSpinning = true;
+        const spinBtn = document.getElementById('spin-btn');
+        spinBtn.disabled = true;
 
         const disc = document.getElementById('wheel-disc');
         const randomDegree = 1800 + Math.floor(Math.random() * 360);
@@ -1149,13 +1821,16 @@
         setTimeout(() => {
             const prizes = [1, 2, 3, 5];
             const wonVotes = prizes[Math.floor(Math.random() * prizes.length)];
-            alert(`پیرۆزە! تۆ ${wonVotes} دەنگی دیاریت بردەوە! 🎉`);
-            localStorage.setItem('last_wheel_spin', now.toString());
-        }, 3200);
-    }
+            
+            // ناردنی دەنگەکە بە ڕاستی بۆ فایەربەیس
+            window.addVote(targetProfileDbKey, wonVotes, true);
 
-    function generateBadge(name) {
-        alert(`فۆتۆ فرەیم پشتیوانی بۆ (${name}) ئامادەیە!`);
+            alert(`🎉 پیرۆزە! تۆ ${wonVotes} دەنگی دیاریت بردەوە و بە ڕاستی ڕەوانەی هەڵبژێردراوەکەت کرا!`);
+            localStorage.setItem('last_wheel_spin', now.toString());
+            isSpinning = false;
+            spinBtn.disabled = false;
+            closeOverlay('wheel-screen');
+        }, 3200);
     }
 
     function generateStoryText(name) {
@@ -1176,6 +1851,11 @@
 
     function toggleComments(id) {
         const elem = document.getElementById(`comments-${id}`);
+        elem.style.display = elem.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function toggleSecrets(id) {
+        const elem = document.getElementById(`secrets-${id}`);
         elem.style.display = elem.style.display === 'block' ? 'none' : 'block';
     }
 </script>
