@@ -796,7 +796,6 @@
         if (data) {
             profiles = Object.keys(data).map(key => ({ dbKey: key, ...data[key] }));
         } else {
-            // ئەگەر داتابەیس بەتاڵ بوو، زانیارییە سەرەتاییەکان پاشەکەوت دەکات
             let initialData = {};
             initialProfiles.forEach((p, index) => {
                 initialData['p_' + p.id] = p;
@@ -806,20 +805,26 @@
         renderProfiles();
     });
 
+    // بەشی جێگیرکردنی مەرجی دەنگدان
     window.addVote = function(dbKey, count = 1) {
         const lastUserVote = localStorage.getItem('last_user_free_vote');
         const now = new Date().getTime();
 
-        if (count === 1 && lastUserVote && (now - parseInt(lastUserVote) < 24 * 60 * 60 * 1000)) {
-            alert('تۆ ئەمڕۆ دەنگی بەخۆڕایی خۆت بەکارهێناوە!');
-            return;
+        // ڕێگریکردن لە دووبارە دەنگدان ئەگەر دەنگە بەخۆڕاییەکە بێت
+        if (count === 1) {
+            if (lastUserVote && (now - parseInt(lastUserVote) < 24 * 60 * 60 * 1000)) {
+                alert('تۆ ئەمڕۆ دەنگی بەخۆڕایی خۆت بەکارهێناوە! دوای ٢٤ کاتژمێر دەتوانیت دەنگ ببیبەیتەوە.');
+                return;
+            }
         }
 
         const voteRef = ref(db, `profiles/${dbKey}/votes`);
         runTransaction(voteRef, (currentVotes) => {
             return (currentVotes || 0) + count;
         }).then(() => {
-            if (count === 1) localStorage.getItem('last_user_free_vote', now.toString());
+            if (count === 1) {
+                localStorage.setItem('last_user_free_vote', now.toString());
+            }
 
             const imgContainer = document.getElementById(`img-container-${dbKey}`);
             if (imgContainer) {
@@ -829,6 +834,9 @@
                 imgContainer.appendChild(heart);
                 setTimeout(() => heart.remove(), 800);
             }
+            
+            // نوێکردنەوەی شاشەکە تا دوگمەکە ڕاستەوخۆ پەکبکەوێت (Disable)
+            renderProfiles();
         });
     };
 
@@ -900,7 +908,7 @@
                     <div class="card-name">${profile.name}</div>
                     <div class="card-votes">💛 <span>${profile.votes}</span> دەنگ</div>
                     <div class="actions">
-                        <button class="btn-free" ${hasVotedToday ? 'disabled' : ''} onclick="addVote('${profile.dbKey}')">
+                        <button class="btn-free" ${hasVotedToday ? 'disabled' : ''} onclick="addVote('${profile.dbKey}', 1)">
                             ${hasVotedToday ? 'ئەمڕۆ دەنگت داوە' : 'دەنگی بەخۆڕایی'}
                         </button>
                         <a href="https://t.me/KURDPS_ADMIN" target="_blank" class="btn-paid">کڕینی دەنگ</a>
