@@ -10,6 +10,9 @@
 
     <!-- Canvas Confetti Library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <!-- HTML2Canvas Library for Social Media Story Card Generation -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
     <style>
         :root {
@@ -107,7 +110,6 @@
             white-space: nowrap;
         }
 
-        /* ئاگادارکردنەوەی ڕاستەوخۆ */
         .toast-notification {
             position: fixed;
             bottom: 20px;
@@ -134,6 +136,27 @@
             opacity: 1;
         }
 
+        .mvp-banner {
+            background: linear-gradient(135deg, #b45309, #f59e0b, #78350f);
+            border: 2px solid #f1c40f;
+            border-radius: 16px;
+            padding: 12px;
+            margin-bottom: 15px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+        .mvp-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ffffff;
+        }
+
         .midnight-banner {
             background: linear-gradient(135deg, #312e81, #4c1d95);
             border: 1px solid #a855f7;
@@ -148,6 +171,34 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
+        }
+
+        .secret-hunt-box {
+            background: linear-gradient(135deg, #78350f, #451a03);
+            border: 1px solid #f59e0b;
+            border-radius: 14px;
+            padding: 12px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .secret-hunt-title { font-size: 13px; font-weight: bold; color: #fde68a; margin-bottom: 6px; }
+
+        .memes-wall-section {
+            background: var(--card-bg);
+            border: 1px solid #ec4899;
+            border-radius: 14px;
+            padding: 12px;
+            margin-bottom: 15px;
+        }
+        .memes-wall-title { font-size: 13px; font-weight: bold; color: #ec4899; margin-bottom: 8px; display:flex; align-items:center; gap:6px; }
+        .meme-bubble {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 11px;
+            margin-bottom: 6px;
+            color: var(--subtext-color);
         }
 
         .radar-box {
@@ -665,7 +716,7 @@
             text-align: center;
         }
 
-        .btn-share, .btn-poster, .btn-comment, .btn-crush, .btn-secret, .btn-roast {
+        .btn-share, .btn-poster, .btn-comment, .btn-crush, .btn-secret, .btn-roast, .btn-love-note, .btn-story-card {
             flex: 1 1 22%;
             border: none;
             padding: 8px;
@@ -683,8 +734,10 @@
         .btn-crush { background-color: #ec4899; }
         .btn-secret { background-color: #d97706; }
         .btn-roast { background-color: #10b981; }
+        .btn-love-note { background-color: #e11d48; }
+        .btn-story-card { background: linear-gradient(135deg, #f59e0b, #ec4899); }
 
-        .comments-section, .secrets-section {
+        .comments-section, .secrets-section, .love-notes-section {
             margin-top: 10px;
             padding-top: 10px;
             border-top: 1px solid var(--border-color);
@@ -708,6 +761,16 @@
             font-size: 11px;
             margin-bottom: 6px;
             border: 1px solid #f59e0b;
+        }
+
+        .love-note-item {
+            background: linear-gradient(135deg, #881337, #4c0519);
+            color: #fecdd3;
+            padding: 8px 10px;
+            border-radius: 8px;
+            font-size: 11px;
+            margin-bottom: 6px;
+            border: 1px solid #f43f5e;
         }
 
         .comment-input-box { display: flex; gap: 6px; margin-top: 8px; }
@@ -784,6 +847,55 @@
         .chat-message.girl-msg { border-right: 3px solid #ec4899; }
         .chat-message .user-tag { font-weight: bold; margin-left: 5px; }
 
+        /* بەشی سەربەخۆی نوێ: Fun & Engagement Zone */
+        .fun-zone-section {
+            background: linear-gradient(135deg, #1e1b4b, #0f172a);
+            border: 2px solid #8b5cf6;
+            border-radius: 20px;
+            padding: 15px;
+            margin-top: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+        }
+        .fun-zone-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #a855f7;
+            text-align: center;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .fun-sub-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+        .fun-sub-title {
+            font-size: 13px;
+            font-weight: bold;
+            color: #f1c40f;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .dedicate-marquee {
+            background: #000;
+            color: #10b981;
+            padding: 6px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
         .modal {
             display: none;
             position: fixed;
@@ -809,6 +921,28 @@
             justify-content: center;
             text-align: center;
         }
+
+        .story-card-frame {
+            width: 300px;
+            background: linear-gradient(135deg, #0f172a, #1e1b4b);
+            border: 3px solid #f1c40f;
+            border-radius: 20px;
+            padding: 15px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            position: relative;
+        }
+        .story-card-frame img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            border-radius: 14px;
+            border: 2px solid #f59e0b;
+            margin-bottom: 10px;
+        }
+        .story-card-title { font-size: 16px; font-weight: bold; color: #f1c40f; margin-bottom: 4px; }
+        .story-card-sub { font-size: 11px; color: #38bdf8; margin-bottom: 8px; }
 
         .wheel-container {
             width: 260px;
@@ -878,7 +1012,7 @@
 
 <div class="toast-notification" id="toast-notif">
     <span>🔥</span>
-    <span id="toast-text">دەنگێک بۆ (لیا هوسێن) تۆمارکرا!</span>
+    <span id="toast-text">دەنگێک برایەوە!</span>
 </div>
 
 <div class="container">
@@ -888,7 +1022,7 @@
         <div class="header-controls">
             <button class="icon-btn" onclick="toggleTheme()" id="theme-btn">🌙</button>
             <button class="icon-btn" onclick="toggleMusic()" id="music-btn">🔇</button>
-            <a href="https://t.me/KURDPS_ADMIN" target="_blank" class="upload-btn">📷 وێنەکەت دابنێ</a>
+            <a href="https://t.me/KRDPEZHBRKE" target="_blank" class="upload-btn">📷 وێنەکەت دابنێ</a>
         </div>
     </div>
 
@@ -897,9 +1031,33 @@
         <span id="ticker-text">پێش ۱۰ چرکە: دەنگێک بۆ (لیا هوسێن) تۆمارکرا!</span>
     </div>
 
+    <div class="mvp-banner" id="mvp-weekly-box">
+        <div style="text-align:right;">
+            <div style="font-size:11px; font-weight:bold; color:#fde68a;">👑 مەلیکی/شاژنی هەفتە (Weekly MVP)</div>
+            <div style="font-size:15px; font-weight:bold;" id="mvp-name">لیا هوسێن uk</div>
+            <div style="font-size:11px; color:#fef3c7;" id="mvp-votes">⭐ 129 دەنگی بەدەستهێناوە</div>
+        </div>
+        <img class="mvp-img" id="mvp-img" src="https://i.ibb.co/VYzrzDxW/852-D1-BFD-9414-4183-AF73-46279-AD09136.png">
+    </div>
+
     <div class="midnight-banner">
         <span>🌙 دەنگی دووهێندە (2X Midnight Boost):</span>
         <span id="midnight-status">لە کاتژمێر 12ی شەودا هەموو دەنگێک دەبێتە ٢ دەنگ! ⚡</span>
+    </div>
+
+    <div class="secret-hunt-box">
+        <div class="secret-hunt-title">🔍 یاری وشەی نهێنی (Secret Word Hunt)</div>
+        <p style="font-size:11px; color:#fef3c7; margin-bottom:8px;">وشەی نهێنی ئەمڕۆ بدۆزەوە و لە خوارەوە بینوسە بۆ وەرگرتنی دیارییەک! (وشەکە: <span style="background:rgba(0,0,0,0.5); padding:2px 6px; border-radius:4px; font-weight:bold;">KRD2026</span>)</p>
+        <div style="display:flex; gap:6px;">
+            <input type="text" id="secret-word-input" class="search-input" placeholder="وشەی نهێنی بنووسە..." style="padding:8px; font-size:12px;">
+            <button class="upload-btn" style="background:#f59e0b; color:black;" onclick="claimSecretWord()">پشکنین</button>
+        </div>
+    </div>
+
+    <div class="memes-wall-section">
+        <div class="memes-wall-title">😂 دیواری مەمز و قسە خۆشەکان</div>
+        <div class="meme-bubble">"کچ کاتێک دەڵێت: (باشە، تەواو) 💀 واتە مەترسی گەورە لە ئارادایە!"</div>
+        <div class="meme-bubble">"کوڕ کاتێک سەیری فۆتۆکەی خۆی دەکات: (ئێمە ئەکتەری هەۆلیبین نەک ئاسایی! 😎)"</div>
     </div>
 
     <div class="radar-box">
@@ -971,22 +1129,21 @@
     <div class="packages-section">
         <div class="packages-title">⚡ پاکێجەکانی دەنگی VIP (کڕینی خێرا)</div>
         <div class="packages-grid">
-            <a href="https://t.me/KURDPS_ADMIN" target="_blank" class="pkg-card">
+            <a href="https://t.me/KRDPEZHBRKE" target="_blank" class="pkg-card">
                 <div class="pkg-votes">10 دەنگ</div>
                 <div class="pkg-price">5$</div>
             </a>
-            <a href="https://t.me/KURDPS_ADMIN" target="_blank" class="pkg-card">
+            <a href="https://t.me/KRDPEZHBRKE" target="_blank" class="pkg-card">
                 <div class="pkg-votes">25 دەنگ</div>
                 <div class="pkg-price">10$</div>
             </a>
-            <a href="https://t.me/KURDPS_ADMIN" target="_blank" class="pkg-card">
+            <a href="https://t.me/KRDPEZHBRKE" target="_blank" class="pkg-card">
                 <div class="pkg-votes">60 دەنگ</div>
                 <div class="pkg-price">20$</div>
             </a>
         </div>
     </div>
 
-    <!-- بەشی داوەتکردنی ٥ هاوڕێ بۆ کۆدی VIP خێرا -->
     <div class="packages-section" style="border: 1px solid #10b981; text-align: center;">
         <div class="packages-title" style="color:#10b981;">🎁 داوەتکردنی ٥ هاوڕێ (کۆدی ٥ دەنگی VIP)</div>
         <p style="font-size:11px; color:var(--subtext-color); margin-bottom:6px;">هاوڕێیەکانت بەستەوە! کاتێک ٥ هاوڕێ بێنە سەر وێبسایتەکە، کۆدی ٥ دەنگت پێدەدرێت.</p>
@@ -1029,13 +1186,71 @@
         </div>
     </div>
 
+    <!-- بەشی نوێ و سەربەخۆ: 🎮 ناوچەی یاری و ململانێکان -->
+    <div class="fun-zone-section">
+        <div class="fun-zone-title">🎮 ناوچەی یاری و ململانێکان (Fun Zone)</div>
+        
+        <!-- ١. شیکاری جوانی بە AI -->
+        <div class="fun-sub-box">
+            <div class="fun-sub-title">🤖 شیکاری جوانی بە ژیریی دەستکرد (AI Beauty Meter)</div>
+            <p style="font-size:11px; color:var(--subtext-color); margin-bottom:8px;">ناوی خۆت یان هاوڕێکەت بنووسە تا ژیریی دەستکرد ڕێژەی جوانیی و کۆمێنتێکی کۆمیدیت پێبڵێت!</p>
+            <div style="display:flex; gap:6px;">
+                <input type="text" id="ai-name-input" class="search-input" placeholder="ناو بنووسە..." style="padding:8px; font-size:12px;">
+                <button class="upload-btn" style="background:#8b5cf6; color:white;" onclick="runAiBeautyMeter()">پشکنین ✨</button>
+            </div>
+            <div id="ai-result-box" style="display:none; margin-top:8px; padding:8px; background:rgba(0,0,0,0.4); border-radius:8px; font-size:11px; color:#a855f7; font-weight:bold;"></div>
+        </div>
+
+        <!-- ٢. بەشی دێدیکەیت و گۆرانی -->
+        <div class="fun-sub-box">
+            <div class="fun-sub-title">🎵 داواکاری دێدیکەیت و گۆرانی (Vibe Stream)</div>
+            <div class="dedicate-marquee">
+                <marquee id="marquee-text" scrollamount="4">🎵 مێوانێک گۆرانییەکی بەخشی بە (لیا هوسێن) ❤️ | ✨ دیار گۆرانییەکی دێدیکەیت کرد بۆ (شەنێ هەولێری)!</marquee>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+                <input type="text" id="dedicate-song" class="search-input" placeholder="ناوی گۆرانی / تێکست..." style="padding:6px; font-size:11px;">
+                <select id="dedicate-target-profile" class="search-input" style="padding:6px; font-size:11px; cursor:pointer;">
+                    <option value="">بۆ کێی دەبەخشیت؟</option>
+                </select>
+                <button class="upload-btn" style="background:#10b981; color:white; padding:6px;" onclick="sendDedication()">ناردنی دێدیکەیت 💖</button>
+            </div>
+        </div>
+
+        <!-- ٣. کێبڕکێی تایپ و ستایلەکان -->
+        <div class="fun-sub-box">
+            <div class="fun-sub-title">✨ کێبڕکێی ستایل و تایپەکان (Type vs Type)</div>
+            <div style="font-size:12px; font-weight:bold; color:white; text-align:center; margin-bottom:8px;">👁️ کام ستایلی چاو جذابترە؟</div>
+            <div style="display:flex; gap:8px;">
+                <button class="poll-btn" style="background:#0284c7;" onclick="voteStyleType('green')">👁️ چاو سەوز / شین (<span id="type-green-count">55%</span>)</button>
+                <button class="poll-btn" style="background:#d97706;" onclick="voteStyleType('brown')">👁️ چاو قاوەیی / ڕەش (<span id="type-brown-count">45%</span>)</button>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <div class="modal" id="img-modal" onclick="closeModal()">
     <img class="modal-content" id="modal-img">
 </div>
 
-<!-- مۆدالی چەرخی چانس هەڵبژاردنی بەشداربووی ڕاستەقینە -->
+<!-- مۆدالی بەرهەمهێنانی کارتی ئیدیت بۆ سناپچات و ئینستاگرام -->
+<div class="overlay-screen" id="story-card-modal">
+    <h3 style="color:#f1c40f; margin-bottom:10px;">📸 کارتی ئیدیتی تایبەت بە سۆشیال میدیا</h3>
+    <p style="font-size:11px; color:var(--subtext-color); margin-bottom:15px;">ئەم کارتە دابگرە یان کۆپی بکه و بیخەرە ستۆری سناپچات یان ئینستاگرام!</p>
+    
+    <div id="story-card-printable" class="story-card-frame">
+        <img id="story-card-img-element" src="">
+        <div class="story-card-title" id="story-card-name-element">ناو</div>
+        <div class="story-card-sub" id="story-card-votes-element">💛 120 دەنگ | 👑 جوانترینەکانی کوردستان</div>
+        <div style="font-size:10px; background:rgba(0,0,0,0.5); padding:4px 8px; border-radius:10px; color:#10b981;">
+            ✨ ڕێژەی جوانی: 99.8% | دەنگم پێبدەن لە لینکەکە!
+        </div>
+    </div>
+
+    <button class="upload-btn" style="margin-top:15px; width:220px; padding:10px; background:#10b981; color:white;" onclick="downloadStoryCardImage()">📥 داگرتنی وێنەی کارتەکە</button>
+    <button class="close-overlay-btn" onclick="closeOverlay('story-card-modal')">داخستن</button>
+</div>
+
 <div class="overlay-screen" id="wheel-screen">
     <h2>🎡 چەرخی چانسی ڕۆژانە</h2>
     <p style="font-size: 12px; color: var(--subtext-color); margin-top: 5px;">بیخولێنەرەوە و دەنگی دیاری بە ڕاستی بۆ بەشداربوویەک بنێرە!</p>
@@ -1096,22 +1311,22 @@
     const db = getDatabase(app);
 
     const initialProfiles = [
-        { id: 16, name: "لیا هوسێن uk", category: "girls", votes: 129, image: "https://i.ibb.co/VYzrzDxW/852-D1-BFD-9414-4183-AF73-46279-AD09136.png", comments: ["زۆر جوانی ❤️"], secrets: ["سەرسامتم 🙈"], roses: 12, crowns: 4, diamonds: 2, crushes: 8, topFan: "ڕێبین_سناپ" },
-        { id: 1, name: "شەنێ هەولێری", category: "girls", votes: 65, image: "https://i.ibb.co/M532tY6s/IMG-5149.jpg", comments: [], secrets: [], roses: 5, crowns: 1, diamonds: 0, crushes: 3, topFan: "مێوان_88" },
-        { id: 2, name: "کانی سلێمانی", category: "girls", votes: 58, image: "https://i.ibb.co/5W3bXjRh/IMG-5148.jpg", comments: [], secrets: [], roses: 3, crowns: 0, diamonds: 1, crushes: 2, topFan: "" },
-        { id: 3, name: "ژینۆ زاخۆیی", category: "girls", votes: 51, image: "https://i.ibb.co/rR1Hp36X/IMG-5147.jpg", comments: [], secrets: [], roses: 2, crowns: 0, diamonds: 0, crushes: 1, topFan: "" },
-        { id: 4, name: "نیشتمان ئامێدی", category: "girls", votes: 44, image: "https://i.ibb.co/zVr87NXh/IMG-5146.jpg", comments: [], secrets: [], roses: 1, crowns: 0, diamonds: 0, crushes: 0, topFan: "" },
-        { id: 5, name: "سۆما هەڵەبجەیی", category: "girls", votes: 39, image: "https://i.ibb.co/Qv4pmrW5/IMG-5145.jpg", comments: [], secrets: [], roses: 4, crowns: 1, diamonds: 0, crushes: 2, topFan: "" },
-        { id: 6, name: "شنۆ ڕواندزی", category: "girls", votes: 32, image: "https://i.ibb.co/XT2tvby/IMG-5143.jpg", comments: [], secrets: [], roses: 0, crowns: 0, diamonds: 0, crushes: 0, topFan: "" },
-        { id: 7, name: "لانە کەرکووکی", category: "girls", votes: 27, image: "https://i.ibb.co/2Yt1XcSy/IMG-5142.jpg", comments: [], secrets: [], roses: 2, crowns: 0, diamonds: 0, crushes: 1, topFan: "" },
-        { id: 8, name: "ئەکتەر گەیمینگ", category: "boys", votes: 72, image: "https://i.ibb.co/tppK11JD/IMG-5141.jpg", comments: [], secrets: [], roses: 8, crowns: 2, diamonds: 1, crushes: 5, topFan: "شەنێ_fans" },
-        { id: 9, name: "شاهۆ", category: "boys", votes: 68, image: "https://i.ibb.co/PZgv3r81/IMG-5135.jpg", comments: [], secrets: [], roses: 4, crowns: 1, diamonds: 0, crushes: 2, topFan: "" },
-        { id: 10, name: "ئاریان ئەحمەد", category: "boys", votes: 60, image: "https://i.ibb.co/MDKdJ5Ws/IMG-5140.jpg", comments: [], secrets: [], roses: 3, crowns: 0, diamonds: 0, crushes: 1, topFan: "" },
-        { id: 11, name: "ڕێبین کۆیی", category: "boys", votes: 54, image: "https://i.ibb.co/sJFsYfvc/IMG-5139.jpg", comments: [], secrets: [], roses: 1, crowns: 0, diamonds: 0, crushes: 0, topFan: "" },
-        { id: 12, name: "دیار دەربەندیخان", category: "boys", votes: 49, image: "https://i.ibb.co/nss3Myq6/IMG-5138.jpg", comments: [], secrets: [], roses: 0, crowns: 0, diamonds: 0, crushes: 0, topFan: "" },
-        { id: 13, name: "مەتین ئاکرێیی", category: "boys", votes: 43, image: "https://i.ibb.co/GvJK7sPb/IMG-5137.jpg", comments: [], secrets: [], roses: 2, crowns: 0, diamonds: 0, crushes: 1, topFan: "" },
-        { id: 14, name: "میران ڕانیەیی", category: "boys", votes: 38, image: "https://i.ibb.co/9kNQ9Gkk/IMG-5136.jpg", comments: [], secrets: [], roses: 1, crowns: 0, diamonds: 0, crushes: 0, topFan: "" },
-        { id: 15, name: "هەڵگورد دهۆکی", category: "boys", votes: 31, image: "https://i.ibb.co/5hGG0Y1v/IMG-5134.jpg", comments: [], secrets: [], roses: 0, crowns: 0, diamonds: 0, crushes: 0, topFan: "" }
+        { id: 16, name: "لیا هوسێن uk", category: "girls", votes: 129, image: "https://i.ibb.co/VYzrzDxW/852-D1-BFD-9414-4183-AF73-46279-AD09136.png", comments: ["زۆر جوانی ❤️"], secrets: ["سەرسامتم 🙈"], loveNotes: ["سۆزێکی زۆرم بۆت هەیە 💖"], roses: 12, crowns: 4, diamonds: 2, crushes: 8, topFan: "ڕێبین_سناپ" },
+        { id: 1, name: "شەنێ هەولێری", category: "girls", votes: 65, image: "https://i.ibb.co/M532tY6s/IMG-5149.jpg", comments: [], secrets: [], loveNotes: [], roses: 5, crowns: 1, diamonds: 0, crushes: 3, topFan: "مێوان_88" },
+        { id: 2, name: "کانی سلێمانی", category: "girls", votes: 58, image: "https://i.ibb.co/5W3bXjRh/IMG-5148.jpg", comments: [], secrets: [], loveNotes: [], roses: 3, crowns: 0, diamonds: 1, crushes: 2, topFan: "" },
+        { id: 3, name: "ژینۆ زاخۆیی", category: "girls", votes: 51, image: "https://i.ibb.co/rR1Hp36X/IMG-5147.jpg", comments: [], secrets: [], loveNotes: [], roses: 2, crowns: 0, diamonds: 0, crushes: 1, topFan: "" },
+        { id: 4, name: "نیشتمان ئامێدی", category: "girls", votes: 44, image: "https://i.ibb.co/zVr87NXh/IMG-5146.jpg", comments: [], secrets: [], loveNotes: [], roses: 1, crowns: 0, diamonds: 0, crushes: 0, topFan: "" },
+        { id: 5, name: "سۆما هەڵەبجەیی", category: "girls", votes: 39, image: "https://i.ibb.co/Qv4pmrW5/IMG-5145.jpg", comments: [], secrets: [], loveNotes: [], roses: 4, crowns: 1, diamonds: 0, crushes: 2, topFan: "" },
+        { id: 6, name: "شنۆ ڕواندزی", category: "girls", votes: 32, image: "https://i.ibb.co/XT2tvby/IMG-5143.jpg", comments: [], secrets: [], loveNotes: [], roses: 0, crowns: 0, diamonds: 0, crushes: 0, topFan: "" },
+        { id: 7, name: "لانە کەرکووکی", category: "girls", votes: 27, image: "https://i.ibb.co/2Yt1XcSy/IMG-5142.jpg", comments: [], secrets: [], loveNotes: [], roses: 2, crowns: 0, diamonds: 0, crushes: 1, topFan: "" },
+        { id: 8, name: "ئەکتەر گەیمینگ", category: "boys", votes: 72, image: "https://i.ibb.co/tppK11JD/IMG-5141.jpg", comments: [], secrets: [], loveNotes: [], roses: 8, crowns: 2, diamonds: 1, crushes: 5, topFan: "شەنێ_fans" },
+        { id: 9, name: "شاهۆ", category: "boys", votes: 68, image: "https://i.ibb.co/PZgv3r81/IMG-5135.jpg", comments: [], secrets: [], loveNotes: [], roses: 4, crowns: 1, diamonds: 0, crushes: 2, topFan: "" },
+        { id: 10, name: "ئاریان ئەحمەد", category: "boys", votes: 60, image: "https://i.ibb.co/MDKdJ5Ws/IMG-5140.jpg", comments: [], secrets: [], loveNotes: [], roses: 3, crowns: 0, diamonds: 0, crushes: 1, topFan: "" },
+        { id: 11, name: "ڕێبین کۆیی", category: "boys", votes: 54, image: "https://i.ibb.co/sJFsYfvc/IMG-5139.jpg", comments: [], secrets: [], loveNotes: [], roses: 1, crowns: 0, diamonds: 0, crushes: 0, topFan: "" },
+        { id: 12, name: "دیار دەربەندیخان", category: "boys", votes: 49, image: "https://i.ibb.co/nss3Myq6/IMG-5138.jpg", comments: [], secrets: [], loveNotes: [], roses: 0, crowns: 0, diamonds: 0, crushes: 0, topFan: "" },
+        { id: 13, name: "مەتین ئاکرێیی", category: "boys", votes: 43, image: "https://i.ibb.co/GvJK7sPb/IMG-5137.jpg", comments: [], secrets: [], loveNotes: [], roses: 2, crowns: 0, diamonds: 0, crushes: 1, topFan: "" },
+        { id: 14, name: "میران ڕانیەیی", category: "boys", votes: 38, image: "https://i.ibb.co/9kNQ9Gkk/IMG-5136.jpg", comments: [], secrets: [], loveNotes: [], roses: 1, crowns: 0, diamonds: 0, crushes: 0, topFan: "" },
+        { id: 15, name: "هەڵگورد دهۆکی", category: "boys", votes: 31, image: "https://i.ibb.co/5hGG0Y1v/IMG-5134.jpg", comments: [], secrets: [], loveNotes: [], roses: 0, crowns: 0, diamonds: 0, crushes: 0, topFan: "" }
     ];
 
     let profiles = initialProfiles;
@@ -1135,6 +1350,7 @@
         renderDailyBattle();
         renderCityWar();
         renderRadar();
+        renderWeeklyMVP();
         generateRandomShip();
     });
 
@@ -1156,7 +1372,107 @@
         }
     });
 
-    // بەڕێوەبردنی سیستەمی داوەتکردنی ڕاستەقینە
+    window.runAiBeautyMeter = function() {
+        const inputName = document.getElementById('ai-name-input').value.trim();
+        const resultBox = document.getElementById('ai-result-box');
+        if (!inputName) {
+            alert('تکایە سەرەتا ناوێک بنووسە!');
+            return;
+        }
+        const percent = (88 + Math.random() * 11.9).toFixed(1);
+        const roasts = [
+            `✨ ڕێژەی جوانی: ${percent}% | سیستەم: ستایلەکەت زۆر کەشخەیە بەڵام زۆرتر بخەبە! 😴`,
+            `✨ ڕێژەی جوانی: ${percent}% | سیستەم: تۆ ٪١٠٠ جوانی بەڵام ئاو کەم دەخۆیتەوە! 💧`,
+            `✨ ڕێژەی جوانی: ${percent}% | سیستەم: فلتەر پێویست ناکات، ڕێک وەک ئەکتەری! 👑`
+        ];
+        const randomMsg = roasts[Math.floor(Math.random() * roasts.length)];
+        resultBox.innerText = randomMsg;
+        resultBox.style.display = 'block';
+    };
+
+    window.sendDedication = function() {
+        const song = document.getElementById('dedicate-song').value.trim();
+        const target = document.getElementById('dedicate-target-profile').value;
+        if (!song || !target) {
+            alert('تکایە ناوی گۆرانی/تێکست و بەشداربوو بنووسە!');
+            return;
+        }
+        const marquee = document.getElementById('marquee-text');
+        marquee.innerHTML += ` | 🎵 مێوانێک گۆرانی (${song})ی دێدیکەیت کرد بۆ (${target})! ❤️`;
+        document.getElementById('dedicate-song').value = '';
+        showToast('دێدیکەتەکەت بە سەرکەوتوویی زیادکرا! 🎵');
+    };
+
+    window.voteStyleType = function(type) {
+        triggerVoteEffects();
+        showToast(`دەنگدانەکەت بۆ (${type === 'green' ? 'چاو سەوز/شین' : 'چاو قاوەیی/ڕەش'}) بەسەرکەوتوویی تۆمارکرا!`);
+    };
+
+    window.openStoryCard = function(name, img, votes) {
+        document.getElementById('story-card-name-element').innerText = name;
+        document.getElementById('story-card-img-element').src = img;
+        document.getElementById('story-card-votes-element').innerText = `💛 ${votes} دەنگ | 👑 جوانترینەکانی کوردستان`;
+        document.getElementById('story-card-modal').style.display = 'flex';
+    };
+
+    window.downloadStoryCardImage = function() {
+        const targetElement = document.getElementById('story-card-printable');
+        if (typeof html2canvas === 'function') {
+            html2canvas(targetElement, { useCORS: true }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `krd_beauty_card_${Date.now()}.png`;
+                link.href = canvas.toDataURL();
+                link.click();
+                showToast('کارتی ئیدیتەکە بە سەرکەوتوویی داگیرا! 📸');
+            });
+        }
+    };
+
+    window.renderWeeklyMVP = function() {
+        if (profiles.length === 0) return;
+        const sorted = [...profiles].sort((a,b) => b.votes - a.votes);
+        const top1 = sorted[0];
+        if (top1) {
+            document.getElementById('mvp-name').innerText = top1.name;
+            document.getElementById('mvp-votes').innerText = `⭐ ${top1.votes} دەنگی بەدەستهێناوە`;
+            document.getElementById('mvp-img').src = top1.image;
+        }
+    };
+
+    window.addLoveNote = function(dbKey) {
+        const input = document.getElementById(`love-note-input-${dbKey}`);
+        const text = input.value.trim();
+        if (text) {
+            const targetProfile = profiles.find(p => p.dbKey === dbKey);
+            const updatedNotes = targetProfile.loveNotes ? [...targetProfile.loveNotes, text] : [text];
+            
+            update(ref(db, `profiles/${dbKey}`), { loveNotes: updatedNotes }).then(() => {
+                input.value = '';
+                showToast('نامەی نھێنیی خۆشەویستی بە سەرکەوتوویی نێردرا! 💖');
+            });
+        }
+    };
+
+    window.claimSecretWord = function() {
+        const inputVal = document.getElementById('secret-word-input').value.trim();
+        if (inputVal === "KRD2026") {
+            let claimed = localStorage.getItem('secret_word_claimed');
+            if (claimed) {
+                alert('تۆ پێشتر پاداشتی ئەم وشە نهێنییەت وەرگرتووە!');
+                return;
+            }
+            const secretRewardCode = "WIN" + Math.floor(100 + Math.random() * 900);
+            let userCodes = JSON.parse(localStorage.getItem('generated_free_vip_codes')) || [];
+            userCodes.push(secretRewardCode);
+            localStorage.setItem('generated_free_vip_codes', JSON.stringify(userCodes));
+            localStorage.setItem('secret_word_claimed', 'true');
+            alert(`🎉 پیرۆزە! وشەکەت بە ڕاستی دۆزییەوە! کۆدی VIPت: [ ${secretRewardCode} ] (کۆدەکە بکە بە ٥ دەنگ لە بەشی VIP).`);
+            document.getElementById('secret-word-input').value = '';
+        } else {
+            alert('وشەی نهێنی هەڵەیە! وردتر سەیری ناو وێبسایتەکە بکە.');
+        }
+    };
+
     window.checkInviteSystem = function() {
         const urlParams = new URLSearchParams(window.location.search);
         const refUser = urlParams.get('ref');
@@ -1189,7 +1505,7 @@
             userVipCodes.push(rewardCode);
             localStorage.setItem('generated_free_vip_codes', JSON.stringify(userVipCodes));
             localStorage.setItem('free_vip_claimed', 'true');
-            alert(`🎉 پیرۆزە! ٥ هاوڕێت هاتنە سەر وێبسایتەکە! کۆدی ٥ دەنگی بەخۆڕایی تۆ: [ ${rewardCode} ]\nئەم کۆدە لە بەشی تۆمارکردنی کۆدی VIP بنووسە!`);
+            alert(`🎉 پیرۆزە! ٥ هاوڕێت هاتنە سەر وێبسایتەکە! کۆدی ٥ دەنگی بەخۆڕایی تۆ: [ ${rewardCode} ]`);
         }
     };
     checkInviteSystem();
@@ -1202,7 +1518,7 @@
         }
         const inviteUrl = `${window.location.origin}${window.location.pathname}?ref=${myUserId}`;
         navigator.clipboard.writeText(`وێبسایتی جوانترینەکانی کوردستان! بگەڕێ و دەنگ بدە: ${inviteUrl}`);
-        alert('لینکی تایبەتی تۆ کۆپی کرا! بیبنێرە بۆ ٥ هاوڕێت تا کاتێک سەردانی دەکەن کۆدی VIPت بۆ چالاک بێت ✨');
+        alert('لینکی تایبەتی تۆ کۆپی کرا! بیبنێرە بۆ ٥ هاوڕێت ✨');
     };
 
     window.showToast = function(msg) {
@@ -1517,6 +1833,7 @@
 
             let commentsHtml = (profile.comments || []).map(c => `<div class="comment-item">${c}</div>`).join('');
             let secretsHtml = (profile.secrets || []).map(s => `<div class="secret-item">🕵️‍♂️ "${s}"</div>`).join('');
+            let loveNotesHtml = (profile.loveNotes || []).map(l => `<div class="love-note-item">💌 "${l}"</div>`).join('');
 
             card.innerHTML = `
                 ${isHot ? '<div class="hot-badge">🔥 HOT STREAK</div>' : ''}
@@ -1541,13 +1858,22 @@
                         <button class="btn-free" ${hasVotedToday ? 'disabled' : ''} onclick="addVote('${profile.dbKey}', 1)">
                             ${hasVotedToday ? 'ئەمڕۆ دەنگت داوە' : 'دەنگی بەخۆڕایی'}
                         </button>
-                        <a href="https://t.me/KURDPS_ADMIN" target="_blank" class="btn-paid">کڕینی دەنگ</a>
+                        <a href="https://t.me/KRDPEZHBRKE" target="_blank" class="btn-paid">کڕینی دەنگ</a>
+                        <button class="btn-story-card" onclick="openStoryCard('${profile.name}', '${profile.image}', ${profile.votes})">📸 کارتی ئیدیت</button>
                         <button class="btn-roast" onclick="triggerRoastOrCompliment('${profile.name}')">✨ تەشەر/پێداهەڵدان</button>
                         <button class="btn-crush" onclick="sendSuperCrush('${profile.dbKey}', '${profile.name}')">💌 Crush</button>
+                        <button class="btn-love-note" onclick="toggleLoveNotes('${profile.dbKey}')">💖 نامەی نھێنی</button>
                         <button class="btn-secret" onclick="toggleSecrets('${profile.dbKey}')">🕵️‍♂️ ڕازەکان</button>
                         <button class="btn-share" onclick="shareProfile('${profile.name}')">📲 شەیر</button>
-                        <button class="btn-poster" onclick="generateStoryText('${profile.name}')">📸 پۆستەر</button>
                         <button class="btn-comment" onclick="toggleComments('${profile.dbKey}')">💬 کۆمێنت</button>
+                    </div>
+
+                    <div class="love-notes-section" id="love-notes-${profile.dbKey}">
+                        <div>${loveNotesHtml}</div>
+                        <div class="comment-input-box">
+                            <input type="text" class="comment-input" id="love-note-input-${profile.dbKey}" placeholder="نامەیەکی سۆزداریی بێناو بنووسە...">
+                            <button class="btn-send-comment" style="background:#e11d48; color:white;" onclick="addLoveNote('${profile.dbKey}')">ناردن</button>
+                        </div>
                     </div>
 
                     <div class="secrets-section" id="secrets-${profile.dbKey}">
@@ -1572,6 +1898,7 @@
 
         populateVipProfileDropdown();
         populateWheelProfileDropdown();
+        populateDedicateProfileDropdown();
     };
 
     window.filterCategory = function(category, event) {
@@ -1611,7 +1938,18 @@
         });
     };
 
-    // کارکردنی ڕاستەقینەی تۆمارکردنی کۆدی VIP
+    window.populateDedicateProfileDropdown = function() {
+        const select = document.getElementById('dedicate-target-profile');
+        if (!select) return;
+        select.innerHTML = '<option value="">بۆ کێی دەبەخشیت؟</option>';
+        profiles.forEach(p => {
+            const option = document.createElement('option');
+            option.value = p.name;
+            option.innerText = `${p.name}`;
+            select.appendChild(option);
+        });
+    };
+
     window.redeemVipCode = function() {
         const inputCode = document.getElementById('vip-code-input').value.trim();
         const selectedProfileDbKey = document.getElementById('vip-target-profile').value;
@@ -1639,7 +1977,7 @@
         if (vipCodesDatabase.pkg_5.includes(inputCode)) addedVotes = 10;
         else if (vipCodesDatabase.pkg_10.includes(inputCode)) addedVotes = 25;
         else if (vipCodesDatabase.pkg_20.includes(inputCode)) addedVotes = 60;
-        else if (generatedFreeCodes.includes(inputCode)) addedVotes = 5; // کۆدی داوەتکردنی ٥ هاوڕێ
+        else if (generatedFreeCodes.includes(inputCode)) addedVotes = 5;
         else {
             alert('ئەم کۆدە هەڵەیە!');
             return;
@@ -1822,7 +2160,6 @@
             const prizes = [1, 2, 3, 5];
             const wonVotes = prizes[Math.floor(Math.random() * prizes.length)];
             
-            // ناردنی دەنگەکە بە ڕاستی بۆ فایەربەیس
             window.addVote(targetProfileDbKey, wonVotes, true);
 
             alert(`🎉 پیرۆزە! تۆ ${wonVotes} دەنگی دیاریت بردەوە و بە ڕاستی ڕەوانەی هەڵبژێردراوەکەت کرا!`);
@@ -1831,12 +2168,6 @@
             spinBtn.disabled = false;
             closeOverlay('wheel-screen');
         }, 3200);
-    }
-
-    function generateStoryText(name) {
-        const text = `تکایە هەمووتان دەنگم پێبدەن لە جوانترینەکانی کوردستان! 👑✨\nدەنگ بدەن بە: ${name}\nلینک: ${window.location.href}`;
-        navigator.clipboard.writeText(text);
-        alert('تێکستی ستۆری کۆپی کرا!');
     }
 
     function shareProfile(name) {
@@ -1856,6 +2187,11 @@
 
     function toggleSecrets(id) {
         const elem = document.getElementById(`secrets-${id}`);
+        elem.style.display = elem.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function toggleLoveNotes(id) {
+        const elem = document.getElementById(`love-notes-${id}`);
         elem.style.display = elem.style.display === 'block' ? 'none' : 'block';
     }
 </script>
