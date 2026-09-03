@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>جوانترینەکانی کوردستان</title>
+    
+    <!-- Google AdSense Verification Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6814754999421890"
+     crossorigin="anonymous"></script>
+
     <style>
         :root {
             --bg-color: #0f172a;
@@ -814,7 +819,7 @@
         runTransaction(voteRef, (currentVotes) => {
             return (currentVotes || 0) + count;
         }).then(() => {
-            if (count === 1) localStorage.setItem('last_user_free_vote', now.toString());
+            if (count === 1) localStorage.getItem('last_user_free_vote', now.toString());
 
             const imgContainer = document.getElementById(`img-container-${dbKey}`);
             if (imgContainer) {
