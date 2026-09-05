@@ -5,13 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>جوانترینەکانی کوردستان</title>
     
-    <!-- Google AdSense Verification Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6814754999421890" crossorigin="anonymous"></script>
 
-    <!-- Canvas Confetti Library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
-    <!-- HTML2Canvas Library for Social Media Story Card Generation -->
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
     <style>
@@ -93,6 +90,40 @@
             font-size: 12px;
             cursor: pointer;
             text-decoration: none;
+        }
+
+        /* بەشی سەرەکی ناوێگەیچن (مێنیوی بەشەکان) */
+        .app-nav-menu {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            background: var(--card-bg);
+            padding: 8px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 15px;
+            position: sticky;
+            top: 10px;
+            z-index: 90;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .nav-tab-btn {
+            flex: 0 0 auto;
+            background: transparent;
+            border: none;
+            color: var(--subtext-color);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .nav-tab-btn.active {
+            background: #f39c12;
+            color: #000;
         }
 
         .live-ticker {
@@ -847,7 +878,6 @@
         .chat-message.girl-msg { border-right: 3px solid #ec4899; }
         .chat-message .user-tag { font-weight: bold; margin-left: 5px; }
 
-        /* بەشی سەربەخۆی نوێ: Fun & Engagement Zone */
         .fun-zone-section {
             background: linear-gradient(135deg, #1e1b4b, #0f172a);
             border: 2px solid #8b5cf6;
@@ -1002,6 +1032,10 @@
             font-weight: bold;
             cursor: pointer;
         }
+
+        .app-section-block {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -1026,203 +1060,216 @@
         </div>
     </div>
 
-    <div class="live-ticker">
-        <span>⚡ ڕاستەوخۆ:</span>
-        <span id="ticker-text">پێش ۱۰ چرکە: دەنگێک بۆ (لیا هوسێن) تۆمارکرا!</span>
+    <div class="app-nav-menu">
+        <button class="nav-tab-btn active" onclick="switchAppSection('sec-main', this)">🔥 پەڕەی سەرەکی</button>
+        <button class="nav-tab-btn" onclick="switchAppSection('sec-games', this)">🎮 یارییەکان</button>
+
+        <button class="nav-tab-btn" onclick="switchAppSection('sec-analytics', this)">📊 ئامار و ڕادار</button>
+
+        <button class="nav-tab-btn" onclick="switchAppSection('sec-vip', this)">⚡ VIP و پاداشت</button>
     </div>
 
-    <div class="mvp-banner" id="mvp-weekly-box">
-        <div style="text-align:right;">
-            <div style="font-size:11px; font-weight:bold; color:#fde68a;">👑 مەلیکی/شاژنی هەفتە (Weekly MVP)</div>
-            <div style="font-size:15px; font-weight:bold;" id="mvp-name">لیا هوسێن uk</div>
-            <div style="font-size:11px; color:#fef3c7;" id="mvp-votes">⭐ 129 دەنگی بەدەستهێناوە</div>
+    <div id="sec-main" class="app-section-block">
+        <div class="live-ticker">
+            <span>⚡ ڕاستەوخۆ:</span>
+            <span id="ticker-text">پێش ۱۰ چرکە: دەنگێک بۆ (لیا هوسێن) تۆمارکرا!</span>
         </div>
-        <img class="mvp-img" id="mvp-img" src="https://i.ibb.co/VYzrzDxW/852-D1-BFD-9414-4183-AF73-46279-AD09136.png">
-    </div>
 
-    <div class="midnight-banner">
-        <span>🌙 دەنگی دووهێندە (2X Midnight Boost):</span>
-        <span id="midnight-status">لە کاتژمێر 12ی شەودا هەموو دەنگێک دەبێتە ٢ دەنگ! ⚡</span>
-    </div>
-
-    <div class="secret-hunt-box">
-        <div class="secret-hunt-title">🔍 یاری وشەی نهێنی (Secret Word Hunt)</div>
-        <p style="font-size:11px; color:#fef3c7; margin-bottom:8px;">وشەی نهێنی ئەمڕۆ بدۆزەوە و لە خوارەوە بینوسە بۆ وەرگرتنی دیارییەک! (وشەکە: <span style="background:rgba(0,0,0,0.5); padding:2px 6px; border-radius:4px; font-weight:bold;">KRD2026</span>)</p>
-        <div style="display:flex; gap:6px;">
-            <input type="text" id="secret-word-input" class="search-input" placeholder="وشەی نهێنی بنووسە..." style="padding:8px; font-size:12px;">
-            <button class="upload-btn" style="background:#f59e0b; color:black;" onclick="claimSecretWord()">پشکنین</button>
+        <div class="mvp-banner" id="mvp-weekly-box">
+            <div style="text-align:right;">
+                <div style="font-size:11px; font-weight:bold; color:#fde68a;">👑 مەلیکی/شاژنی هەفتە (Weekly MVP)</div>
+                <div style="font-size:15px; font-weight:bold;" id="mvp-name">لیا هوسێن uk</div>
+                <div style="font-size:11px; color:#fef3c7;" id="mvp-votes">⭐ 129 دەنگی بەدەستهێناوە</div>
+            </div>
+            <img class="mvp-img" id="mvp-img" src="https://i.ibb.co/VYzrzDxW/852-D1-BFD-9414-4183-AF73-46279-AD09136.png">
         </div>
-    </div>
 
-    <div class="memes-wall-section">
-        <div class="memes-wall-title">😂 دیواری مەمز و قسە خۆشەکان</div>
-        <div class="meme-bubble">"کچ کاتێک دەڵێت: (باشە، تەواو) 💀 واتە مەترسی گەورە لە ئارادایە!"</div>
-        <div class="meme-bubble">"کوڕ کاتێک سەیری فۆتۆکەی خۆی دەکات: (ئێمە ئەکتەری هەۆلیبین نەک ئاسایی! 😎)"</div>
-    </div>
-
-    <div class="radar-box">
-        <div class="radar-title">📡 ڕاداری خێراترین بەرزبوونەوەی کاتژمێر (24h Gainers)</div>
-        <div class="radar-list" id="radar-list-content">
-            <div class="radar-item">🔥 لە باربووندایە...</div>
+        <div class="midnight-banner">
+            <span>🌙 دەنگی دووهێندە (2X Midnight Boost):</span>
+            <span id="midnight-status">لە کاتژمێر 12ی شەودا هەموو دەنگێک دەبێتە ٢ دەنگ! ⚡</span>
         </div>
-    </div>
 
-    <div class="poll-war-box">
-        <div class="poll-question">🔥 کێ وەفادارترە لە خۆشەویستیدا؟</div>
-        <div class="poll-btns">
-            <button class="poll-btn poll-boy" onclick="votePoll('boy')">♂ کوڕان (<span id="boy-poll-count">52%</span>)</button>
-            <button class="poll-btn poll-girl" onclick="votePoll('girl')">♀ کچان (<span id="girl-poll-count">48%</span>)</button>
+        <div class="features-grid">
+            <button class="feature-btn wheel-btn" onclick="openWheel()">🎡 چەرخی چانس</button>
+            <button class="feature-btn" onclick="openVSMode()">⚔️ کێ جوانترە؟</button>
+            <button class="feature-btn" style="background: linear-gradient(135deg, #10b981, #059669);" onclick="openSwipeMode()">🃏 سوایپ و دەنگدان</button>
+            <button class="feature-btn" style="background: linear-gradient(135deg, #ec4899, #8b5cf6);" onclick="openPrediction()">🔮 پێشبینی براوە</button>
         </div>
-    </div>
 
-    <div class="daily-battle-box" id="daily-battle-section">
-        <div class="daily-battle-title">🔥 کێبڕکێی گەرمی ئەمڕۆ (Daily Battle)</div>
-        <div class="daily-battle-grid" id="daily-battle-content">
-            <span style="font-size: 12px; color: var(--subtext-color);">لە باربووندایە...</span>
-        </div>
-    </div>
-
-    <div class="city-war-section">
-        <div class="city-war-title">🌆 کێبڕکێ و دەنگی شارەکان (City Standings)</div>
-        <div id="city-war-bars"></div>
-    </div>
-
-    <div class="ship-container">
-        <div class="ship-title">💘 یاری گونجان: کام کوڕ و کچە بۆ یەکتر دەشنێن؟</div>
-        <div class="ship-box" id="ship-box-content">
-            <span style="font-size:12px;">داگرتنی گونجان...</span>
-        </div>
-        <button class="upload-btn" style="background:white; color:#ec4899; padding:6px 15px;" onclick="generateRandomShip()">🎲 تاقی کردنەوەی کەسی تر</button>
-    </div>
-
-    <div class="features-grid">
-        <button class="feature-btn wheel-btn" onclick="openWheel()">🎡 چەرخی چانس</button>
-        <button class="feature-btn" onclick="openVSMode()">⚔️ کێ جوانترە؟</button>
-        <button class="feature-btn" style="background: linear-gradient(135deg, #10b981, #059669);" onclick="openSwipeMode()">🃏 سوایپ و دەنگدان</button>
-        <button class="feature-btn" style="background: linear-gradient(135deg, #ec4899, #8b5cf6);" onclick="openPrediction()">🔮 پێشبینی براوە</button>
-    </div>
-
-    <div class="promo-banner">
-        <div class="promo-title">ئەگەر تۆ جوانی و خۆتت پێ جوانە، ئێستا وێنەکەت دابنێ!</div>
-        <div class="promo-desc">تەنها لێرە وێنەکەت بڵاو دەبێتەوە تا تەواوی جیهان بیبینن و دەنگت پێبدەن.</div>
-        <div class="promo-box">
-            🏆 ئەگەر ببیتە خاوەنی زۆرترین دەنگ، تۆ دەبیتە جوانترینی هەموو ئەوانەی لێرەدان!
-        </div>
-    </div>
-
-    <div class="search-box">
-        <input type="text" id="search-input" class="search-input" placeholder="🔍 گەڕان بەدوای بەشداربوو..." oninput="handleSearch()">
-    </div>
-
-    <div class="timer-box">
-        <div class="timer-title">⏳ کاتی مابوو بۆ راگەیاندنی براوەی ئەم مانگە:</div>
-        <div class="timer-display" id="countdown">
-            <span class="timer-unit"><span id="days">30</span> ڕۆژ</span> : 
-            <span class="timer-unit"><span id="hours">00</span> کاتژمێر</span> : 
-            <span class="timer-unit"><span id="minutes">00</span> خولەک</span> : 
-            <span class="timer-unit"><span id="seconds">00</span> چرکە</span>
-        </div>
-    </div>
-
-    <div class="podium-container" id="podium-section"></div>
-
-    <div class="packages-section">
-        <div class="packages-title">⚡ پاکێجەکانی دەنگی VIP (کڕینی خێرا)</div>
-        <div class="packages-grid">
-            <a href="https://t.me/KRDPEZHBRKE" target="_blank" class="pkg-card">
-                <div class="pkg-votes">10 دەنگ</div>
-                <div class="pkg-price">5$</div>
-            </a>
-            <a href="https://t.me/KRDPEZHBRKE" target="_blank" class="pkg-card">
-                <div class="pkg-votes">25 دەنگ</div>
-                <div class="pkg-price">10$</div>
-            </a>
-            <a href="https://t.me/KRDPEZHBRKE" target="_blank" class="pkg-card">
-                <div class="pkg-votes">60 دەنگ</div>
-                <div class="pkg-price">20$</div>
-            </a>
-        </div>
-    </div>
-
-    <div class="packages-section" style="border: 1px solid #10b981; text-align: center;">
-        <div class="packages-title" style="color:#10b981;">🎁 داوەتکردنی ٥ هاوڕێ (کۆدی ٥ دەنگی VIP)</div>
-        <p style="font-size:11px; color:var(--subtext-color); margin-bottom:6px;">هاوڕێیەکانت بەستەوە! کاتێک ٥ هاوڕێ بێنە سەر وێبسایتەکە، کۆدی ٥ دەنگت پێدەدرێت.</p>
-        <div style="font-size:12px; font-weight:bold; color:#f1c40f; margin-bottom:10px;">ژمارەی داوەتە سەرکەوتووەکانی تۆ: <span id="invite-count-display">0</span> / 5</div>
-        <button class="upload-btn" style="background:#10b981; color:white; width:100%; padding:10px;" onclick="copyInviteLink()">📲 کۆپیکردنی لینکی تایبەتی داوەتکردن</button>
-    </div>
-
-    <div class="packages-section" style="border: 1px solid #f39c12;">
-        <div class="packages-title">🎟️ تۆمارکردنی کۆدی VIP</div>
-        <div style="display: flex; gap: 8px; flex-direction: column;">
-            <input type="text" id="vip-code-input" class="search-input" placeholder="کۆدە ٧ ژمارەیییەکە بنووسە..." maxlength="7" style="text-align: center; font-weight: bold; letter-spacing: 2px;">
-            <select id="vip-target-profile" class="search-input" style="cursor: pointer;">
-                <option value="">کەسێک هەڵبژێرە بۆ پێدانی دەنگەکە...</option>
-            </select>
-            <button class="upload-btn" style="width: 100%; padding: 12px;" onclick="redeemVipCode()">تۆمارکردن و ڕەوانەکردنی دەنگ</button>
-        </div>
-    </div>
-
-    <div class="tabs-container">
-        <button class="tab-btn" onclick="filterCategory('boys', event)">♂ بەشی کوڕان</button>
-        <button class="tab-btn active" onclick="filterCategory('girls', event)">♀ بەشی کچان</button>
-    </div>
-
-    <div class="feed" id="profiles-feed"></div>
-
-    <div class="live-chat-section">
-        <div class="live-chat-title">
-            <span>💬 چاتی کوڕان ⚔️ کچان</span>
-            <div class="gender-selector">
-                <button class="gender-btn active-boy" id="boy-select-btn" onclick="setChatGender('boy')">♂ کوڕ</button>
-                <button class="gender-btn" id="girl-select-btn" onclick="setChatGender('girl')">♀ کچ</button>
+        <div class="promo-banner">
+            <div class="promo-title">ئەگەر تۆ جوانی و خۆتت پێ جوانە، ئێستا وێنەکەت دابنێ!</div>
+            <div class="promo-desc">تەنها لێرە وێنەکەت بڵاو دەبێتەوە تا تەواوی جیهان بیبینن و دەنگت پێبدەن.</div>
+            <div class="promo-box">
+                🏆 ئەگەر ببیتە خاوەنی زۆرترین دەنگ، تۆ دەبیتە جوانترینی هەموو ئەوانەی لێرەدان!
             </div>
         </div>
-        <div class="chat-box-feed" id="live-chat-feed">
-            <div class="chat-message boy-msg"><span class="user-tag" style="color:#38bdf8;">سیستەم:</span> بەخێر بێن بۆ چات! بەشی ڕەگەزی خۆت هەڵبژێرە.</div>
+
+        <div class="search-box">
+            <input type="text" id="search-input" class="search-input" placeholder="🔍 گەڕان بەدوای بەشداربوو..." oninput="handleSearch()">
         </div>
-        <div class="comment-input-box">
-            <input type="text" class="comment-input" id="live-chat-input" placeholder="پەیامێک بنووسە...">
-            <button class="btn-send-comment" onclick="sendLiveChatMessage()">ناردن</button>
+
+        <div class="timer-box">
+            <div class="timer-title">⏳ کاتی مابوو بۆ راگەیاندنی براوەی ئەم مانگە:</div>
+            <div class="timer-display" id="countdown">
+                <span class="timer-unit"><span id="days">30</span> ڕۆژ</span> : 
+                <span class="timer-unit"><span id="hours">00</span> کاتژمێر</span> : 
+                <span class="timer-unit"><span id="minutes">00</span> خولەک</span> : 
+                <span class="timer-unit"><span id="seconds">00</span> چرکە</span>
+            </div>
+        </div>
+
+        <div class="podium-container" id="podium-section"></div>
+
+        <div class="tabs-container">
+            <button class="tab-btn" onclick="filterCategory('boys', event)">♂ بەشی کوڕان</button>
+            <button class="tab-btn active" onclick="filterCategory('girls', event)">♀ بەشی کچان</button>
+        </div>
+
+        <div class="feed" id="profiles-feed"></div>
+
+        <div class="live-chat-section">
+            <div class="live-chat-title">
+                <span>💬 چاتی کوڕان ⚔️ کچان</span>
+                <div class="gender-selector">
+                    <button class="gender-btn active-boy" id="boy-select-btn" onclick="setChatGender('boy')">♂ کوڕ</button>
+                    <button class="gender-btn" id="girl-select-btn" onclick="setChatGender('girl')">♀ کچ</button>
+                </div>
+            </div>
+            <div class="chat-box-feed" id="live-chat-feed">
+                <div class="chat-message boy-msg"><span class="user-tag" style="color:#38bdf8;">سیستەم:</span> بەخێر بێن بۆ چات! بەشی ڕەگەزی خۆت هەڵبژێرە.</div>
+            </div>
+            <div class="comment-input-box">
+                <input type="text" class="comment-input" id="live-chat-input" placeholder="پەیامێک بنووسە...">
+                <button class="btn-send-comment" onclick="sendLiveChatMessage()">ناردن</button>
+            </div>
         </div>
     </div>
 
-    <!-- بەشی نوێ و سەربەخۆ: 🎮 ناوچەی یاری و ململانێکان -->
-    <div class="fun-zone-section">
-        <div class="fun-zone-title">🎮 ناوچەی یاری و ململانێکان (Fun Zone)</div>
-        
-        <!-- ١. شیکاری جوانی بە AI -->
-        <div class="fun-sub-box">
-            <div class="fun-sub-title">🤖 شیکاری جوانی بە ژیریی دەستکرد (AI Beauty Meter)</div>
-            <p style="font-size:11px; color:var(--subtext-color); margin-bottom:8px;">ناوی خۆت یان هاوڕێکەت بنووسە تا ژیریی دەستکرد ڕێژەی جوانیی و کۆمێنتێکی کۆمیدیت پێبڵێت!</p>
+    <div id="sec-games" class="app-section-block" style="display:none;">
+        <div class="secret-hunt-box">
+            <div class="secret-hunt-title">🔍 یاری وشەی نهێنی (Secret Word Hunt)</div>
+            <p style="font-size:11px; color:#fef3c7; margin-bottom:8px;">وشەی نهێنی ئەمڕۆ بدۆزەوە و لە خوارەوە بینوسە بۆ وەرگرتنی دیارییەک! (وشەکە: <span style="background:rgba(0,0,0,0.5); padding:2px 6px; border-radius:4px; font-weight:bold;">KRD2026</span>)</p>
             <div style="display:flex; gap:6px;">
-                <input type="text" id="ai-name-input" class="search-input" placeholder="ناو بنووسە..." style="padding:8px; font-size:12px;">
-                <button class="upload-btn" style="background:#8b5cf6; color:white;" onclick="runAiBeautyMeter()">پشکنین ✨</button>
+                <input type="text" id="secret-word-input" class="search-input" placeholder="وشەی نهێنی بنووسە..." style="padding:8px; font-size:12px;">
+                <button class="upload-btn" style="background:#f59e0b; color:black;" onclick="claimSecretWord()">پشکنین</button>
             </div>
-            <div id="ai-result-box" style="display:none; margin-top:8px; padding:8px; background:rgba(0,0,0,0.4); border-radius:8px; font-size:11px; color:#a855f7; font-weight:bold;"></div>
         </div>
 
-        <!-- ٢. بەشی دێدیکەیت و گۆرانی -->
-        <div class="fun-sub-box">
-            <div class="fun-sub-title">🎵 داواکاری دێدیکەیت و گۆرانی (Vibe Stream)</div>
-            <div class="dedicate-marquee">
-                <marquee id="marquee-text" scrollamount="4">🎵 مێوانێک گۆرانییەکی بەخشی بە (لیا هوسێن) ❤️ | ✨ دیار گۆرانییەکی دێدیکەیت کرد بۆ (شەنێ هەولێری)!</marquee>
+        <div class="poll-war-box">
+            <div class="poll-question">🔥 کێ وەفادارترە لە خۆشەویستیدا؟</div>
+            <div class="poll-btns">
+                <button class="poll-btn poll-boy" onclick="votePoll('boy')">♂ کوڕان (<span id="boy-poll-count">52%</span>)</button>
+                <button class="poll-btn poll-girl" onclick="votePoll('girl')">♀ کچان (<span id="girl-poll-count">48%</span>)</button>
             </div>
-            <div style="display:flex; flex-direction:column; gap:6px;">
-                <input type="text" id="dedicate-song" class="search-input" placeholder="ناوی گۆرانی / تێکست..." style="padding:6px; font-size:11px;">
-                <select id="dedicate-target-profile" class="search-input" style="padding:6px; font-size:11px; cursor:pointer;">
-                    <option value="">بۆ کێی دەبەخشیت؟</option>
+        </div>
+
+        <div class="daily-battle-box" id="daily-battle-section">
+            <div class="daily-battle-title">🔥 کێبڕکێی گەرمی ئەمڕۆ (Daily Battle)</div>
+            <div class="daily-battle-grid" id="daily-battle-content">
+                <span style="font-size: 12px; color: var(--subtext-color);">لە باربووندایە...</span>
+            </div>
+        </div>
+
+        <div class="ship-container">
+            <div class="ship-title">💘 یاری گونجان: کام کوڕ و کچە بۆ یەکتر دەشنێن؟</div>
+            <div class="ship-box" id="ship-box-content">
+                <span style="font-size:12px;">داگرتنی گونجان...</span>
+            </div>
+            <button class="upload-btn" style="background:white; color:#ec4899; padding:6px 15px;" onclick="generateRandomShip()">🎲 تاقی کردنەوەی کەسی تر</button>
+        </div>
+
+        <div class="fun-zone-section">
+            <div class="fun-zone-title">🎮 ناوچەی یاری و ململانێکان (Fun Zone)</div>
+            
+            <div class="fun-sub-box">
+                <div class="fun-sub-title">🤖 شیکاری جوانی بە ژیریی دەستکرد (AI Beauty Meter)</div>
+                <p style="font-size:11px; color:var(--subtext-color); margin-bottom:8px;">ناوی خۆت یان هاوڕێکەت بنووسە تا ژیریی دەستکرد ڕێژەی جوانیی و کۆمێنتێکی کۆمیدیت پێبڵێت!</p>
+                <div style="display:flex; gap:6px;">
+                    <input type="text" id="ai-name-input" class="search-input" placeholder="ناو بنووسە..." style="padding:8px; font-size:12px;">
+                    <button class="upload-btn" style="background:#8b5cf6; color:white;" onclick="runAiBeautyMeter()">پشکنین ✨</button>
+                </div>
+                <div id="ai-result-box" style="display:none; margin-top:8px; padding:8px; background:rgba(0,0,0,0.4); border-radius:8px; font-size:11px; color:#a855f7; font-weight:bold;"></div>
+            </div>
+
+            <div class="fun-sub-box">
+                <div class="fun-sub-title">🎵 داواکاری دێدیکەیت و گۆرانی (Vibe Stream)</div>
+                <div class="dedicate-marquee">
+                    <marquee id="marquee-text" scrollamount="4">🎵 مێوانێک گۆرانییەکی بەخشی بە (لیا هوسێن) ❤️ | ✨ دیار گۆرانییەکی دێدیکەیت کرد بۆ (شەنێ هەولێری)!</marquee>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                    <input type="text" id="dedicate-song" class="search-input" placeholder="ناوی گۆرانی / تێکست..." style="padding:6px; font-size:11px;">
+                    <select id="dedicate-target-profile" class="search-input" style="padding:6px; font-size:11px; cursor:pointer;">
+                        <option value="">بۆ کێی دەبەخشیت؟</option>
+                    </select>
+                    <button class="upload-btn" style="background:#10b981; color:white; padding:6px;" onclick="sendDedication()">ناردنی دێدیکەیت 💖</button>
+                </div>
+            </div>
+
+            <div class="fun-sub-box">
+                <div class="fun-sub-title">✨ کێبڕکێی ستایل و تایپەکان (Type vs Type)</div>
+                <div style="font-size:12px; font-weight:bold; color:white; text-align:center; margin-bottom:8px;">👁️ کام ستایلی چاو جذابترە؟</div>
+                <div style="display:flex; gap:8px;">
+                    <button class="poll-btn" style="background:#0284c7;" onclick="voteStyleType('green')">👁️ چاو سەوز / شین (<span id="type-green-count">55%</span>)</button>
+                    <button class="poll-btn" style="background:#d97706;" onclick="voteStyleType('brown')">👁️ چاو قاوەیی / ڕەش (<span id="type-brown-count">45%</span>)</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="sec-analytics" class="app-section-block" style="display:none;">
+        <div class="memes-wall-section">
+            <div class="memes-wall-title">😂 دیواری مەمز و قسە خۆشەکان</div>
+            <div class="meme-bubble">"کچ کاتێک دەڵێت: (باشە، تەواو) 💀 واتە مەترسی گەورە لە ئارادایە!"</div>
+            <div class="meme-bubble">"کوڕ کاتێک سەیری فۆتۆکەی خۆی دەکات: (ئێمە ئەکتەری هەۆلیبین نەک ئاسایی! 😎)"</div>
+        </div>
+
+        <div class="radar-box">
+            <div class="radar-title">📡 ڕاداری خێراترین بەرزبوونەوەی کاتژمێر (24h Gainers)</div>
+            <div class="radar-list" id="radar-list-content">
+                <div class="radar-item">🔥 لە باربووندایە...</div>
+            </div>
+        </div>
+
+        <div class="city-war-section">
+            <div class="city-war-title">🌆 کێبڕکێ و دەنگی شارەکان (City Standings)</div>
+            <div id="city-war-bars"></div>
+        </div>
+    </div>
+
+    <div id="sec-vip" class="app-section-block" style="display:none;">
+        <div class="packages-section">
+            <div class="packages-title">⚡ پاکێجەکانی دەنگی VIP (کڕینی خێرا)</div>
+            <div class="packages-grid">
+                <a href="https://t.me/KRDPEZHBRKE" target="_blank" class="pkg-card">
+                    <div class="pkg-votes">10 دەنگ</div>
+                    <div class="pkg-price">5$</div>
+                </a>
+                <a href="https://t.me/KRDPEZHBRKE" target="_blank" class="pkg-card">
+                    <div class="pkg-votes">25 دەنگ</div>
+                    <div class="pkg-price">10$</div>
+                </a>
+                <a href="https://t.me/KRDPEZHBRKE" target="_blank" class="pkg-card">
+                    <div class="pkg-votes">60 دەنگ</div>
+                    <div class="pkg-price">20$</div>
+                </a>
+            </div>
+        </div>
+
+        <div class="packages-section" style="border: 1px solid #10b981; text-align: center;">
+            <div class="packages-title" style="color:#10b981;">🎁 داوەتکردنی ٥ هاوڕێ (کۆدی ٥ دەنگی VIP)</div>
+            <p style="font-size:11px; color:var(--subtext-color); margin-bottom:6px;">هاوڕێیەکانت بەستەوە! کاتێک ٥ هاوڕێ بێنە سەر وێبسایتەکە، کۆدی ٥ دەنگت پێدەدرێت.</p>
+            <div style="font-size:12px; font-weight:bold; color:#f1c40f; margin-bottom:10px;">ژمارەی داوەتە سەرکەوتووەکانی تۆ: <span id="invite-count-display">0</span> / 5</div>
+            <button class="upload-btn" style="background:#10b981; color:white; width:100%; padding:10px;" onclick="copyInviteLink()">📲 کۆپیکردنی لینکی تایبەتی داوەتکردن</button>
+        </div>
+
+        <div class="packages-section" style="border: 1px solid #f39c12;">
+            <div class="packages-title">🎟️ تۆمارکردنی کۆدی VIP</div>
+            <div style="display: flex; gap: 8px; flex-direction: column;">
+                <input type="text" id="vip-code-input" class="search-input" placeholder="کۆدە ٧ ژمارەیییەکە بنووسە..." maxlength="7" style="text-align: center; font-weight: bold; letter-spacing: 2px;">
+                <select id="vip-target-profile" class="search-input" style="cursor: pointer;">
+                    <option value="">کەسێک هەڵبژێرە بۆ پێدانی دەنگەکە...</option>
                 </select>
-                <button class="upload-btn" style="background:#10b981; color:white; padding:6px;" onclick="sendDedication()">ناردنی دێدیکەیت 💖</button>
-            </div>
-        </div>
-
-        <!-- ٣. کێبڕکێی تایپ و ستایلەکان -->
-        <div class="fun-sub-box">
-            <div class="fun-sub-title">✨ کێبڕکێی ستایل و تایپەکان (Type vs Type)</div>
-            <div style="font-size:12px; font-weight:bold; color:white; text-align:center; margin-bottom:8px;">👁️ کام ستایلی چاو جذابترە؟</div>
-            <div style="display:flex; gap:8px;">
-                <button class="poll-btn" style="background:#0284c7;" onclick="voteStyleType('green')">👁️ چاو سەوز / شین (<span id="type-green-count">55%</span>)</button>
-                <button class="poll-btn" style="background:#d97706;" onclick="voteStyleType('brown')">👁️ چاو قاوەیی / ڕەش (<span id="type-brown-count">45%</span>)</button>
+                <button class="upload-btn" style="width: 100%; padding: 12px;" onclick="redeemVipCode()">تۆمارکردن و ڕەوانەکردنی دەنگ</button>
             </div>
         </div>
     </div>
@@ -1233,7 +1280,6 @@
     <img class="modal-content" id="modal-img">
 </div>
 
-<!-- مۆدالی بەرهەمهێنانی کارتی ئیدیت بۆ سناپچات و ئینستاگرام -->
 <div class="overlay-screen" id="story-card-modal">
     <h3 style="color:#f1c40f; margin-bottom:10px;">📸 کارتی ئیدیتی تایبەت بە سۆشیال میدیا</h3>
     <p style="font-size:11px; color:var(--subtext-color); margin-bottom:15px;">ئەم کارتە دابگرە یان کۆپی بکه و بیخەرە ستۆری سناپچات یان ئینستاگرام!</p>
@@ -1291,7 +1337,6 @@
     <button class="close-overlay-btn" onclick="closeOverlay('prediction-screen')">داخستن</button>
 </div>
 
-<!-- Firebase Realtime Database Integration -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getDatabase, ref, onValue, update, runTransaction, push } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
@@ -2072,6 +2117,15 @@
 </script>
 
 <script>
+    /* فەنکشنی ڕێکخستنی گواستنەوە لە نێوان بەشەکاندا بەبێ تێکدانی کۆدەکە */
+    function switchAppSection(sectionId, btnElement) {
+        document.querySelectorAll('.app-section-block').forEach(sec => sec.style.display = 'none');
+        document.querySelectorAll('.nav-tab-btn').forEach(btn => btn.classList.remove('active'));
+        
+        document.getElementById(sectionId).style.display = 'block';
+        btnElement.classList.add('active');
+    }
+
     function toggleTheme() {
         document.body.classList.toggle('light-mode');
         const isLight = document.body.classList.contains('light-mode');
