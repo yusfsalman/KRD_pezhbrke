@@ -2,7 +2,7 @@
 <html lang="ckb" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>جوانترینەکانی کوردستان</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,6 +14,23 @@
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
   <style>
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-color: #0f172a;
+    }
+
     #landing-screen {
       position: fixed;
       top: 0;
@@ -21,13 +38,13 @@
       width: 100vw;
       height: 100vh;
       background-color: #030207;
-      font-family: 'Noto Naskh Arabic', 'Reem Kufi', serif;
+      font-family: system-ui, -apple-system, sans-serif;
       z-index: 9999;
       display: flex;
       justify-content: center;
       align-items: center;
       color: #ffffff;
-      transition: opacity 0.6s ease, visibility 0.6s ease;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
       overflow: hidden;
     }
 
@@ -35,6 +52,7 @@
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
+      display: none !important;
     }
 
     #heroCanvas {
@@ -52,15 +70,13 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      background: rgba(12, 10, 24, 0.85);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      border: 1.5px solid rgba(255, 215, 0, 0.5);
-      border-radius: 28px;
-      padding: 30px 25px 35px 25px;
-      box-shadow: 0 0 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(228, 0, 43, 0.3), inset 0 0 20px rgba(255, 215, 0, 0.15);
-      max-width: 420px;
-      width: 88%;
+      background: rgba(12, 10, 24, 0.95);
+      border: 1px solid rgba(255, 215, 0, 0.4);
+      border-radius: 20px;
+      padding: 25px 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+      max-width: 400px;
+      width: 90%;
     }
 
     .avatar-section {
@@ -96,10 +112,6 @@
       height: auto;
       filter: drop-shadow(0 0 18px rgba(255, 215, 0, 1));
       animation: crownFloat 3s infinite ease-in-out alternate;
-    }
-
-    .avatar-box:nth-child(2) .kurdish-crown {
-      animation-delay: 1.5s;
     }
 
     @keyframes crownFloat {
@@ -195,18 +207,10 @@
       --border-color: #e2e8f0;
     }
 
-    * {
-      box-sizing: border-box;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      margin: 0;
-      padding: 0;
-      transition: background-color 0.3s, color 0.3s;
-    }
-
     body {
       background-color: var(--bg-color);
       color: var(--text-color);
-      padding: 15px;
+      padding: 12px;
       display: flex;
       justify-content: center;
     }
@@ -214,13 +218,20 @@
     .container {
       width: 100%;
       max-width: 480px;
+      margin: 0 auto;
     }
 
     .header {
       display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .header-top-bar {
+      display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 15px;
     }
 
     .header h1 {
@@ -235,6 +246,21 @@
       display: flex;
       gap: 6px;
       align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .gem-balance-badge {
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      border: 1px solid #38bdf8;
+      color: #ffffff;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
     }
 
     .icon-btn {
@@ -247,16 +273,22 @@
       font-size: 14px;
     }
 
-    .upload-btn {
-      background-color: #f39c12;
-      color: #000;
-      border: none;
-      padding: 8px 10px;
-      border-radius: 10px;
+    .upload-btn-main {
+      width: 100%;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #ffffff;
+      border: 1px solid #ffd700;
+      padding: 10px;
+      border-radius: 12px;
       font-weight: bold;
-      font-size: 12px;
+      font-size: 14px;
       cursor: pointer;
-      text-decoration: none;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
 
     .app-nav-menu {
@@ -275,21 +307,109 @@
     }
 
     .nav-tab-btn {
-      flex: 0 0 auto;
+      flex: 1;
       background: transparent;
       border: none;
       color: var(--subtext-color);
-      padding: 6px 12px;
+      padding: 8px 12px;
       border-radius: 8px;
       font-size: 12px;
       font-weight: bold;
       cursor: pointer;
       white-space: nowrap;
+      text-align: center;
     }
 
     .nav-tab-btn.active {
       background: #f39c12;
       color: #000;
+    }
+
+    .voter-card-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card-bg);
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .voter-card-item:hover {
+      transform: translateY(-2px);
+      border-color: #ffd700;
+    }
+
+    .voter-rank-badge {
+      font-size: 16px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+    }
+
+    .trophy-icon {
+      font-size: 20px;
+      margin-left: 4px;
+    }
+
+    .exp-bar-container {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      height: 12px;
+      overflow: hidden;
+      margin-top: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .exp-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #38bdf8, #a855f7, #ec4899);
+      width: 0%;
+      border-radius: 20px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .gem-shop-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 12px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .gem-shop-title {
+      font-size: 15px;
+      font-weight: bold;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .gem-shop-bonus {
+      font-size: 11px;
+      color: #38bdf8;
+      font-weight: bold;
+    }
+
+    .gem-buy-btn {
+      background: linear-gradient(135deg, #0284c7, #0284c7);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 13px;
+      cursor: pointer;
+      text-decoration: none;
     }
 
     .live-ticker {
@@ -354,280 +474,6 @@
       border: 2px solid #ffffff;
     }
 
-    .midnight-banner {
-      background: linear-gradient(135deg, #312e81, #4c1d95);
-      border: 1px solid #a855f7;
-      border-radius: 12px;
-      padding: 10px;
-      text-align: center;
-      font-size: 12px;
-      font-weight: bold;
-      color: #e9d5ff;
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .secret-hunt-box {
-      background: linear-gradient(135deg, #78350f, #451a03);
-      border: 1px solid #f59e0b;
-      border-radius: 14px;
-      padding: 12px;
-      margin-bottom: 15px;
-      text-align: center;
-    }
-    .secret-hunt-title { font-size: 13px; font-weight: bold; color: #fde68a; margin-bottom: 6px; }
-
-    .memes-wall-section {
-      background: var(--card-bg);
-      border: 1px solid #ec4899;
-      border-radius: 14px;
-      padding: 12px;
-      margin-bottom: 15px;
-    }
-    .memes-wall-title { font-size: 13px; font-weight: bold; color: #ec4899; margin-bottom: 8px; display:flex; align-items:center; gap:6px; }
-    .meme-bubble {
-      background: var(--bg-color);
-      border: 1px solid var(--border-color);
-      padding: 8px 12px;
-      border-radius: 10px;
-      font-size: 11px;
-      margin-bottom: 6px;
-      color: var(--subtext-color);
-    }
-
-    .radar-box {
-      background: var(--card-bg);
-      border: 1px solid #38bdf8;
-      border-radius: 14px;
-      padding: 12px;
-      margin-bottom: 15px;
-    }
-    .radar-title {
-      font-size: 12px;
-      font-weight: bold;
-      color: #38bdf8;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .radar-list {
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      padding-bottom: 4px;
-    }
-    .radar-item {
-      flex: 0 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--bg-color);
-      padding: 6px 10px;
-      border-radius: 20px;
-      border: 1px solid var(--border-color);
-      font-size: 11px;
-    }
-    .radar-img {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .daily-battle-box {
-      background: linear-gradient(135deg, #1e1b4b, #311b92);
-      border: 1px solid #6366f1;
-      border-radius: 16px;
-      padding: 15px;
-      margin-bottom: 15px;
-      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
-      text-align: center;
-    }
-    .daily-battle-title {
-      color: #f59e0b;
-      font-size: 14px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-    .daily-battle-grid {
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      gap: 8px;
-    }
-    .battle-card {
-      flex: 1;
-      background: var(--card-bg);
-      padding: 8px;
-      border-radius: 12px;
-      border: 1px solid var(--border-color);
-      cursor: pointer;
-      text-align: center;
-    }
-    .battle-card img {
-      width: 55px;
-      height: 55px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #6366f1;
-      margin-bottom: 4px;
-    }
-    .battle-card .b-name {
-      font-size: 11px;
-      font-weight: bold;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .battle-card .b-votes {
-      font-size: 10px;
-      color: #f1c40f;
-    }
-    .vs-badge {
-      font-size: 16px;
-      font-weight: bold;
-      color: #ef4444;
-      animation: pulse 1s infinite alternate;
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      100% { transform: scale(1.3); }
-    }
-
-    .poll-war-box {
-      background: linear-gradient(135deg, #0f766e, #042f2e);
-      border: 1px solid #14b8a6;
-      border-radius: 16px;
-      padding: 15px;
-      margin-bottom: 15px;
-      text-align: center;
-      color: white;
-    }
-    .poll-question {
-      font-size: 13px;
-      font-weight: bold;
-      margin-bottom: 10px;
-      color: #5eead4;
-    }
-    .poll-btns {
-      display: flex;
-      gap: 10px;
-    }
-    .poll-btn {
-      flex: 1;
-      padding: 10px;
-      border: none;
-      border-radius: 10px;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 12px;
-      color: white;
-    }
-    .poll-boy { background: #0284c7; }
-    .poll-girl { background: #ec4899; }
-
-    .city-war-section {
-      background: var(--card-bg);
-      border-radius: 16px;
-      padding: 15px;
-      margin-bottom: 15px;
-      border: 1px solid var(--border-color);
-    }
-    .city-war-title {
-      font-size: 13px;
-      font-weight: bold;
-      color: #ef4444;
-      margin-bottom: 12px;
-      text-align: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-    .city-bar-item { margin-bottom: 8px; }
-    .city-info {
-      display: flex;
-      justify-content: space-between;
-      font-size: 11px;
-      margin-bottom: 4px;
-      font-weight: bold;
-    }
-    .city-progress-bg {
-      width: 100%;
-      height: 10px;
-      background: var(--bg-color);
-      border-radius: 5px;
-      overflow: hidden;
-      border: 1px solid var(--border-color);
-    }
-    .city-progress-fill {
-      height: 100%;
-      border-radius: 5px;
-      transition: width 0.8s ease-in-out;
-    }
-
-    .ship-container {
-      background: linear-gradient(135deg, #ec4899, #8b5cf6);
-      border-radius: 16px;
-      padding: 15px;
-      margin-bottom: 15px;
-      text-align: center;
-      color: white;
-      box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
-    }
-    .ship-title { font-size: 14px; font-weight: bold; margin-bottom: 10px; }
-    .ship-box {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-    .ship-user-img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid white;
-    }
-    .ship-percent {
-      font-size: 18px;
-      font-weight: bold;
-      color: #f1c40f;
-      background: rgba(0,0,0,0.4);
-      padding: 6px 12px;
-      border-radius: 20px;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-bottom: 15px;
-    }
-
-    .feature-btn {
-      background: linear-gradient(135deg, #6366f1, #a855f7);
-      color: white;
-      border: none;
-      padding: 10px;
-      border-radius: 10px;
-      font-weight: bold;
-      font-size: 13px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      box-shadow: 0 4px 10px rgba(168, 85, 247, 0.2);
-    }
-
-    .feature-btn.wheel-btn { background: linear-gradient(135deg, #f59e0b, #ef4444); }
-
     .promo-banner {
       background: linear-gradient(135deg, #d97706, #b45309);
       border-radius: 16px;
@@ -653,6 +499,7 @@
       justify-content: center;
       gap: 6px;
       border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 12px;
     }
 
     .search-box { width: 100%; margin-bottom: 15px; }
@@ -666,19 +513,6 @@
       font-size: 14px;
       outline: none;
     }
-
-    .timer-box {
-      background: var(--card-bg);
-      border: 1px solid #f39c12;
-      border-radius: 12px;
-      padding: 10px;
-      text-align: center;
-      margin-bottom: 15px;
-    }
-
-    .timer-title { font-size: 12px; color: var(--subtext-color); margin-bottom: 6px; }
-    .timer-display { display: flex; justify-content: center; gap: 8px; font-weight: bold; color: #f1c40f; font-size: 14px; }
-    .timer-unit { background: var(--bg-color); padding: 4px 8px; border-radius: 6px; }
 
     .podium-container {
       display: flex;
@@ -724,20 +558,6 @@
     }
 
     .packages-title { font-size: 13px; color: #f1c40f; margin-bottom: 10px; text-align: center; font-weight: bold; }
-    .packages-grid { display: flex; gap: 8px; }
-    .pkg-card {
-      flex: 1;
-      background: var(--bg-color);
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 10px 5px;
-      text-align: center;
-      text-decoration: none;
-      color: var(--text-color);
-    }
-
-    .pkg-votes { font-size: 12px; font-weight: bold; color: #10b981; }
-    .pkg-price { font-size: 11px; color: var(--subtext-color); margin-top: 4px; }
 
     .tabs-container {
       background-color: var(--card-bg);
@@ -822,6 +642,35 @@
       z-index: 2;
     }
 
+    .owner-profile-badge {
+      position: absolute;
+      top: 12px;
+      right: 65px;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1.5px solid #ffd700;
+      padding: 3px 8px;
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+    .owner-profile-badge img {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid #ffffff;
+    }
+    .owner-profile-badge span {
+      font-size: 10px;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
     .card-img-wrapper { position: relative; overflow: hidden; cursor: pointer; }
     .card-img { width: 100%; height: 380px; object-fit: cover; display: block; }
 
@@ -902,18 +751,18 @@
 
     .btn-paid {
       flex: 1 1 45%;
-      background-color: #10b981;
+      background: linear-gradient(135deg, #0284c7, #0369a1);
       color: white;
       border: none;
       padding: 10px;
       border-radius: 8px;
       font-weight: bold;
       font-size: 12px;
-      text-decoration: none;
+      cursor: pointer;
       text-align: center;
     }
 
-    .btn-share, .btn-poster, .btn-comment, .btn-crush, .btn-secret, .btn-roast, .btn-love-note, .btn-story-card {
+    .btn-share, .btn-comment, .btn-crush, .btn-secret, .btn-roast, .btn-love-note, .btn-story-card {
       flex: 1 1 22%;
       border: none;
       padding: 8px;
@@ -926,7 +775,6 @@
     }
 
     .btn-share { background-color: #0284c7; }
-    .btn-poster { background-color: #8b5cf6; }
     .btn-comment { background-color: #475569; }
     .btn-crush { background-color: #ec4899; }
     .btn-secret { background-color: #d97706; }
@@ -1044,54 +892,6 @@
     .chat-message.girl-msg { border-right: 3px solid #ec4899; }
     .chat-message .user-tag { font-weight: bold; margin-left: 5px; }
 
-    .fun-zone-section {
-      background: linear-gradient(135deg, #1e1b4b, #0f172a);
-      border: 2px solid #8b5cf6;
-      border-radius: 20px;
-      padding: 15px;
-      margin-top: 25px;
-      margin-bottom: 25px;
-      box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
-    }
-    .fun-zone-title {
-      font-size: 16px;
-      font-weight: bold;
-      color: #a855f7;
-      text-align: center;
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-    .fun-sub-box {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 12px;
-      margin-bottom: 12px;
-    }
-    .fun-sub-title {
-      font-size: 13px;
-      font-weight: bold;
-      color: #f1c40f;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .dedicate-marquee {
-      background: #000;
-      color: #10b981;
-      padding: 6px;
-      border-radius: 8px;
-      font-size: 11px;
-      font-weight: bold;
-      margin-bottom: 8px;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-
     .modal {
       display: none;
       position: fixed;
@@ -1140,54 +940,6 @@
     .story-card-title { font-size: 16px; font-weight: bold; color: #f1c40f; margin-bottom: 4px; }
     .story-card-sub { font-size: 11px; color: #38bdf8; margin-bottom: 8px; }
 
-    .wheel-container {
-      width: 260px;
-      height: 260px;
-      border-radius: 50%;
-      border: 8px solid #f39c12;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 20px;
-      background: conic-gradient(#ef4444 0deg 90deg, #3b82f6 90deg 180deg, #10b981 180deg 270deg, #f59e0b 270deg 360deg);
-      margin: 20px 0;
-      transition: transform 3s cubic-bezier(0.1, 2.7, 0.1, 1);
-    }
-
-    .wheel-pointer { font-size: 30px; position: absolute; top: -25px; z-index: 10; }
-
-    .swipe-card {
-      width: 100%;
-      max-width: 320px;
-      background: var(--card-bg);
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid var(--border-color);
-      margin-bottom: 20px;
-    }
-
-    .swipe-card img { width: 100%; height: 320px; object-fit: cover; }
-
-    .swipe-controls { display: flex; gap: 20px; }
-
-    .swipe-btn {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      border: none;
-      font-size: 24px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-    }
-
-    .swipe-pass { background: #ef4444; }
-    .swipe-vote { background: #10b981; }
-
     .close-overlay-btn {
       margin-top: 20px;
       background: #64748b;
@@ -1201,6 +953,233 @@
 
     .app-section-block {
       display: block;
+    }
+
+    .file-upload-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #334155;
+      color: #ffffff;
+      padding: 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      border: 1px dashed #ffd700;
+      transition: background 0.3s;
+    }
+    .file-upload-label:hover {
+      background: #475569;
+    }
+
+    .badge-chip {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 10px;
+      font-weight: bold;
+      margin: 2px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .spin-container {
+      background: var(--card-bg);
+      border: 2px solid #f39c12;
+      border-radius: 16px;
+      padding: 15px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .user-photos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .user-photo-item {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      height: 80px;
+    }
+    .user-photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .user-photo-votes-tag {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      background: rgba(0,0,0,0.7);
+      color: #ffd700;
+      font-size: 9px;
+      font-weight: bold;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+
+    .bio-text-box {
+      font-size: 12px;
+      color: #cbd5e1;
+      font-style: italic;
+      margin-bottom: 12px;
+      line-height: 1.4;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      word-break: break-word;
+    }
+
+    /* Direct Messenger Chat Box Styles */
+    .messenger-chat-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(15, 23, 42, 0.98);
+      z-index: 10005;
+      flex-direction: column;
+    }
+    .messenger-header {
+      background: #1e293b;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .messenger-user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .messenger-user-avatar {
+      width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid #0284c7;
+    }
+    .messenger-messages-area {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .msg-bubble {
+      max-width: 75%;
+      padding: 10px 14px;
+      border-radius: 18px;
+      font-size: 13px;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+    .msg-sent {
+      align-self: flex-start;
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      color: white;
+      border-bottom-right-radius: 4px;
+    }
+    .msg-received {
+      align-self: flex-end;
+      background: #334155;
+      color: white;
+      border-bottom-left-radius: 4px;
+    }
+    .msg-img {
+      max-width: 100%;
+      border-radius: 12px;
+      margin-top: 5px;
+    }
+    .messenger-input-bar {
+      background: #1e293b;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-top: 1px solid var(--border-color);
+    }
+    .action-icon-btn {
+      background: transparent;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #38bdf8;
+    }
+    .follow-btn-style {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      border: none;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .follow-btn-style.following {
+      background: #475569;
+      color: #e2e8f0;
+    }
+
+    .friends-inbox-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(15, 23, 42, 0.98);
+      backdrop-filter: blur(10px);
+      z-index: 10004;
+      flex-direction: column;
+      padding: 20px 15px;
+    }
+    .friends-inbox-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+    .friends-list-box {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .friend-row-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid var(--border-color);
+      padding: 12px;
+      border-radius: 16px;
+    }
+    .friend-user-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .friend-user-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #f39c12;
+    }
+    .chat-action-badge-btn {
+      background: #0284c7;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
     }
   </style>
 </head>
@@ -1254,7 +1233,7 @@
                 <rect x="0" y="8" width="24" height="8" fill="#ffffff"/>
                 <rect x="0" y="16" width="24" height="8" fill="#008751"/>
                 <circle cx="12" cy="12" r="4.5" fill="#ffd700"/>
-                <path d="M12,5 L12,19 M5,12 L19,12 M7,7 L17,17 M7,17 L17,7" stroke="#ffd700" stroke-width="1.2"/>
+                <path d="M12,5 L12,19 M5,12 L17,7" stroke="#ffd700" stroke-width="1.2"/>
               </g>
             </g>
           </svg>
@@ -1262,9 +1241,9 @@
         </div>
       </div>
 
-      <h1 class="hero-title">جوانترینەکانی کوردستان</h1>
-      <p class="hero-description">پێشبڕکێی گەورەی جوانترینەکانی کوردستان!<br>تاکە تاجی شایستەی ئەم خولە بەر کێ دەەکەوێت؟</p>
-      <button class="enter-btn" onclick="goToWebsite()">داخڵبوون بۆ پێشبڕکێ 🏆</button>
+      <h1 class="hero-title" id="txt-hero-title">جوانترینەکانی کوردستان</h1>
+      <p class="hero-description" id="txt-hero-desc">پێشبڕکێی گەورەی جوانترینەکانی کوردستان!<br>تاکە تاجی شایستەی ئەم خولە بەر کێ دەەکەوێت؟</p>
+      <button class="enter-btn" onclick="openAuthModal()" id="txt-enter-btn">داخڵبوون بۆ پێشبڕکێ 🏆</button>
     </div>
   </div>
 
@@ -1279,20 +1258,34 @@
 
   <div class="container">
       
+      <!-- Prominent Header Top Section -->
       <div class="header">
-          <h1>👑 جوانترینەکانی کوردستان</h1>
-          <div class="header-controls">
-              <button class="icon-btn" onclick="toggleTheme()" id="theme-btn">🌙</button>
-              <button class="icon-btn" onclick="toggleMusic()" id="music-btn">🔇</button>
-              <a href="https://t.me/KRDPEZHBRKE" target="_blank" class="upload-btn">📷 وێنەکەت دابنێ</a>
+          <div class="header-top-bar">
+              <h1 id="txt-app-title">👑 جوانترینەکانی کوردستان</h1>
+              <div class="header-controls">
+                  <div class="gem-balance-badge">
+                      <span>💎</span>
+                      <span id="top-gem-balance">0</span>
+                  </div>
+                  <button class="icon-btn" onclick="openFriendsInboxOverlay()" title="نامەکان / Inbox">💬</button>
+                  <button class="icon-btn" onclick="openUserProfileModal()" id="user-profile-btn" style="display:none; align-items:center; gap:5px; border:1px solid #ffd700;">
+                      <img id="header-avatar-img" src="https://i.ibb.co/84DfCgGV/IMG-5666.jpg" style="width:20px; height:20px; border-radius:50%; object-fit:cover;">
+                      <span id="header-username-text">پرۆفایل</span>
+                  </button>
+                  <button class="icon-btn" onclick="toggleTheme()" id="theme-btn">🌙</button>
+                  <button class="icon-btn" onclick="toggleMusic()" id="music-btn">🔇</button>
+              </div>
           </div>
+          <!-- Clear and Visible Upload Photo Button -->
+          <button onclick="openDirectUploadModal()" class="upload-btn-main" id="txt-upload-btn">
+              📷 وێنەکەت دابنێ لە پێشبڕکێ (1500 💎)
+          </button>
       </div>
 
       <div class="app-nav-menu">
-          <button class="nav-tab-btn active" onclick="switchAppSection('sec-main', this)">🔥 پەڕەی سەرەکی</button>
-          <button class="nav-tab-btn" onclick="switchAppSection('sec-games', this)">🎮 یارییەکان</button>
-          <button class="nav-tab-btn" onclick="switchAppSection('sec-analytics', this)">📊 ئامار و ڕادار</button>
-          <button class="nav-tab-btn" onclick="switchAppSection('sec-vip', this)">⚡ VIP و پاداشت</button>
+          <button class="nav-tab-btn active" onclick="switchAppSection('sec-main', this)" id="nav-main">🔥 پەڕەی سەرەکی</button>
+          <button class="nav-tab-btn" onclick="switchAppSection('sec-voters', this)" id="nav-voters">🏅 ڕیزبەندی دەنگدەران</button>
+          <button class="nav-tab-btn" onclick="switchAppSection('sec-shop', this)" id="nav-shop">💎 دوکانی گەوهەر</button>
       </div>
 
       <div id="sec-main" class="app-section-block">
@@ -1310,38 +1303,19 @@
               <img class="mvp-img" id="mvp-img" src="https://i.ibb.co/VYzrzDxW/852-D1-BFD-9414-4183-AF73-46279-AD09136.png">
           </div>
 
-          <div class="midnight-banner">
-              <span>🌙 دەنگی دووهێندە (2X Midnight Boost):</span>
-              <span id="midnight-status">لە کاتژمێر 12ی شەودا هەموو دەنگێک دەبێتە ٢ دەنگ! ⚡</span>
-          </div>
-
-          <div class="features-grid">
-              <button class="feature-btn wheel-btn" onclick="openWheel()">🎡 چەرخی چانس</button>
-              <button class="feature-btn" onclick="openVSMode()">⚔️ کێ جوانترە؟</button>
-              <button class="feature-btn" style="background: linear-gradient(135deg, #10b981, #059669);" onclick="openSwipeMode()">🃏 سوایپ و دەنگدان</button>
-              <button class="feature-btn" style="background: linear-gradient(135deg, #ec4899, #8b5cf6);" onclick="openPrediction()">🔮 پێشبینی براوە</button>
-          </div>
-
           <div class="promo-banner">
               <div class="promo-title">ئەگەر تۆ جوانی و خۆتت پێ جوانە، ئێستا وێنەکەت دابنێ!</div>
               <div class="promo-desc">تەنها لێرە وێنەکەت بڵاو دەبێتەوە تا تەواوی جیهان بیبینن و دەنگت پێبدەن.</div>
               <div class="promo-box">
                   🏆 ئەگەر ببیتە خاوەنی زۆرترین دەنگ، تۆ دەبیتە جوانترینی هەموو ئەوانەی لێرەدان!
               </div>
+              <button onclick="openDirectUploadModal()" class="upload-btn-main" style="background: linear-gradient(135deg, #10b981, #059669); border-color:#ffffff;">
+                  📸 ئادکردنی وێنەی نوێ
+              </button>
           </div>
 
           <div class="search-box">
               <input type="text" id="search-input" class="search-input" placeholder="🔍 گەڕان بەدوای بەشداربوو..." oninput="handleSearch()">
-          </div>
-
-          <div class="timer-box">
-              <div class="timer-title">⏳ کاتی مابوو بۆ راگەیاندنی براوەی ئەم مانگە:</div>
-              <div class="timer-display" id="countdown">
-                  <span class="timer-unit"><span id="days">30</span> ڕۆژ</span> : 
-                  <span class="timer-unit"><span id="hours">00</span> کاتژمێر</span> : 
-                  <span class="timer-unit"><span id="minutes">00</span> خولەک</span> : 
-                  <span class="timer-unit"><span id="seconds">00</span> چرکە</span>
-              </div>
           </div>
 
           <div class="podium-container" id="podium-section"></div>
@@ -1371,135 +1345,284 @@
           </div>
       </div>
 
-      <div id="sec-games" class="app-section-block" style="display:none;">
-          <div class="secret-hunt-box">
-              <div class="secret-hunt-title">🔍 یاری وشەی نهێنی (Secret Word Hunt)</div>
-              <p style="font-size:11px; color:#fef3c7; margin-bottom:8px;">وشەی نهێنی ئەمڕۆ بدۆزەوە و لە خوارەوە بینوسە بۆ وەرگرتنی دیارییەک! (وشەکە: <span style="background:rgba(0,0,0,0.5); padding:2px 6px; border-radius:4px; font-weight:bold;">KRD2026</span>)</p>
-              <div style="display:flex; gap:6px;">
-                  <input type="text" id="secret-word-input" class="search-input" placeholder="وشەی نهێنی بنووسە..." style="padding:8px; font-size:12px;">
-                  <button class="upload-btn" style="background:#f59e0b; color:black;" onclick="claimSecretWord()">پشکنین</button>
-              </div>
-          </div>
-
-          <div class="poll-war-box">
-              <div class="poll-question">🔥 کێ وەفادارترە لە خۆشەویستیدا؟</div>
-              <div class="poll-btns">
-                  <button class="poll-btn poll-boy" onclick="votePoll('boy')">♂ کوڕان (<span id="boy-poll-count">52%</span>)</button>
-                  <button class="poll-btn poll-girl" onclick="votePoll('girl')">♀ کچان (<span id="girl-poll-count">48%</span>)</button>
-              </div>
-          </div>
-
-          <div class="daily-battle-box" id="daily-battle-section">
-              <div class="daily-battle-title">🔥 کێبڕکێی گەرمی ئەمڕۆ (Daily Battle)</div>
-              <div class="daily-battle-grid" id="daily-battle-content">
-                  <span style="font-size: 12px; color: var(--subtext-color);">لە باربووندایە...</span>
-              </div>
-          </div>
-
-          <div class="ship-container">
-              <div class="ship-title">💘 یاری گونجان: کام کوڕ و کچە بۆ یەکتر دەشنێن؟</div>
-              <div class="ship-box" id="ship-box-content">
-                  <span style="font-size:12px;">داگرتنی گونجان...</span>
-              </div>
-              <button class="upload-btn" style="background:white; color:#ec4899; padding:6px 15px;" onclick="generateRandomShip()">🎲 تاقی کردنەوەی کەسی تر</button>
-          </div>
-
-          <div class="fun-zone-section">
-              <div class="fun-zone-title">🎮 ناوچەی یاری و ململانێکان (Fun Zone)</div>
-              
-              <div class="fun-sub-box">
-                  <div class="fun-sub-title">🤖 شیکاری جوانی بە ژیریی دەستکرد (AI Beauty Meter)</div>
-                  <p style="font-size:11px; color:var(--subtext-color); margin-bottom:8px;">ناوی خۆت یان هاوڕێکەت بنووسە تا ژیریی دەستکرد ڕێژەی جوانیی و کۆمێنتێکی کۆمیدیت پێبڵێت!</p>
-                  <div style="display:flex; gap:6px;">
-                      <input type="text" id="ai-name-input" class="search-input" placeholder="ناو بنووسە..." style="padding:8px; font-size:12px;">
-                      <button class="upload-btn" style="background:#8b5cf6; color:white;" onclick="runAiBeautyMeter()">پشکنین ✨</button>
-                  </div>
-                  <div id="ai-result-box" style="display:none; margin-top:8px; padding:8px; background:rgba(0,0,0,0.4); border-radius:8px; font-size:11px; color:#a855f7; font-weight:bold;"></div>
-              </div>
-
-              <div class="fun-sub-box">
-                  <div class="fun-sub-title">🎵 داواکاری دێدیکەیت و گۆرانی (Vibe Stream)</div>
-                  <div class="dedicate-marquee">
-                      <marquee id="marquee-text" scrollamount="4">🎵 مێوانێک گۆرانییەکی بەخشی بە (لیا هوسێن) ❤️ | ✨ دیار گۆرانییەکی دێدیکەیت کرد بۆ (شەنێ هەولێری)!</marquee>
-                  </div>
-                  <div style="display:flex; flex-direction:column; gap:6px;">
-                      <input type="text" id="dedicate-song" class="search-input" placeholder="ناوی گۆرانی / تێکست..." style="padding:6px; font-size:11px;">
-                      <select id="dedicate-target-profile" class="search-input" style="padding:6px; font-size:11px; cursor:pointer;">
-                          <option value="">بۆ کێی دەبەخشیت؟</option>
-                      </select>
-                      <button class="upload-btn" style="background:#10b981; color:white; padding:6px;" onclick="sendDedication()">ناردنی دێدیکەیت 💖</button>
-                  </div>
-              </div>
-
-              <div class="fun-sub-box">
-                  <div class="fun-sub-title">✨ کێبڕکێی ستایل و تایپەکان (Type vs Type)</div>
-                  <div style="font-size:12px; font-weight:bold; color:white; text-align:center; margin-bottom:8px;">👁️ کام ستایلی چاو جذابترە؟</div>
-                  <div style="display:flex; gap:8px;">
-                      <button class="poll-btn" style="background:#0284c7;" onclick="voteStyleType('green')">👁️ چاو سەوز / شین (<span id="type-green-count">55%</span>)</button>
-                      <button class="poll-btn" style="background:#d97706;" onclick="voteStyleType('brown')">👁️ چاو قاوەیی / ڕەش (<span id="type-brown-count">45%</span>)</button>
-                  </div>
+      <div id="sec-voters" class="app-section-block" style="display:none;">
+          <div class="packages-section" style="border: 1px solid #ffd700;">
+              <div class="packages-title" style="font-size:15px; color:#ffd700;">🏆 ڕیزبەندی چالاکترین دەنگدەرانی هەفتە</div>
+              <p style="font-size:11px; color:var(--subtext-color); text-align:center; margin-bottom:15px;">ئەو کەسانەی زۆرترین گەوهەریان بۆ بەخشینی دەنگ بەکارهێناوە!</p>
+              <div id="voters-leaderboard-feed" style="display:flex; flex-direction:column; gap:8px;">
               </div>
           </div>
       </div>
 
-      <div id="sec-analytics" class="app-section-block" style="display:none;">
-          <div class="memes-wall-section">
-              <div class="memes-wall-title">😂 دیواری مەمز و قسە خۆشەکان</div>
-              <div class="meme-bubble">"کچ کاتێک دەڵێت: (باشە، تەواو) 💀 واتە مەترسی گەورە لە ئارادایە!"</div>
-              <div class="meme-bubble">"کوڕ کاتێک سەیری فۆتۆکەی خۆی دەکات: (ئێمە ئەکتەری هەۆلیبین نەک ئاسایی! 😎)"</div>
-          </div>
+      <div id="sec-shop" class="app-section-block" style="display:none;">
 
-          <div class="radar-box">
-              <div class="radar-title">📡 ڕاداری خێراترین بەرزبوونەوەی کاتژمێر (24h Gainers)</div>
-              <div class="radar-list" id="radar-list-content">
-                  <div class="radar-item">🔥 لە باربووندایە...</div>
+          <!-- Daily Gift Wheel Section (Moved here explicitly) -->
+          <div class="spin-container">
+              <div style="font-size:15px; font-weight:bold; color:#f1c40f; margin-bottom:6px;">🎁 دیاری ڕۆژانە (چەرخی بەخت)</div>
+              <p style="font-size:11px; color:var(--subtext-color); margin-bottom:12px;">ڕۆژانە جارێک بێبەرامبەر بپۆڕێنە و دەنگ یان EXP ببەرەوە!</p>
+              <button class="upload-btn-main" style="background:#10b981; color:white;" onclick="spinDailyWheel()">🎰 خولاندنەوەی چەرخی بەخت</button>
+          </div>
+          
+          <div class="packages-section" style="border: 1px solid #38bdf8;">
+              <div class="packages-title" style="color:#38bdf8; font-size:16px;">🎟️ داخڵکردنی کۆدی گەوهەر</div>
+              <p style="font-size:11px; color:var(--subtext-color); text-align:center; margin-bottom:12px;">کۆدە ٦ پیتی/ژمارەیییەکە بنووسە تا گەوهەرەکانت بۆ زیاد ببێت:</p>
+              <div style="display: flex; gap: 8px; flex-direction: column;">
+                  <input type="text" id="gem-code-input" class="search-input" placeholder="کۆدی ٦ پیت یان ژمارە..." maxlength="6" style="text-align: center; font-weight: bold; letter-spacing: 3px; font-size:16px; text-transform:uppercase;">
+                  <button class="upload-btn-main" style="background:#0284c7;" onclick="redeemGemCode()">زیادکردنی گەوهەر 💎</button>
               </div>
           </div>
 
-          <div class="city-war-section">
-              <div class="city-war-title">🌆 کێبڕکێ و دەنگی شارەکان (City Standings)</div>
-              <div id="city-war-bars"></div>
-          </div>
-      </div>
-
-      <div id="sec-vip" class="app-section-block" style="display:none;">
           <div class="packages-section">
-              <div class="packages-title">⚡ پاکێجەکانی دەنگی VIP (کڕینی خێرا)</div>
-              <div class="packages-grid">
-                  <a href="https://t.me/KRDPEZHBRKE" target="_blank" class="pkg-card">
-                      <div class="pkg-votes">10 دەنگ</div>
-                      <div class="pkg-price">5$</div>
-                  </a>
-                  <a href="https://t.me/KRDPEZHBRKE" target="_blank" class="pkg-card">
-                      <div class="pkg-votes">25 دەنگ</div>
-                      <div class="pkg-price">10$</div>
-                  </a>
-                  <a href="https://t.me/KRDPEZHBRKE" target="_blank" class="pkg-card">
-                      <div class="pkg-votes">60 دەنگ</div>
-                      <div class="pkg-price">20$</div>
-                  </a>
+              <div class="packages-title" style="font-size:16px; color:#ffd700; margin-bottom:15px;">🛒 دوکانی گەوهەر (کڕینی ڕاستەوخۆ)</div>
+              
+              <div class="gem-shop-card">
+                  <div>
+                      <div class="gem-shop-title">💎 ۱۰۰ گەوهەر</div>
+                  </div>
+                  <a href="https://t.me/KRDPEZHBRKE?text=%D8%B3%DA%B5%D8%A7%D9%8ء%20%D8%AF%DB%95%D9%85%DA%A9%D8%B1%DA%A9%D8%B1%D8%AF%D9%86%DB%8C%20100%20%DA%AF%DB%95%D9%88%D9%87%DB%95%D8%B1" target="_blank" class="gem-buy-btn">0.99$</a>
+              </div>
+
+              <div class="gem-shop-card">
+                  <div>
+                      <div class="gem-shop-title">💎 ۵۰۰ گەوهەر</div>
+                  </div>
+                  <a href="https://t.me/KRDPEZHBRKE?text=%D8%B3%DA%B5%D8%A7%D9%8ء%20%D8%AF%DB%95%D9%85%DA%A9%D8%B1%DA%A9%D8%B1%D8%AF%D9%86%DB%8C%20500%20%DA%AF%DB%95%D9%88%D9%87%DB%95%D8%B1" target="_blank" class="gem-buy-btn">4.99$</a>
+              </div>
+
+              <div class="gem-shop-card">
+                  <div>
+                      <div class="gem-shop-title">💎 ۹۵0 گەوهەر</div>
+                      <div class="gem-shop-bonus">زیادە +۵%</div>
+                  </div>
+                  <a href="https://t.me/KRDPEZHBRKE?text=%D8%B3%DA%B5%D8%A7%D9%8ء%20%D8%AF%DB%95%D9%85%DA%A9%D8%B1%DA%A9%D8%B1%D8%AF%D9%86%DB%8C%20950%20%DA%AF%DB%95%D9%88%D9%87%DB%95%D8%B1" target="_blank" class="gem-buy-btn">8.99$</a>
+              </div>
+
+              <div class="gem-shop-card">
+                  <div>
+                      <div class="gem-shop-title">💎 ۲,۲۵۰ گەوهەر</div>
+                      <div class="gem-shop-bonus">زیادە +۱۲%</div>
+                  </div>
+                  <a href="https://t.me/KRDPEZHBRKE?text=%D8%B3%DA%B5%D8%A7%D9%8ء%20%D8%AF%DB%95%D9%85%DA%A9%D8%B1%DA%A9%D8%B1%D8%AF%D9%86%DB%8C%202250%20%DA%AF%DB%95%D9%88%D9%87%DB%95%D8%B1" target="_blank" class="gem-buy-btn">19.99$</a>
               </div>
           </div>
 
           <div class="packages-section" style="border: 1px solid #10b981; text-align: center;">
-              <div class="packages-title" style="color:#10b981;">🎁 داوەتکردنی ٥ هاوڕێ (کۆدی ٥ دەنگی VIP)</div>
-              <p style="font-size:11px; color:var(--subtext-color); margin-bottom:6px;">هاوڕێیەکانت بەستەوە! کاتێک ٥ هاوڕێ بێنە سەر وێبسایتەکە، کۆدی ٥ دەنگت پێدەدرێت.</p>
+              <div class="packages-title" style="color:#10b981;">🎁 داوەتکردنی ٥ هاوڕێ (کۆدی ٥۰ گەوهەری بەخۆڕایی)</div>
+              <p style="font-size:11px; color:var(--subtext-color); margin-bottom:6px;">هاوڕێیەکانت بەستەوە! کاتێک ٥ هاوڕێ بێنە سەر وێبسایتەکە، کۆدی ٥٠ گەوهەرت پێدەدرێت.</p>
               <div style="font-size:12px; font-weight:bold; color:#f1c40f; margin-bottom:10px;">ژمارەی داوەتە سەرکەوتووەکانی تۆ: <span id="invite-count-display">0</span> / 5</div>
-              <button class="upload-btn" style="background:#10b981; color:white; width:100%; padding:10px;" onclick="copyInviteLink()">📲 کۆپیکردنی لینکی تایبەتی داوەتکردن</button>
+              <button class="upload-btn-main" style="background:#10b981;" onclick="copyInviteLink()">📲 کۆپیکردنی لینکی تایبەتی داوەتکردن</button>
           </div>
 
-          <div class="packages-section" style="border: 1px solid #f39c12;">
-              <div class="packages-title">🎟️ تۆمارکردنی کۆدی VIP</div>
-              <div style="display: flex; gap: 8px; flex-direction: column;">
-                  <input type="text" id="vip-code-input" class="search-input" placeholder="کۆدە ٧ ژمارەیییەکە بنووسە..." maxlength="7" style="text-align: center; font-weight: bold; letter-spacing: 2px;">
-                  <select id="vip-target-profile" class="search-input" style="cursor: pointer;">
-                      <option value="">کەسێک هەڵبژێرە بۆ پێدانی دەنگەکە...</option>
-                  </select>
-                  <button class="upload-btn" style="width: 100%; padding: 12px;" onclick="redeemVipCode()">تۆمارکردن و ڕەوانەکردنی دەنگ</button>
+      </div>
+
+  </div>
+
+  <div class="friends-inbox-overlay" id="friends-inbox-overlay">
+      <div class="friends-inbox-header">
+          <button onclick="closeFriendsInboxOverlay()" style="background:none; border:none; color:white; font-size:20px; cursor:pointer;">➔</button>
+          <input type="text" id="friends-search-input" class="search-input" placeholder="گەڕان..." style="width:70%; font-size:12px; padding:8px 12px; background:#1e293b;" oninput="renderFriendsListUI()">
+          <span style="font-size:12px; color:#10b981;">ئۆفلاین ⭕</span>
+      </div>
+
+      <div style="font-size:13px; font-weight:bold; color:#aaa; margin-bottom:10px;">هاوڕێیان و چاتەکان:</div>
+
+      <div class="friends-list-box" id="friends-list-feed">
+      </div>
+  </div>
+
+  <div class="messenger-chat-modal" id="messenger-modal">
+      <div class="messenger-header">
+          <div class="messenger-user-info">
+              <button onclick="closeMessengerChat()" style="background:none; border:none; color:white; font-size:20px; cursor:pointer; margin-left:8px;">➔</button>
+              <div style="position:relative;">
+                  <img id="chat-target-avatar" src="" class="messenger-user-avatar">
+                  <span style="position:absolute; bottom:2px; left:2px; width:10px; height:10px; background:#10b981; border-radius:50%; border:2px solid #1e293b;"></span>
+              </div>
+              <div>
+                  <div id="chat-target-name" style="font-weight:bold; font-size:14px;">...</div>
+                  <div style="font-size:10px; color:#10b981;">Online</div>
+              </div>
+          </div>
+          <button class="follow-btn-style" id="chat-follow-btn" onclick="toggleFollowTargetFromChat()">➕ Follow</button>
+      </div>
+
+      <div class="messenger-messages-area" id="messenger-feed">
+      </div>
+
+      <div class="messenger-input-bar">
+          <label for="chat-image-input" class="action-icon-btn">📷</label>
+          <input type="file" id="chat-image-input" accept="image/*" style="display:none;" onchange="sendChatImage(event)">
+
+          <input type="text" id="messenger-input" class="comment-input" placeholder="نامەیەک بنووسە..." style="background:#0f172a;" onkeypress="if(event.key==='Enter') sendDirectMessage()">
+          
+          <button class="btn-send-comment" style="background:#0284c7; color:white; padding:8px 14px;" onclick="sendDirectMessage()">ناردن</button>
+      </div>
+  </div>
+
+  <div class="modal" id="public-user-profile-modal" style="display:none; z-index:10002;">
+    <div style="background: rgba(18, 18, 20, 0.95); border: 1.5px solid rgba(255, 215, 0, 0.4); border-radius: 24px; padding: 25px 20px; width: 92%; max-width: 380px; text-align: center; color: white; box-shadow: 0 10px 40px rgba(0,0,0,0.9); position:relative; max-height:90vh; overflow-y:auto;">
+      
+      <button onclick="closePublicUserProfileModal()" style="position:absolute; top:15px; left:15px; background:transparent; border:none; color:#aaa; font-size:18px; cursor:pointer;">✕</button>
+
+      <div style="position:relative; width:110px; height:110px; margin:0 auto 15px auto;">
+          <img id="public-user-modal-avatar" src="https://i.ibb.co/84DfCgGV/IMG-5666.jpg" style="width:100%; height:100%; border-radius:50%; object-fit:cover; border:3px solid #ffd700; box-shadow:0 0 20px rgba(255,215,0,0.5);">
+      </div>
+
+      <h3 id="public-user-modal-name" style="font-size:20px; font-weight:bold; color:#ffffff; margin-bottom:4px;">...</h3>
+      
+      <div id="public-user-badges-box" style="margin-bottom:8px;"></div>
+
+      <div id="public-user-bio-display" class="bio-text-box" style="display:none;"></div>
+
+      <div id="public-user-level-badge" style="display:inline-block; padding:4px 15px; border-radius:20px; font-size:12px; font-weight:bold; margin-bottom:15px;">
+          ئاستی <span id="public-user-modal-level">١</span>
+      </div>
+
+      <div style="display:flex; justify-content:center; gap:10px; margin-bottom:15px;">
+          <button class="follow-btn-style" id="profile-follow-btn" onclick="toggleFollowPublicUser()">➕ Follow</button>
+          <button class="follow-btn-style" style="background:#0284c7;" onclick="openMessengerWithTarget(currentPublicUserKey)">💬 چات / ناردنی نامە</button>
+      </div>
+
+      <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 12px; margin-bottom: 15px;">
+          <div style="display:flex; justify-content:space-around; align-items:center;">
+              <div onclick="showFollowersList()" style="cursor:pointer;">
+                  <div style="font-size:16px; font-weight:bold; color:#38bdf8;" id="public-followers-count">٠</div>
+                  <div style="font-size:11px; color:#aaa; margin-top:2px;">Followers</div>
+              </div>
+              <div style="width:1px; height:25px; background:rgba(255,255,255,0.1);"></div>
+              <div onclick="showFollowingList()" style="cursor:pointer;">
+                  <div style="font-size:16px; font-weight:bold; color:#ffd700;" id="public-following-count">٠</div>
+                  <div style="font-size:11px; color:#aaa; margin-top:2px;">Following</div>
               </div>
           </div>
       </div>
 
+      <div style="text-align:right; margin-bottom:10px;">
+          <div style="font-size:12px; font-weight:bold; color:#ffd700;">🖼️ وێنە بڵاوکراوەکانی ئەم بەکارهێنەرە لە پێشبڕکێ:</div>
+          <div class="user-photos-grid" id="public-user-photos-grid"></div>
+      </div>
+
+      <div id="public-user-social-container" style="display:none; font-size:13px; color:#38bdf8; margin-top:10px; font-weight:bold;">
+          🌐 سۆشیال میدیا: <span id="public-user-social-text"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="direct-upload-modal" style="display:none; z-index:10003;">
+    <div style="background: var(--card-bg); border: 2px solid #f39c12; border-radius: 20px; padding: 25px; width: 90%; max-width: 380px; text-align: center; color: white;">
+      <h3 style="color: #f39c12; margin-bottom: 10px; font-size: 18px;">📸 زیادکردنی وێنە بۆ پێشبڕکێ</h3>
+      <p style="font-size: 12px; color: var(--subtext-color); margin-bottom: 15px;">نرخی دانانی وێنەی نوێ: <b>١٥٠٠ 💎 گەوهەر</b></p>
+      
+      <input type="text" id="contest-entry-name" class="search-input" placeholder="👤 ناوی بەشداربوو..." style="margin-bottom: 10px; text-align: center;">
+      
+      <select id="contest-entry-category" class="search-input" style="margin-bottom: 10px; text-align: center;">
+          <option value="girls">♀ بەشی کچان</option>
+          <option value="boys">♂ بەشی کوڕان</option>
+      </select>
+
+      <div style="margin-bottom: 15px;">
+          <label class="file-upload-label" for="contest-file-input">
+              🖼️ هەڵبژاردنی وێنە لە مۆبایلەکەت
+          </label>
+          <input type="file" id="contest-file-input" accept="image/*" style="display:none;" onchange="handleContestPhotoSelect(event)">
+      </div>
+
+      <img id="contest-photo-preview" src="" style="width:100px; height:100px; border-radius:12px; object-fit:cover; display:none; margin:0 auto 15px auto; border:2px solid #f39c12;">
+
+      <button class="enter-btn" style="padding: 12px; font-size: 1rem; margin-bottom: 10px; background:linear-gradient(135deg, #f59e0b, #d97706);" onclick="submitDirectContestPhoto()">زیادکردن بڕی ١٥٠0 💎</button>
+      <button class="close-overlay-btn" style="margin-top:0; width:100%;" onclick="closeDirectUploadModal()">پاشگەزبوونەوە</button>
+    </div>
+  </div>
+
+  <div class="modal" id="auth-modal" style="display:none; z-index:10000;">
+    <div style="background: var(--card-bg); border: 2px solid #ffd700; border-radius: 20px; padding: 25px; width: 90%; max-width: 380px; text-align: center; color: white;">
+      <h3 style="color: #ffd700; margin-bottom: 10px; font-size: 18px;">🔑 چوونەژوورەوە / خۆتۆمارکردن</h3>
+      <p style="font-size: 12px; color: var(--subtext-color); margin-bottom: 15px;">ناوی خۆت و پاسۆردێک بنووسە بۆ ئەوەی لە هەر ئامێرێکەوە چوویتە ژوورەوە ئەکاونتەکەت بێتەوە.</p>
+      
+      <input type="text" id="auth-username" class="search-input" placeholder="👤 ناوی بەکارهێنەر" style="margin-bottom: 10px; text-align: center;">
+      <input type="password" id="auth-password" class="search-input" placeholder="🔒 پاسۆرد (کۆد)" style="margin-bottom: 15px; text-align: center;">
+      
+      <button class="enter-btn" style="padding: 12px; font-size: 1rem; margin-bottom: 10px;" onclick="handleUserAuth()">چوونەژوورەوە 🚀</button>
+      <button class="close-overlay-btn" style="margin-top:0; width:100%;" onclick="closeAuthModal()">پاشگەزبوونەوە</button>
+    </div>
+  </div>
+
+  <div class="modal" id="user-profile-modal" style="display:none; z-index:10001;">
+    <div style="background: rgba(18, 18, 20, 0.95); border: 1.5px solid rgba(255, 215, 0, 0.4); border-radius: 24px; padding: 25px 20px; width: 92%; max-width: 380px; text-align: center; color: white; box-shadow: 0 10px 40px rgba(0,0,0,0.9); position:relative; max-height:90vh; overflow-y:auto;">
+      
+      <button onclick="closeUserProfileModal()" style="position:absolute; top:15px; left:15px; background:transparent; border:none; color:#aaa; font-size:18px; cursor:pointer;">✕</button>
+
+      <div style="position:relative; width:110px; height:110px; margin:0 auto 15px auto;">
+          <img id="user-modal-avatar" src="https://i.ibb.co/84DfCgGV/IMG-5666.jpg" style="width:100%; height:100%; border-radius:50%; object-fit:cover; border:3px solid #ffd700; box-shadow:0 0 20px rgba(255,215,0,0.5);">
+      </div>
+
+      <h3 id="user-modal-name" style="font-size:20px; font-weight:bold; color:#ffffff; margin-bottom:4px;">...</h3>
+      
+      <div id="user-badges-box" style="margin-bottom:10px;"></div>
+
+      <div id="user-level-badge-container" style="display:inline-block; padding:4px 15px; border-radius:20px; font-size:12px; font-weight:bold; margin-bottom:6px;">
+          ئاستی <span id="user-modal-level-name">بڕۆنز 🥉</span> (<span id="user-modal-exp">0</span> EXP)
+      </div>
+
+      <div class="exp-bar-container">
+          <div class="exp-bar-fill" id="user-exp-bar-fill"></div>
+      </div>
+      <div style="font-size:10px; color:#aaa; margin-top:4px; margin-bottom:15px;" id="user-exp-next-text">تەنها 500 EXP مابوو بۆ ئاستی زیو 🥈</div>
+
+      <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 15px; margin-bottom: 15px;">
+          <div style="display:flex; justify-content:space-around; align-items:center;">
+              <div>
+                  <div style="font-size:16px; font-weight:bold; color:#38bdf8;" id="user-stat-gems">٠</div>
+                  <div style="font-size:11px; color:#aaa; margin-top:2px;">باڵانسی گەوهەر</div>
+              </div>
+              <div style="width:1px; height:25px; background:rgba(255,255,255,0.1);"></div>
+              <div>
+                  <div style="font-size:16px; font-weight:bold; color:#f1c40f;" id="user-stat-my-uploads">٠</div>
+                  <div style="font-size:11px; color:#aaa; margin-top:2px;">وێنەی بڵاوکراوە</div>
+              </div>
+          </div>
+      </div>
+
+      <div style="text-align:right; margin-bottom:12px;">
+          <div style="font-size:12px; font-weight:bold; color:#ffd700;">🖼️ وێنە بڵاوکراوەکانم لە پێشبڕکێ:</div>
+          <div class="user-photos-grid" id="my-user-photos-grid"></div>
+      </div>
+
+      <div style="text-align:right; margin-bottom:12px;">
+          <label class="file-upload-label" for="avatar-file-input">
+              📁 هەڵبژاردنی وێنە لە مۆبایلەکەت
+          </label>
+          <input type="file" id="avatar-file-input" accept="image/*" style="display:none;" onchange="handleAvatarFileSelect(event)">
+      </div>
+
+      <div style="text-align:right; margin-bottom:8px;">
+          <label style="font-size:11px; color:#aaa; display:block; margin-bottom:4px;">✏️ ناوی بەکارهێنەری نوێ:</label>
+          <input type="text" id="edit-username-input" class="search-input" placeholder="ناوی نوێ..." style="font-size:12px; padding:8px;">
+      </div>
+
+      <div style="text-align:right; margin-bottom:8px;">
+          <label style="font-size:11px; color:#aaa; display:block; margin-bottom:4px;">📝 بایۆ / دەربارەی خۆت (تا ١٠٠ پیت):</label>
+          <input type="text" id="edit-bio-input" class="search-input" placeholder="وێنەیەکی کورت بنووسە..." maxlength="100" style="font-size:12px; padding:8px;">
+      </div>
+
+      <div style="text-align:right; margin-bottom:8px; display:flex; align-items:center; gap:8px;">
+          <input type="checkbox" id="hide-followers-check">
+          <label for="hide-followers-check" style="font-size:11px; color:#ffd700;">🔒 شاردنەوەی لیستی فۆڵۆوەرەکانم لای خەڵک</label>
+      </div>
+
+      <div style="text-align:right; margin-bottom:8px;">
+          <label style="font-size:11px; color:#aaa; display:block; margin-bottom:4px;">🔒 پاسۆردی نوێ:</label>
+          <input type="password" id="edit-password-input" class="search-input" placeholder="پاسۆردی نوێ..." style="font-size:12px; padding:8px;">
+      </div>
+
+      <div style="text-align:right; margin-bottom:15px;">
+          <label style="font-size:11px; color:#38bdf8; display:block; margin-bottom:4px;">🌐 ئایدی سۆشیال میدیا (Snap / Insta):</label>
+          <input type="text" id="edit-social-input" class="search-input" placeholder="نموونە: @yusf_snap" style="font-size:12px; padding:8px;">
+      </div>
+
+      <button class="enter-btn" style="padding:10px; font-size:0.9rem; margin-bottom:8px;" onclick="saveUserProfileChanges()">تۆمارکردنی گۆڕانکارییەکان 💾</button>
+      <button class="close-overlay-btn" style="width:100%; margin-top:0; background:#ef4444;" onclick="logoutUser()">دەربازبوون لە ئەکاونت 🚪</button>
+    </div>
   </div>
 
   <div class="modal" id="img-modal" onclick="closeModal()">
@@ -1519,53 +1642,13 @@
           </div>
       </div>
 
-      <button class="upload-btn" style="margin-top:15px; width:220px; padding:10px; background:#10b981; color:white;" onclick="downloadStoryCardImage()">📥 داگرتنی وێنەی کارتەکە</button>
+      <button class="upload-btn-main" style="margin-top:15px; width:220px; padding:10px; background:#10b981; color:white;" onclick="downloadStoryCardImage()">📥 داگرتنی وێنەی کارتەکە</button>
       <button class="close-overlay-btn" onclick="closeOverlay('story-card-modal')">داخستن</button>
-  </div>
-
-  <div class="overlay-screen" id="wheel-screen">
-      <h2>🎡 چەرخی چانسی ڕۆژانە</h2>
-      <p style="font-size: 12px; color: var(--subtext-color); margin-top: 5px;">بیخولێنەرەوە و دەنگی دیاری بە ڕاستی بۆ بەشداربوویەک بنێرە!</p>
-      <div style="position: relative;">
-          <div class="wheel-pointer">👇</div>
-          <div class="wheel-container" id="wheel-disc">🎁</div>
-      </div>
-      
-      <div id="wheel-target-box" style="display:none; width:100%; max-width:320px; margin-bottom:15px;">
-          <p style="font-size:12px; color:#f1c40f; margin-bottom:6px;">کەسێک هەڵبژێرە تا دەنگە دیارییەکەی بۆ بنێریت:</p>
-          <select id="wheel-target-profile" class="search-input" style="cursor: pointer; font-size:12px; padding:8px;"></select>
-      </div>
-
-      <button class="upload-btn" id="spin-btn" style="padding: 12px 25px; font-size: 15px;" onclick="spinWheel()">خولاندنەوە</button>
-      <button class="close-overlay-btn" onclick="closeOverlay('wheel-screen')">داخستن</button>
-  </div>
-
-  <div class="overlay-screen" id="vs-window">
-      <h2 style="color: #f39c12; margin-bottom: 15px;">⚔️ کامەیان جوانترە؟</h2>
-      <div style="display: flex; gap: 10px; width: 100%; max-width: 440px;" id="vs-cards-container"></div>
-      <button class="close-overlay-btn" onclick="closeOverlay('vs-window')">داخستن</button>
-  </div>
-
-  <div class="overlay-screen" id="swipe-screen">
-      <h2 style="margin-bottom: 15px;">🃏 سوایپ بکە و دەنگ بدە</h2>
-      <div class="swipe-card" id="swipe-card-content"></div>
-      <div class="swipe-controls">
-          <button class="swipe-btn swipe-pass" onclick="nextSwipeCard()">❌</button>
-          <button class="swipe-btn swipe-vote" onclick="swipeVoteCurrent()">❤️</button>
-      </div>
-      <button class="close-overlay-btn" onclick="closeOverlay('swipe-screen')">داخستن</button>
-  </div>
-
-  <div class="overlay-screen" id="prediction-screen">
-      <h2 style="color: #ec4899; margin-bottom: 10px;">🔮 پێشبینی براوەی ئەم مانگە</h2>
-      <p style="font-size: 13px; color: var(--subtext-color); margin-bottom: 20px;">بە ڕای تۆ کێ دەبێتە پلەی یەکەم؟</p>
-      <div id="prediction-list" style="width: 100%; max-width: 320px; display: flex; flex-direction: column; gap: 10px;"></div>
-      <button class="close-overlay-btn" onclick="closeOverlay('prediction-screen')">داخستن</button>
   </div>
 
   <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-      import { getDatabase, ref, onValue, update, runTransaction, push } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+      import { getDatabase, ref, onValue, update, runTransaction, push, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
       const firebaseConfig = {
         apiKey: "AIzaSyB9BhFcxhNU6zT4y5FLGyI8HLTHjjdPqKg",
@@ -1581,23 +1664,748 @@
       const app = initializeApp(firebaseConfig);
       const db = getDatabase(app);
 
+      let selectedBase64Avatar = "";
+      let selectedContestPhotoBase64 = "";
+      window.currentPublicUserKey = "";
+      let activeChatTargetKey = "";
+
+      window.calculateUserTier = function(exp) {
+          exp = exp || 0;
+          if (exp < 500) {
+              return { name: "بڕۆنز 🥉", icon: "🥉", color: "#cd7f32", bg: "rgba(205, 127, 50, 0.2)", border: "#cd7f32", max: 500, min: 0 };
+          } else if (exp < 1500) {
+              return { name: "زیو 🥈", icon: "🥈", color: "#c0c0c0", bg: "rgba(192, 192, 192, 0.2)", border: "#c0c0c0", max: 1500, min: 500 };
+          } else if (exp < 3000) {
+              return { name: "زێڕین 🥇", icon: "🥇", color: "#ffd700", bg: "rgba(255, 215, 0, 0.2)", border: "#ffd700", max: 3000, min: 1500 };
+          } else if (exp < 5000) {
+              return { name: "ئەڵماس 💎", icon: "💎", color: "#38bdf8", bg: "rgba(56, 189, 248, 0.2)", border: "#38bdf8", max: 5000, min: 3000 };
+          } else {
+              return { name: "پلاتینیۆم 👑", icon: "👑", color: "#a855f7", bg: "rgba(168, 85, 247, 0.2)", border: "#a855f7", max: 10000, min: 5000 };
+          }
+      };
+
+      window.updateUserGemsUI = function(gems) {
+          document.getElementById('top-gem-balance').innerText = gems || 0;
+      };
+
+      window.openDirectUploadModal = function() {
+          const loggedUser = localStorage.getItem('logged_in_user');
+          if (!loggedUser) {
+              alert("تکایە سەرەتا بچۆ ژوورەوە بۆ ئەوەی وێنەکەت دابنێیت!");
+              openAuthModal();
+              return;
+          }
+          document.getElementById('direct-upload-modal').style.display = 'flex';
+      };
+
+      window.closeDirectUploadModal = function() {
+          document.getElementById('direct-upload-modal').style.display = 'none';
+      };
+
+      window.handleContestPhotoSelect = function(event) {
+          const file = event.target.files[0];
+          if (!file) return;
+
+          if (file.size > 3 * 1024 * 1024) {
+              alert("تکایە وێنەیەک هەڵبژێرە کە قەبارەکەی لە 3MB کەمتر بێت!");
+              return;
+          }
+
+          const reader = new FileReader();
+          reader.onload = function(e) {
+              selectedContestPhotoBase64 = e.target.result;
+              const preview = document.getElementById('contest-photo-preview');
+              preview.src = selectedContestPhotoBase64;
+              preview.style.display = 'block';
+              showToast("وێنەکە هەڵبژێردرا 📸");
+          };
+          reader.readAsDataURL(file);
+      };
+
+      window.submitDirectContestPhoto = function() {
+          const loggedUser = localStorage.getItem('logged_in_user');
+          if (!loggedUser) return;
+
+          const entryName = document.getElementById('contest-entry-name').value.trim();
+          const category = document.getElementById('contest-entry-category').value;
+
+          if (!entryName || !selectedContestPhotoBase64) {
+              alert("تکایە ناوێک بنووسە و وێنەیەک لە مۆبایلەکەت هەڵبژێرە!");
+              return;
+          }
+
+          const userRef = ref(db, 'users/' + loggedUser.toLowerCase());
+          onValue(userRef, (snapshot) => {
+              const userData = snapshot.val();
+              if (userData && (userData.gems || 0) >= 1500) {
+                  let newGems = userData.gems - 1500;
+                  let newUploadsCount = (userData.uploadsCount || 0) + 1;
+
+                  update(userRef, { 
+                      gems: newGems,
+                      uploadsCount: newUploadsCount
+                  });
+                  updateUserGemsUI(newGems);
+
+                  const newProfileRef = push(ref(db, 'profiles'));
+                  update(newProfileRef, {
+                      name: entryName,
+                      category: category,
+                      image: selectedContestPhotoBase64,
+                      votes: 1,
+                      owner: loggedUser,
+                      ownerAvatar: userData.avatar || "https://i.ibb.co/84DfCgGV/IMG-5666.jpg",
+                      createdAt: new Date().getTime()
+                  }).then(() => {
+                      closeDirectUploadModal();
+                      selectedContestPhotoBase64 = "";
+                      document.getElementById('contest-entry-name').value = '';
+                      document.getElementById('contest-photo-preview').style.display = 'none';
+                      alert("🎉 پیرۆزە! وێنەکەت بە سەرکەوتوویی بە ١٥٠٠ گەوهەر لە پێشبڕکێکە جێگیرکرا!");
+                  });
+              } else {
+                  alert("گەوهەری پێویستت نییە! نرخەکەی ١٥٠٠ گەوهەرە. دەتوانی لە دوکان بڕی گەوهەر بکڕیت.");
+              }
+          }, { onlyOnce: true });
+      };
+
+      window.spinDailyWheel = function() {
+          const lastSpin = localStorage.getItem('last_wheel_spin');
+          const now = new Date().getTime();
+          if (lastSpin && (now - parseInt(lastSpin) < 24 * 60 * 60 * 1000)) {
+              alert("تۆ ئەمڕۆ چەرخەکەت خولاندۆتەوە! دوای ٢٤ کاتژمێر تاقی بکەرەوە.");
+              return;
+          }
+
+          const rewards = [10, 20, 50, 5];
+          const randomReward = rewards[Math.floor(Math.random() * rewards.length)];
+          localStorage.setItem('last_wheel_spin', now.toString());
+
+          addGemsToUser(randomReward);
+          alert(`🎉 پیرۆزە! بڕی (${randomReward}) گەوهەرت لە چەرخی بەخت بردەوە! 💎`);
+      };
+
+      window.openAuthModal = function() {
+          document.getElementById('auth-modal').style.display = 'flex';
+      };
+
+      window.closeAuthModal = function() {
+          document.getElementById('auth-modal').style.display = 'none';
+      };
+
+      window.handleUserAuth = function() {
+          const username = document.getElementById('auth-username').value.trim();
+          const password = document.getElementById('auth-password').value.trim();
+
+          if (!username || !password) {
+              alert('تکایە ناوی بەکارهێنەر و پاسۆرد بنووسە!');
+              return;
+          }
+
+          const userRef = ref(db, 'users/' + username.toLowerCase());
+          
+          onValue(userRef, (snapshot) => {
+              const userData = snapshot.val();
+              if (userData) {
+                  if (userData.password === password) {
+                      localStorage.setItem('logged_in_user', username);
+                      showToast(`بەخێربێیتەوە ${username}! 👋`);
+                      updateUserGemsUI(userData.gems || 0);
+                      closeAuthModal();
+                      goToWebsite();
+                  } else {
+                      alert('پاسۆردەکەت هەڵەیە! تکایە دووبارە تاقی بکەرەوە.');
+                  }
+              } else {
+                  update(ref(db, 'users/' + username.toLowerCase()), {
+                      username: username,
+                      password: password,
+                      exp: 0,
+                      gems: 10,
+                      gemsSpent: 0,
+                      bio: "",
+                      hideFollowers: false,
+                      uploadsCount: 0,
+                      createdAt: new Date().getTime()
+                  }).then(() => {
+                      localStorage.setItem('logged_in_user', username);
+                      showToast(`ئەکاونتەکەت دروستکرا! ۱۰ گەوهەرت بەدیاری وەرگرت 💎`);
+                      updateUserGemsUI(10);
+                      closeAuthModal();
+                      goToWebsite();
+                  });
+              }
+          }, { onlyOnce: true });
+      };
+
+      window.addGemsToUser = function(amount) {
+          const loggedUser = localStorage.getItem('logged_in_user');
+          if (!loggedUser) return;
+
+          const userRef = ref(db, 'users/' + loggedUser.toLowerCase());
+          onValue(userRef, (snapshot) => {
+              const data = snapshot.val();
+              if (data) {
+                  let currentGems = (data.gems || 0) + amount;
+                  update(userRef, { gems: currentGems });
+                  updateUserGemsUI(currentGems);
+              }
+          }, { onlyOnce: true });
+      };
+
+      window.openUserProfileModal = function() {
+          const loggedUser = localStorage.getItem('logged_in_user');
+          if (!loggedUser) return;
+
+          const userRef = ref(db, 'users/' + loggedUser.toLowerCase());
+          onValue(userRef, (snapshot) => {
+              const data = snapshot.val();
+              if (data) {
+                  const tier = calculateUserTier(data.exp || 0);
+
+                  document.getElementById('user-modal-name').innerText = data.username;
+                  document.getElementById('user-modal-avatar').src = data.avatar || "https://i.ibb.co/84DfCgGV/IMG-5666.jpg";
+                  document.getElementById('user-modal-level-name').innerText = tier.name;
+                  document.getElementById('user-modal-exp').innerText = data.exp || 0;
+                  
+                  const badgeContainer = document.getElementById('user-level-badge-container');
+                  badgeContainer.style.background = tier.bg;
+                  badgeContainer.style.border = `1px solid ${tier.border}`;
+                  badgeContainer.style.color = tier.color;
+
+                  let progressPercent = Math.min(100, Math.max(0, (((data.exp || 0) - tier.min) / (tier.max - tier.min)) * 100));
+                  document.getElementById('user-exp-bar-fill').style.width = `${progressPercent}%`;
+                  document.getElementById('user-exp-next-text').innerText = `تەنها ${tier.max - (data.exp || 0)} EXP مابوو بۆ ئاستی دواتر`;
+
+                  document.getElementById('user-stat-gems').innerText = data.gems || "٠";
+                  
+                  const myPhotosGrid = document.getElementById('my-user-photos-grid');
+                  myPhotosGrid.innerHTML = '';
+                  const userUploadedProfiles = profiles.filter(p => p.owner && p.owner.toLowerCase() === loggedUser.toLowerCase());
+                  document.getElementById('user-stat-my-uploads').innerText = userUploadedProfiles.length;
+
+                  if (userUploadedProfiles.length > 0) {
+                      userUploadedProfiles.forEach(photo => {
+                          const item = document.createElement('div');
+                          item.className = 'user-photo-item';
+                          item.onclick = function() { openModal(photo.image); };
+                          item.innerHTML = `
+                              <img src="${photo.image}">
+                              <div class="user-photo-votes-tag">💛 ${photo.votes}</div>
+                          `;
+                          myPhotosGrid.appendChild(item);
+                      });
+                  } else {
+                      myPhotosGrid.innerHTML = `<div style="font-size:11px; color:#aaa; grid-column:span 3; text-align:center;">هیچ وێنەیەکت دانەنەوە</div>`;
+                  }
+                  
+                  document.getElementById('edit-username-input').value = data.username;
+                  document.getElementById('edit-bio-input').value = data.bio || "";
+                  document.getElementById('edit-password-input').value = data.password;
+                  document.getElementById('edit-social-input').value = data.social || "";
+                  document.getElementById('hide-followers-check').checked = data.hideFollowers || false;
+
+                  const badgeBox = document.getElementById('user-badges-box');
+                  badgeBox.innerHTML = '';
+                  if ((data.gemsSpent || 0) > 100) badgeBox.innerHTML += `<span class="badge-chip" style="background:#0284c7; color:white;">💎 پشتگیریکاری مەلیکی</span>`;
+
+                  document.getElementById('user-profile-modal').style.display = 'flex';
+              }
+          }, { onlyOnce: true });
+      };
+
+      window.closeUserProfileModal = function() {
+          document.getElementById('user-profile-modal').style.display = 'none';
+      };
+
+      window.openPublicUserProfile = function(usernameKey) {
+          window.currentPublicUserKey = usernameKey;
+          const userRef = ref(db, 'users/' + usernameKey.toLowerCase());
+          onValue(userRef, (snapshot) => {
+              const data = snapshot.val();
+              
+              const userUploadedProfiles = profiles.filter(p => p.owner && p.owner.toLowerCase() === usernameKey.toLowerCase());
+              const publicGrid = document.getElementById('public-user-photos-grid');
+              publicGrid.innerHTML = '';
+
+              if (userUploadedProfiles.length > 0) {
+                  userUploadedProfiles.forEach(photo => {
+                      const item = document.createElement('div');
+                      item.className = 'user-photo-item';
+                      item.onclick = function() { openModal(photo.image); };
+                      item.innerHTML = `
+                          <img src="${photo.image}">
+                          <div class="user-photo-votes-tag">💛 ${photo.votes}</div>
+                      `;
+                      publicGrid.appendChild(item);
+                  });
+              } else {
+                  publicGrid.innerHTML = `<div style="font-size:11px; color:#aaa; grid-column:span 3; text-align:center;">هیچ وێنەیەکی لە پێشبڕکێکە دانەناوە</div>`;
+              }
+
+              const bioBox = document.getElementById('public-user-bio-display');
+
+              let followersList = (data && data.followers) ? Object.keys(data.followers) : [];
+              let followingList = (data && data.following) ? Object.keys(data.following) : [];
+
+              document.getElementById('public-followers-count').innerText = followersList.length;
+              document.getElementById('public-following-count').innerText = followingList.length;
+
+              const loggedUser = localStorage.getItem('logged_in_user');
+              const followBtn = document.getElementById('profile-follow-btn');
+              if (loggedUser && followersList.includes(loggedUser.toLowerCase())) {
+                  followBtn.innerText = "✓ Following";
+                  followBtn.classList.add('following');
+              } else {
+                  followBtn.innerText = "➕ Follow";
+                  followBtn.classList.remove('following');
+              }
+
+              if (data) {
+                  const tier = calculateUserTier(data.exp || 0);
+
+                  document.getElementById('public-user-modal-name').innerText = data.username;
+                  document.getElementById('public-user-modal-avatar').src = data.avatar || "https://i.ibb.co/84DfCgGV/IMG-5666.jpg";
+                  document.getElementById('public-user-modal-level').innerText = tier.name;
+
+                  if (data.bio && data.bio.trim() !== '') {
+                      bioBox.innerText = `"${data.bio}"`;
+                      bioBox.style.display = 'block';
+                  } else {
+                      bioBox.style.display = 'none';
+                  }
+
+                  const badgeContainer = document.getElementById('public-user-level-badge');
+                  badgeContainer.style.background = tier.bg;
+                  badgeContainer.style.border = `1px solid ${tier.border}`;
+                  badgeContainer.style.color = tier.color;
+
+                  const badgeBox = document.getElementById('public-user-badges-box');
+                  badgeBox.innerHTML = '';
+                  if ((data.gemsSpent || 0) > 100) badgeBox.innerHTML += `<span class="badge-chip" style="background:#0284c7; color:white;">💎 پشتگیریکاری مەلیکی</span>`;
+
+                  const socialContainer = document.getElementById('public-user-social-container');
+                  if (data.social && data.social.trim() !== '') {
+                      document.getElementById('public-user-social-text').innerText = data.social;
+                      socialContainer.style.display = 'block';
+                  } else {
+                      socialContainer.style.display = 'none';
+                  }
+
+                  document.getElementById('public-user-profile-modal').style.display = 'flex';
+              } else {
+                  document.getElementById('public-user-modal-name').innerText = usernameKey;
+                  document.getElementById('public-user-modal-avatar').src = "https://i.ibb.co/84DfCgGV/IMG-5666.jpg";
+                  document.getElementById('public-user-modal-level').innerText = "بڕۆنز 🥉";
+                  document.getElementById('public-user-badges-box').innerHTML = '';
+                  bioBox.style.display = 'none';
+                  document.getElementById('public-user-social-container').style.display = 'none';
+                  document.getElementById('public-user-profile-modal').style.display = 'flex';
+              }
+          }, { onlyOnce: true });
+      };
+
+      window.closePublicUserProfileModal = function() {
+          document.getElementById('public-user-profile-modal').style.display = 'none';
+      };
+
+      window.toggleFollowPublicUser = function() {
+          const loggedUser = localStorage.getItem('logged_in_user');
+          if (!loggedUser) {
+              alert("تکایە سەرەتا بچۆ ژوورەوە بۆ ئەوەی فۆڵۆو بکەیت!");
+              openAuthModal();
+              return;
+          }
+
+          if (loggedUser.toLowerCase() === window.currentPublicUserKey.toLowerCase()) {
+              alert("ناتوانیت خۆت فۆڵۆو بکەیت!");
+              return;
+          }
+
+          const myKey = loggedUser.toLowerCase();
+          const targetKey = window.currentPublicUserKey.toLowerCase();
+
+          const targetFollowersRef = ref(db, `users/${targetKey}/followers/${myKey}`);
+          const myFollowingRef = ref(db, `users/${myKey}/following/${targetKey}`);
+
+          onValue(targetFollowersRef, (snapshot) => {
+              if (snapshot.exists()) {
+                  remove(targetFollowersRef);
+                  remove(myFollowingRef);
+                  showToast("لە فۆڵۆو لادرا!");
+              } else {
+                  update(ref(db, `users/${targetKey}/followers`), { [myKey]: true });
+                  update(ref(db, `users/${myKey}/following`), { [targetKey]: true });
+                  showToast("کرا بە فۆڵۆو ➕");
+              }
+              openPublicUserProfile(targetKey);
+          }, { onlyOnce: true });
+      };
+
+      window.showFollowersList = function() {
+          const targetKey = window.currentPublicUserKey.toLowerCase();
+          onValue(ref(db, 'users/' + targetKey), (snapshot) => {
+              const data = snapshot.val();
+              if (data && data.hideFollowers) {
+                  alert("🔒 ئەم بەکارهێنەرە لیستی فۆڵۆوەرەکانی شاردۆتەوە!");
+              } else {
+                  let followers = data && data.followers ? Object.keys(data.followers) : [];
+                  alert("👥 لیستی فۆڵۆوەرەکان:\n" + (followers.join('\n') || "هیچ فۆڵۆوەرێک نییە"));
+              }
+          }, { onlyOnce: true });
+      };
+
+      window.showFollowingList = function() {
+          const targetKey = window.currentPublicUserKey.toLowerCase();
+          onValue(ref(db, 'users/' + targetKey), (snapshot) => {
+              const data = snapshot.val();
+              let following = data && data.following ? Object.keys(data.following) : [];
+              alert("➡️ فۆڵۆوی کردووە:\n" + (following.join('\n') || "کەسی فۆڵۆو نەکردووە"));
+          }, { onlyOnce: true });
+      };
+
+      window.openFriendsInboxOverlay = function() {
+          const loggedUser = localStorage.getItem('logged_in_user');
+          if (!loggedUser) {
+              alert("تکایە سەرەتا بچۆ ژوورەوە بۆ بەکارهێنانی نامەکان!");
+              openAuthModal();
+              return;
+          }
+          document.getElementById('friends-inbox-overlay').style.display = 'flex';
+          renderFriendsListUI();
+      };
+
+      window.closeFriendsInboxOverlay = function() {
+          document.getElementById('friends-inbox-overlay').style.display = 'none';
+      };
+
+      window.renderFriendsListUI = function() {
+          const feed = document.getElementById('friends-list-feed');
+          const searchVal = document.getElementById('friends-search-input').value.trim().toLowerCase();
+          if (!feed) return;
+          feed.innerHTML = '';
+
+          onValue(ref(db, 'users'), (snapshot) => {
+              const data = snapshot.val();
+              if (data) {
+                  const loggedUser = localStorage.getItem('logged_in_user') || "";
+                  let userList = Object.values(data).filter(u => u.username && u.username.toLowerCase() !== loggedUser.toLowerCase());
+
+                  if (searchVal !== '') {
+                      userList = userList.filter(u => u.username.toLowerCase().includes(searchVal));
+                  }
+
+                  if (userList.length === 0) {
+                      feed.innerHTML = `<div style="text-align:center; font-size:12px; color:#aaa; margin-top:20px;">هیچ بەکارهێنەرێک نەدۆزرایەوە</div>`;
+                      return;
+                  }
+
+                  userList.forEach(u => {
+                      const div = document.createElement('div');
+                      div.className = 'friend-row-item';
+                      div.innerHTML = `
+                          <div class="friend-user-meta">
+                              <img class="friend-user-avatar" src="${u.avatar || 'https://i.ibb.co/84DfCgGV/IMG-5666.jpg'}">
+                              <div>
+                                  <div style="font-weight:bold; font-size:14px; color:white;">${u.username}</div>
+                                  <div style="font-size:11px; color:#aaa;">دواین پەیام...</div>
+                              </div>
+                          </div>
+                          <div style="display:flex; gap:8px;">
+                              <button class="chat-action-badge-btn" onclick="openMessengerWithTarget('${u.username}')">💬</button>
+                              <button class="chat-action-badge-btn" style="background:#334155;" onclick="openPublicUserProfile('${u.username}')">👤</button>
+                          </div>
+                      `;
+                      feed.appendChild(div);
+                  });
+              }
+          }, { onlyOnce: true });
+      };
+
+      window.openMessengerWithTarget = function(targetUsername) {
+          const loggedUser = localStorage.getItem('logged_in_user');
+          if (!loggedUser) {
+              alert("تکایە سەرەتا بچۆ ژوورەوە بۆ ناردنی نامە!");
+              openAuthModal();
+              return;
+          }
+
+          activeChatTargetKey = targetUsername.toLowerCase();
+          document.getElementById('chat-target-name').innerText = targetUsername;
+
+          onValue(ref(db, 'users/' + activeChatTargetKey), (snapshot) => {
+              const data = snapshot.val();
+              document.getElementById('chat-target-avatar').src = (data && data.avatar) ? data.avatar : "https://i.ibb.co/84DfCgGV/IMG-5666.jpg";
+          }, { onlyOnce: true });
+
+          document.getElementById('messenger-modal').style.display = 'flex';
+          closePublicUserProfileModal();
+          closeFriendsInboxOverlay();
+          listenToDirectMessages();
+      };
+
+      window.closeMessengerChat = function() {
+          document.getElementById('messenger-modal').style.display = 'none';
+      };
+
+      function getChatRoomId(user1, user2) {
+          return [user1.toLowerCase(), user2.toLowerCase()].sort().join('_chat_');
+      }
+
+      function listenToDirectMessages() {
+          const loggedUser = localStorage.getItem('logged_in_user');
+          if (!loggedUser || !activeChatTargetKey) return;
+
+          const roomId = getChatRoomId(loggedUser, activeChatTargetKey);
+          const messagesRef = ref(db, 'direct_chats/' + roomId);
+
+          onValue(messagesRef, (snapshot) => {
+              const data = snapshot.val();
+              const feed = document.getElementById('messenger-feed');
+              feed.innerHTML = '';
+
+              if (data) {
+                  Object.values(data).forEach(msg => {
+                      const bubble = document.createElement('div');
+                      const isMe = msg.sender.toLowerCase() === loggedUser.toLowerCase();
+                      bubble.className = `msg-bubble ${isMe ? 'msg-sent' : 'msg-received'}`;
+
+                      if (msg.type === 'text') {
+                          bubble.innerText = msg.text;
+                      } else if (msg.type === 'image') {
+                          bubble.innerHTML = `<img src="${msg.mediaUrl}" class="msg-img">`;
+                      }
+
+                      feed.appendChild(bubble);
+                  });
+                  feed.scrollTop = feed.scrollHeight;
+              }
+          });
+      }
+
+      window.sendDirectMessage = function() {
+          const input = document.getElementById('messenger-input');
+          const text = input.value.trim();
+          const loggedUser = localStorage.getItem('logged_in_user');
+
+          if (text && loggedUser && activeChatTargetKey) {
+              const roomId = getChatRoomId(loggedUser, activeChatTargetKey);
+              push(ref(db, 'direct_chats/' + roomId), {
+                  sender: loggedUser,
+                  text: text,
+                  type: 'text',
+                  time: new Date().getTime()
+              }).then(() => {
+                  input.value = '';
+              });
+          }
+      };
+
+      window.sendChatImage = function(event) {
+          const file = event.target.files[0];
+          const loggedUser = localStorage.getItem('logged_in_user');
+          if (!file || !loggedUser || !activeChatTargetKey) return;
+
+          const reader = new FileReader();
+          reader.onload = function(e) {
+              const base64Img = e.target.result;
+              const roomId = getChatRoomId(loggedUser, activeChatTargetKey);
+              push(ref(db, 'direct_chats/' + roomId), {
+                  sender: loggedUser,
+                  mediaUrl: base64Img,
+                  type: 'image',
+                  time: new Date().getTime()
+              });
+          };
+          reader.readAsDataURL(file);
+      };
+
+      window.handleAvatarFileSelect = function(event) {
+          const file = event.target.files[0];
+          if (!file) return;
+
+          if (file.size > 2 * 1024 * 1024) {
+              alert("تکایە وێنەیەک هەڵبژێرە کە قەبارەکەی لە 2MB کەمتر بێت!");
+              return;
+          }
+
+          const reader = new FileReader();
+          reader.onload = function(e) {
+              selectedBase64Avatar = e.target.result;
+              document.getElementById('user-modal-avatar').src = selectedBase64Avatar;
+              showToast("وێنەکە هەڵبژێردرا 📸");
+          };
+          reader.readAsDataURL(file);
+      };
+
+      window.saveUserProfileChanges = function() {
+          const loggedUser = localStorage.getItem('logged_in_user');
+          if (!loggedUser) return;
+
+          const newUsername = document.getElementById('edit-username-input').value.trim();
+          const newBio = document.getElementById('edit-bio-input').value.trim();
+          const newPassword = document.getElementById('edit-password-input').value.trim();
+          const newSocial = document.getElementById('edit-social-input').value.trim();
+          const hideFollowers = document.getElementById('hide-followers-check').checked;
+
+          if (!newUsername || !newPassword) {
+              alert('تکایە ناوی بەکارهێنەر و پاسۆرد پڕبکەرەوە!');
+              return;
+          }
+
+          if (newBio.length > 100) {
+              alert('بایۆ ناتوانێت لە ١٠٠ پیت زیاتر بێت!');
+              return;
+          }
+
+          const oldKey = loggedUser.toLowerCase();
+          const newKey = newUsername.toLowerCase();
+
+          const userRef = ref(db, 'users/' + oldKey);
+          
+          onValue(userRef, (snapshot) => {
+              const currentData = snapshot.val() || {};
+              const updatedData = {
+                  ...currentData,
+                  username: newUsername,
+                  bio: newBio,
+                  password: newPassword,
+                  social: newSocial,
+                  hideFollowers: hideFollowers,
+                  avatar: selectedBase64Avatar || currentData.avatar || "https://i.ibb.co/84DfCgGV/IMG-5666.jpg"
+              };
+
+              if (oldKey !== newKey) {
+                  update(ref(db, 'users/' + newKey), updatedData).then(() => {
+                      remove(ref(db, 'users/' + oldKey));
+                      localStorage.setItem('logged_in_user', newUsername);
+                      document.getElementById('header-username-text').innerText = newUsername;
+                      document.getElementById('header-avatar-img').src = updatedData.avatar;
+                      selectedBase64Avatar = "";
+                      showToast('زانیارییەکانی سەرکەوتوویی نوێکرانەوە! ✨');
+                  });
+              } else {
+                  update(ref(db, 'users/' + oldKey), updatedData).then(() => {
+                      document.getElementById('header-avatar-img').src = updatedData.avatar;
+                      selectedBase64Avatar = "";
+                      showToast('زانیارییەکانی ئەکاونتەکەت نوێکرانەوە! ✨');
+                  });
+              }
+          }, { onlyOnce: true });
+      };
+
+      window.logoutUser = function() {
+          localStorage.removeItem('logged_in_user');
+          location.reload();
+      };
+
+      const mockFirstNames = [
+          "دیار", "ئاریان", "شەنێ", "ژینۆ", "شاهۆ", "مەتین", "سۆما", "لانە", "کانی", "ڕێبین",
+          "میران", "هەڵگورد", "ئەحمەد", "کاروان", "دڵنیا", "هەژار", "نیان", "پەیمان", "سۆران", "چێنەر"
+      ];
+      const mockCities = ["هەولێری", "سلێمانی", "زاخۆیی", "دهۆکی", "کەرکووکی", "کۆیی", "ئاکرێیی", "ڕانیەیی"];
+      const mockAvatars = [
+          "https://i.ibb.co/84DfCgGV/IMG-5666.jpg",
+          "https://i.ibb.co/SXMTFPW0/IMG-5665.jpg",
+          "https://i.ibb.co/VYzrzDxW/852-D1-BFD-9414-4183-AF73-46279-AD09136.png",
+          "https://i.ibb.co/M532tY6s/IMG-5149.jpg"
+      ];
+
+      function generateMockVoters() {
+          let mockList = [];
+          let currentScore = 1500;
+          for (let i = 0; i < 30; i++) {
+              let fname = mockFirstNames[i % mockFirstNames.length];
+              let city = mockCities[i % mockCities.length];
+              let username = `${fname}_${city}`;
+              let avatar = mockAvatars[i % mockAvatars.length];
+              
+              mockList.push({
+                  username: username,
+                  gemsSpent: currentScore,
+                  exp: currentScore * 2,
+                  avatar: avatar
+              });
+              currentScore = Math.max(50, currentScore - 45);
+          }
+          return mockList;
+      }
+
+      /* Fixed Voter Leaderboard Loading */
+      const usersListRef = ref(db, 'users');
+      onValue(usersListRef, (snapshot) => {
+          const data = snapshot.val();
+          const feed = document.getElementById('voters-leaderboard-feed');
+          if (feed) {
+              feed.innerHTML = '';
+              
+              let realUsersArray = data ? Object.values(data).map(u => ({
+                  username: u.username || 'بەکارهێنەر',
+                  gemsSpent: u.gemsSpent || 0,
+                  exp: u.exp || 0,
+                  avatar: u.avatar || 'https://i.ibb.co/84DfCgGV/IMG-5666.jpg'
+              })) : [];
+
+              let combinedList = [...realUsersArray];
+              let mocks = generateMockVoters();
+
+              mocks.forEach(mock => {
+                  if (!combinedList.some(r => r.username.toLowerCase() === mock.username.toLowerCase())) {
+                      combinedList.push(mock);
+                  }
+              });
+
+              combinedList.sort((a,b) => (b.gemsSpent || 0) - (a.gemsSpent || 0));
+
+              combinedList.forEach((u, i) => {
+                  const div = document.createElement('div');
+                  div.className = 'voter-card-item';
+                  div.onclick = function() { openPublicUserProfile(u.username); };
+
+                  let trophy = '';
+                  if (i === 0) trophy = '<span class="trophy-icon">🥇</span>';
+                  else if (i === 1) trophy = '<span class="trophy-icon">🥈</span>';
+                  else if (i === 2) trophy = '<span class="trophy-icon">🥉</span>';
+
+                  const tier = calculateUserTier(u.exp || 0);
+
+                  div.innerHTML = `
+                      <div style="display:flex; align-items:center; gap:10px;">
+                          <div class="voter-rank-badge" style="color:${i === 0 ? '#ffd700' : (i === 1 ? '#c0c0c0' : (i === 2 ? '#cd7f32' : 'var(--subtext-color)'))};">
+                              #${i+1}
+                          </div>
+                          <img src="${u.avatar}" style="width:36px; height:36px; border-radius:50%; object-fit:cover; border: 1.5px solid ${tier.border};">
+                          <div>
+                              <div style="font-size:13px; font-weight:bold; display:flex; align-items:center; gap:4px; color:white;">
+                                  ${u.username} ${trophy}
+                              </div>
+                              <div style="font-size:10px; color:${tier.color}; font-weight:bold;">${tier.name}</div>
+                          </div>
+                      </div>
+                      <div style="font-size:12px; color:#38bdf8; font-weight:bold;">💎 ${u.gemsSpent || 0} گەوهەر</div>
+                  `;
+                  feed.appendChild(div);
+              });
+          }
+      });
+
       const initialProfiles = [
-          { id: 16, name: "لیا هوسێن uk", category: "girls", votes: 129, image: "https://i.ibb.co/VYzrzDxW/852-D1-BFD-9414-4183-AF73-46279-AD09136.png", comments: ["زۆر جوانی ❤️"], secrets: ["سەرسامتم 🙈"], loveNotes: ["سۆزێکی زۆرم بۆت هەیە 💖"], roses: 12, crowns: 4, diamonds: 2, crushes: 8, topFan: "ڕێبین_سناپ" },
-          { id: 1, name: "شەنێ هەولێری", category: "girls", votes: 65, image: "https://i.ibb.co/M532tY6s/IMG-5149.jpg", comments: [], secrets: [], loveNotes: [], roses: 5, crowns: 1, diamonds: 0, crushes: 3, topFan: "مێوان_88" },
-          { id: 2, name: "کانی سلێمانی", category: "girls", votes: 58, image: "https://i.ibb.co/5W3bXjRh/IMG-5148.jpg", comments: [], secrets: [], loveNotes: [], roses: 3, crowns: 0, diamonds: 1, crushes: 2, topFan: "" },
-          { id: 3, name: "ژینۆ زاخۆیی", category: "girls", votes: 51, image: "https://i.ibb.co/rR1Hp36X/IMG-5147.jpg", comments: [], secrets: [], loveNotes: [], roses: 2, crowns: 0, diamonds: 0, crushes: 1, topFan: "" },
-          { id: 4, name: "نیشتمان ئامێدی", category: "girls", votes: 44, image: "https://i.ibb.co/zVr87NXh/IMG-5146.jpg", comments: [], secrets: [], loveNotes: [], roses: 1, crowns: 0, diamonds: 0, crushes: 0, topFan: "" },
-          { id: 5, name: "سۆما هەڵەبجەیی", category: "girls", votes: 39, image: "https://i.ibb.co/Qv4pmrW5/IMG-5145.jpg", comments: [], secrets: [], loveNotes: [], roses: 4, crowns: 1, diamonds: 0, crushes: 2, topFan: "" },
-          { id: 6, name: "شنۆ ڕواندزی", category: "girls", votes: 32, image: "https://i.ibb.co/XT2tvby/IMG-5143.jpg", comments: [], secrets: [], loveNotes: [], roses: 0, crowns: 0, diamonds: 0, crushes: 0, topFan: "" },
-          { id: 7, name: "لانە کەرکووکی", category: "girls", votes: 27, image: "https://i.ibb.co/2Yt1XcSy/IMG-5142.jpg", comments: [], secrets: [], loveNotes: [], roses: 2, crowns: 0, diamonds: 0, crushes: 1, topFan: "" },
-          { id: 8, name: "ئەکتەر گەیمینگ", category: "boys", votes: 72, image: "https://i.ibb.co/tppK11JD/IMG-5141.jpg", comments: [], secrets: [], loveNotes: [], roses: 8, crowns: 2, diamonds: 1, crushes: 5, topFan: "شەنێ_fans" },
-          { id: 9, name: "شاهۆ", category: "boys", votes: 68, image: "https://i.ibb.co/PZgv3r81/IMG-5135.jpg", comments: [], secrets: [], loveNotes: [], roses: 4, crowns: 1, diamonds: 0, crushes: 2, topFan: "" },
-          { id: 10, name: "ئاریان ئەحمەد", category: "boys", votes: 60, image: "https://i.ibb.co/MDKdJ5Ws/IMG-5140.jpg", comments: [], secrets: [], loveNotes: [], roses: 3, crowns: 0, diamonds: 0, crushes: 1, topFan: "" },
-          { id: 11, name: "ڕێبین کۆیی", category: "boys", votes: 54, image: "https://i.ibb.co/sJFsYfvc/IMG-5139.jpg", comments: [], secrets: [], loveNotes: [], roses: 1, crowns: 0, diamonds: 0, crushes: 0, topFan: "" },
-          { id: 12, name: "دیار دەربەندیخان", category: "boys", votes: 49, image: "https://i.ibb.co/nss3Myq6/IMG-5138.jpg", comments: [], secrets: [], loveNotes: [], roses: 0, crowns: 0, diamonds: 0, crushes: 0, topFan: "" },
-          { id: 13, name: "مەتین ئاکرێیی", category: "boys", votes: 43, image: "https://i.ibb.co/GvJK7sPb/IMG-5137.jpg", comments: [], secrets: [], loveNotes: [], roses: 2, crowns: 0, diamonds: 0, crushes: 1, topFan: "" },
-          { id: 14, name: "میران ڕانیەیی", category: "boys", votes: 38, image: "https://i.ibb.co/9kNQ9Gkk/IMG-5136.jpg", comments: [], secrets: [], loveNotes: [], roses: 1, crowns: 0, diamonds: 0, crushes: 0, topFan: "" },
-          { id: 15, name: "هەڵگورد دهۆکی", category: "boys", votes: 31, image: "https://i.ibb.co/5hGG0Y1v/IMG-5134.jpg", comments: [], secrets: [], loveNotes: [], roses: 0, crowns: 0, diamonds: 0, crushes: 0, topFan: "" }
+          { id: 16, name: "لیا هوسێن uk", category: "girls", votes: 129, image: "https://i.ibb.co/VYzrzDxW/852-D1-BFD-9414-4183-AF73-46279-AD09136.png", owner: "لیا_uk", ownerAvatar: "https://i.ibb.co/VYzrzDxW/852-D1-BFD-9414-4183-AF73-46279-AD09136.png", comments: ["زۆر جوانی ❤️"], secrets: ["سەرسامتم 🙈"], loveNotes: ["سۆزێکی زۆرم بۆت هەیە 💖"], roses: 12, crowns: 4, diamonds: 2, crushes: 8, topFan: "ڕێبین_سناپ" },
+          { id: 1, name: "شەنێ هەولێری", category: "girls", votes: 65, image: "https://i.ibb.co/M532tY6s/IMG-5149.jpg", owner: "شەنێ_هەولێری", ownerAvatar: "https://i.ibb.co/M532tY6s/IMG-5149.jpg", comments: [], secrets: [], loveNotes: [], roses: 5, crowns: 1, diamonds: 0, crushes: 3, topFan: "مێوان_88" },
+          { id: 2, name: "کانی سلێمانی", category: "girls", votes: 58, image: "https://i.ibb.co/5W3bXjRh/IMG-5148.jpg", owner: "کانی_سلیمان", ownerAvatar: "https://i.ibb.co/5W3bXjRh/IMG-5148.jpg", comments: [], secrets: [], loveNotes: [], roses: 3, crowns: 0, diamonds: 1, crushes: 2, topFan: "" },
+          { id: 3, name: "ژینۆ زاخۆیی", category: "girls", votes: 51, image: "https://i.ibb.co/rR1Hp36X/IMG-5147.jpg", owner: "ژینۆ_زاخۆ", ownerAvatar: "https://i.ibb.co/rR1Hp36X/IMG-5147.jpg", comments: [], secrets: [], loveNotes: [], roses: 2, crowns: 0, diamonds: 0, crushes: 1, topFan: "" },
+          { id: 4, name: "نیشتمان ئامێدی", category: "girls", votes: 44, image: "https://i.ibb.co/zVr87NXh/IMG-5146.jpg", owner: "نیشتمان_ئامێدی", ownerAvatar: "https://i.ibb.co/zVr87NXh/IMG-5146.jpg", comments: [], secrets: [], loveNotes: [], roses: 1, crowns: 0, diamonds: 0, crushes: 0, topFan: "" },
+          { id: 5, name: "سۆما هەڵەبجەیی", category: "girls", votes: 39, image: "https://i.ibb.co/Qv4pmrW5/IMG-5145.jpg", owner: "سۆما_هەڵەبجە", ownerAvatar: "https://i.ibb.co/Qv4pmrW5/IMG-5145.jpg", comments: [], secrets: [], loveNotes: [], roses: 4, crowns: 1, diamonds: 0, crushes: 2, topFan: "" },
+          { id: 6, name: "شنۆ ڕواندزی", category: "girls", votes: 32, image: "https://i.ibb.co/XT2tvby/IMG-5143.jpg", owner: "شنۆ_ڕواندز", ownerAvatar: "https://i.ibb.co/XT2tvby/IMG-5143.jpg", comments: [], secrets: [], loveNotes: [], roses: 0, crowns: 0, diamonds: 0, crushes: 0, topFan: "" },
+          { id: 7, name: "لانە کەرکووکی", category: "girls", votes: 27, image: "https://i.ibb.co/2Yt1XcSy/IMG-5142.jpg", owner: "لانە_کەرکووک", ownerAvatar: "https://i.ibb.co/2Yt1XcSy/IMG-5142.jpg", comments: [], secrets: [], loveNotes: [], roses: 2, crowns: 0, diamonds: 0, crushes: 1, topFan: "" },
+          { id: 8, name: "ئەکتەر گەیمینگ", category: "boys", votes: 72, image: "https://i.ibb.co/tppK11JD/IMG-5141.jpg", owner: "ئەکتەر_گەیمینگ", ownerAvatar: "https://i.ibb.co/tppK11JD/IMG-5141.jpg", comments: [], secrets: [], loveNotes: [], roses: 8, crowns: 2, diamonds: 1, crushes: 5, topFan: "شەنێ_fans" },
+          { id: 9, name: "شاهۆ", category: "boys", votes: 68, image: "https://i.ibb.co/PZgv3r81/IMG-5135.jpg", owner: "شاهۆ_کورد", ownerAvatar: "https://i.ibb.co/PZgv3r81/IMG-5135.jpg", comments: [], secrets: [], loveNotes: [], roses: 4, crowns: 1, diamonds: 0, crushes: 2, topFan: "" },
+          { id: 10, name: "ئاریان ئەحمەد", category: "boys", votes: 60, image: "https://i.ibb.co/MDKdJ5Ws/IMG-5140.jpg", owner: "ئاریان_ئەحمەد", ownerAvatar: "https://i.ibb.co/MDKdJ5Ws/IMG-5140.jpg", comments: [], secrets: [], loveNotes: [], roses: 3, crowns: 0, diamonds: 0, crushes: 1, topFan: "" },
+          { id: 11, name: "ڕێبین کۆیی", category: "boys", votes: 54, image: "https://i.ibb.co/sJFsYfvc/IMG-5139.jpg", owner: "ڕێبین_کۆیی", ownerAvatar: "https://i.ibb.co/sJFsYfvc/IMG-5139.jpg", comments: [], secrets: [], loveNotes: [], roses: 1, crowns: 0, diamonds: 0, crushes: 0, topFan: "" },
+          { id: 12, name: "دیار دەربەندیخان", category: "boys", votes: 49, image: "https://i.ibb.co/nss3Myq6/IMG-5138.jpg", owner: "دیار_دەربەند", ownerAvatar: "https://i.ibb.co/nss3Myq6/IMG-5138.jpg", comments: [], secrets: [], loveNotes: [], roses: 0, crowns: 0, diamonds: 0, crushes: 0, topFan: "" },
+          { id: 13, name: "مەتین ئاکرێیی", category: "boys", votes: 43, image: "https://i.ibb.co/GvJK7sPb/IMG-5137.jpg", owner: "مەتین_ئاکرێ", ownerAvatar: "https://i.ibb.co/GvJK7sPb/IMG-5137.jpg", comments: [], secrets: [], loveNotes: [], roses: 2, crowns: 0, diamonds: 0, crushes: 1, topFan: "" },
+          { id: 14, name: "میران ڕانیەیی", category: "boys", votes: 38, image: "https://i.ibb.co/9kNQ9Gkk/IMG-5136.jpg", owner: "میران_ڕانیە", ownerAvatar: "https://i.ibb.co/9kNQ9Gkk/IMG-5136.jpg", comments: [], secrets: [], loveNotes: [], roses: 1, crowns: 0, diamonds: 0, crushes: 0, topFan: "" },
+          { id: 15, name: "هەڵگورد دهۆکی", category: "boys", votes: 31, image: "https://i.ibb.co/5hGG0Y1v/IMG-5134.jpg", owner: "هەڵگورد_دهۆک", ownerAvatar: "https://i.ibb.co/5hGG0Y1v/IMG-5134.jpg", comments: [], secrets: [], loveNotes: [], roses: 0, crowns: 0, diamonds: 0, crushes: 0, topFan: "" }
       ];
 
       let profiles = initialProfiles;
@@ -1618,11 +2426,7 @@
               update(ref(db), { profiles: initialData });
           }
           renderProfiles();
-          renderDailyBattle();
-          renderCityWar();
-          renderRadar();
           renderWeeklyMVP();
-          generateRandomShip();
       });
 
       const liveChatRef = ref(db, 'live_chat');
@@ -1642,42 +2446,6 @@
               chatFeed.scrollTop = chatFeed.scrollHeight;
           }
       });
-
-      window.runAiBeautyMeter = function() {
-          const inputName = document.getElementById('ai-name-input').value.trim();
-          const resultBox = document.getElementById('ai-result-box');
-          if (!inputName) {
-              alert('تکایە سەرەتا ناوێک بنووسە!');
-              return;
-          }
-          const percent = (88 + Math.random() * 11.9).toFixed(1);
-          const roasts = [
-              `✨ ڕێژەی جوانی: ${percent}% | سیستەم: ستایلەکەت زۆر کەشخەیە بەڵام زۆرتر بخەبە! 😴`,
-              `✨ ڕێژەی جوانی: ${percent}% | سیستەم: تۆ ٪١٠٠ جوانی بەڵام ئاو کەم دەخۆیتەوە! 💧`,
-              `✨ ڕێژەی جوانی: ${percent}% | سیستەم: فلتەر پێویست ناکات، ڕێک وەک ئەکتەری! 👑`
-          ];
-          const randomMsg = roasts[Math.floor(Math.random() * roasts.length)];
-          resultBox.innerText = randomMsg;
-          resultBox.style.display = 'block';
-      };
-
-      window.sendDedication = function() {
-          const song = document.getElementById('dedicate-song').value.trim();
-          const target = document.getElementById('dedicate-target-profile').value;
-          if (!song || !target) {
-              alert('تکایە ناوی گۆرانی/تێکست و بەشداربوو بنووسە!');
-              return;
-          }
-          const marquee = document.getElementById('marquee-text');
-          marquee.innerHTML += ` | 🎵 مێوانێک گۆرانی (${song})ی دێدیکەیت کرد بۆ (${target})! ❤️`;
-          document.getElementById('dedicate-song').value = '';
-          showToast('دێدیکەتەکەت بە سەرکەوتوویی زیادکرا! 🎵');
-      };
-
-      window.voteStyleType = function(type) {
-          triggerVoteEffects();
-          showToast(`دەنگدانەکەت بۆ (${type === 'green' ? 'چاو سەوز/شین' : 'چاو قاوەیی/ڕەش'}) بەسەرکەوتوویی تۆمارکرا!`);
-      };
 
       window.openStoryCard = function(name, img, votes) {
           document.getElementById('story-card-name-element').innerText = name;
@@ -1724,26 +2492,6 @@
           }
       };
 
-      window.claimSecretWord = function() {
-          const inputVal = document.getElementById('secret-word-input').value.trim();
-          if (inputVal === "KRD2026") {
-              let claimed = localStorage.getItem('secret_word_claimed');
-              if (claimed) {
-                  alert('تۆ پێشتر پاداشتی ئەم وشە نهێنییەت وەرگرتووە!');
-                  return;
-              }
-              const secretRewardCode = "WIN" + Math.floor(100 + Math.random() * 900);
-              let userCodes = JSON.parse(localStorage.getItem('generated_free_vip_codes')) || [];
-              userCodes.push(secretRewardCode);
-              localStorage.setItem('generated_free_vip_codes', JSON.stringify(userCodes));
-              localStorage.setItem('secret_word_claimed', 'true');
-              alert(`🎉 پیرۆزە! وشەکەت بە ڕاستی دۆزییەوە! کۆدی VIPت: [ ${secretRewardCode} ] (کۆدەکە بکە بە ٥ دەنگ لە بەشی VIP).`);
-              document.getElementById('secret-word-input').value = '';
-          } else {
-              alert('وشەی نهێنی هەڵەیە! وردتر سەیری ناو وێبسایتەکە بکە.');
-          }
-      };
-
       window.checkInviteSystem = function() {
           const urlParams = new URLSearchParams(window.location.search);
           const refUser = urlParams.get('ref');
@@ -1770,13 +2518,13 @@
           const countDisplay = document.getElementById('invite-count-display');
           if(countDisplay) countDisplay.innerText = myInviteCount;
 
-          if (myInviteCount >= 5 && !localStorage.getItem('free_vip_claimed')) {
-              const rewardCode = "FREE" + Math.floor(100 + Math.random() * 900);
-              let userVipCodes = JSON.parse(localStorage.getItem('generated_free_vip_codes')) || [];
-              userVipCodes.push(rewardCode);
-              localStorage.setItem('generated_free_vip_codes', JSON.stringify(userVipCodes));
-              localStorage.setItem('free_vip_claimed', 'true');
-              alert(`🎉 پیرۆزە! ٥ هاوڕێت هاتنە سەر وێبسایتەکە! کۆدی ٥ دەنگی بەخۆڕایی تۆ: [ ${rewardCode} ]`);
+          if (myInviteCount >= 5 && !localStorage.getItem('free_gems_claimed')) {
+              const rewardCode = "G50" + Math.floor(10 + Math.random() * 89) + "X";
+              let userGemCodes = JSON.parse(localStorage.getItem('generated_free_gem_codes')) || [];
+              userGemCodes.push(rewardCode);
+              localStorage.setItem('generated_free_gem_codes', JSON.stringify(userGemCodes));
+              localStorage.setItem('free_gems_claimed', 'true');
+              alert(`🎉 پیرۆزە! ٥ هاوڕێت هاتنە سەر وێبسایتەکە! کۆدی ٥٠ گەوهەری بەخۆڕایی تۆ: [ ${rewardCode} ]`);
           }
       };
       checkInviteSystem();
@@ -1802,24 +2550,6 @@
           }
       };
 
-      window.renderRadar = function() {
-          const radarFeed = document.getElementById('radar-list-content');
-          if (!radarFeed || profiles.length === 0) return;
-
-          let sortedByVotes = [...profiles].sort((a,b) => b.votes - a.votes).slice(0, 5);
-          radarFeed.innerHTML = '';
-
-          sortedByVotes.forEach(p => {
-              const item = document.createElement('div');
-              item.className = 'radar-item';
-              item.innerHTML = `
-                  <img class="radar-img" src="${p.image}">
-                  <span><b>${p.name}</b> (+${Math.floor(Math.random()*8)+2} دەنگی ئەمرۆ)</span>
-              `;
-              radarFeed.appendChild(item);
-          });
-      };
-
       window.triggerRoastOrCompliment = function(name) {
           const lines = [
               `✨ پێداهەڵدان: (${name}) بەبێ فلتەریش ٪١٠٠ کەشخە و تایبەتە! 💖`,
@@ -1829,11 +2559,6 @@
           ];
           const randomLine = lines[Math.floor(Math.random() * lines.length)];
           alert(randomLine);
-      };
-
-      window.votePoll = function(g) {
-          triggerVoteEffects();
-          showToast(`دەنگت بۆ بەشی (${g === 'boy' ? 'کوڕان ♂' : 'کچان ♀'}) بەسەرکەوتوویی تۆمارکرا!`);
       };
 
       window.sendSuperCrush = function(dbKey, name) {
@@ -1854,8 +2579,9 @@
           const input = document.getElementById('live-chat-input');
           const text = input.value.trim();
           if (text) {
+              const loggedUser = localStorage.getItem('logged_in_user') || ("مێوان_" + Math.floor(100 + Math.random() * 900));
               push(ref(db, 'live_chat'), {
-                  sender: "مێوان_" + Math.floor(100 + Math.random() * 900),
+                  sender: loggedUser,
                   gender: selectedChatGender,
                   text: text,
                   time: new Date().getTime()
@@ -1863,104 +2589,6 @@
                   input.value = '';
               });
           }
-      };
-
-      window.generateRandomShip = function() {
-          const shipContainer = document.getElementById('ship-box-content');
-          if (!shipContainer || profiles.length < 2) return;
-
-          const girls = profiles.filter(p => p.category === 'girls');
-          const boys = profiles.filter(p => p.category === 'boys');
-
-          if (girls.length === 0 || boys.length === 0) return;
-
-          const g = girls[Math.floor(Math.random() * girls.length)];
-          const b = boys[Math.floor(Math.random() * boys.length)];
-          const matchPercent = Math.floor(65 + Math.random() * 35);
-
-          shipContainer.innerHTML = `
-              <img class="ship-user-img" src="${g.image}">
-              <div class="ship-percent">💞 ${matchPercent}%</div>
-              <img class="ship-user-img" src="${b.image}">
-          `;
-      };
-
-      window.renderDailyBattle = function() {
-          const battleContainer = document.getElementById('daily-battle-content');
-          if (!battleContainer || profiles.length < 2) return;
-
-          let filtered = profiles.filter(p => p.category === currentCategory);
-          if(filtered.length < 2) filtered = profiles;
-
-          const p1 = filtered[0];
-          const p2 = filtered[1];
-
-          battleContainer.innerHTML = `
-              <div class="battle-card" onclick="addVote('${p1.dbKey}', 1)">
-                  <img src="${p1.image}">
-                  <div class="b-name">${p1.name}</div>
-                  <div class="b-votes">💛 ${p1.votes} دەنگ</div>
-              </div>
-              <div class="vs-badge">VS</div>
-              <div class="battle-card" onclick="addVote('${p2.dbKey}', 1)">
-                  <img src="${p2.image}">
-                  <div class="b-name">${p2.name}</div>
-                  <div class="b-votes">💛 ${p2.votes} دەنگ</div>
-              </div>
-          `;
-      };
-
-      window.renderCityWar = function() {
-          const cityContainer = document.getElementById('city-war-bars');
-          if (!cityContainer) return;
-
-          const cities = [
-              { name: "هەولێر", key: "هەولێر", color: "#f59e0b" },
-              { name: "سلێمانی", key: "سلێمانی", color: "#3b82f6" },
-              { name: "دهۆک", key: "دهۆک", color: "#10b981" },
-              { name: "کەرکووک", key: "کەرکووک", color: "#ef4444" },
-              { name: "شاری تر / دەوروبەر", key: "", color: "#8b5cf6" }
-          ];
-
-          let cityVotes = { "هەولێر": 0, "سلێمانی": 0, "دهۆک": 0, "کەرکووک": 0, "ئەوانی تر": 0 };
-          let totalVotesSum = 0;
-
-          profiles.forEach(p => {
-              let matched = false;
-              for (let c of cities) {
-                  if (c.key && p.name.includes(c.key)) {
-                      cityVotes[c.key] += p.votes;
-                      matched = true;
-                      break;
-                  }
-              }
-              if (!matched) {
-                  cityVotes["ئەوانی تر"] += p.votes;
-              }
-              totalVotesSum += p.votes;
-          });
-
-          if (totalVotesSum === 0) totalVotesSum = 1;
-
-          cityContainer.innerHTML = '';
-          cities.forEach(c => {
-              const cityName = c.name;
-              const voteVal = cityVotes[c.key || "ئەوانی تر"] || 0;
-              const percent = Math.round((voteVal / totalVotesSum) * 100);
-
-              const barDiv = document.createElement('div');
-              barDiv.className = 'city-bar-item';
-              barDiv.innerHTML = `
-                  <div class="city-info">
-                      <span>📍 ${cityName}</span>
-                      <span>${percent}% (${voteVal} دەنگ)</span>
-                  </div>
-                  <div class="city-progress-bg">
-                      <div class="city-progress-fill" style="width: ${percent}%; background-color: ${c.color};"></div>
-                  </div>
-              `;
-              cityContainer.appendChild(barDiv);
-          });
       };
 
       window.triggerVoteEffects = function() {
@@ -1984,6 +2612,42 @@
           });
       };
 
+      window.addVoteWithGems = function(dbKey) {
+          const loggedUser = localStorage.getItem('logged_in_user');
+          if (!loggedUser) {
+              alert("تکایە سەرەتا بچۆ ژوورەوە بۆ بەکارهێنانی گەوهەرەکانت!");
+              openAuthModal();
+              return;
+          }
+
+          const userRef = ref(db, 'users/' + loggedUser.toLowerCase());
+          onValue(userRef, (snapshot) => {
+              const userData = snapshot.val();
+              if (userData && (userData.gems || 0) >= 10) {
+                  let newGems = userData.gems - 10;
+                  let newSpent = (userData.gemsSpent || 0) + 10;
+                  let newExp = (userData.exp || 0) + 20;
+
+                  update(userRef, { 
+                      gems: newGems,
+                      gemsSpent: newSpent,
+                      exp: newExp
+                  });
+                  updateUserGemsUI(newGems);
+
+                  const voteRef = ref(db, `profiles/${dbKey}/votes`);
+                  runTransaction(voteRef, (curr) => (curr || 0) + 1).then(() => {
+                      triggerVoteEffects();
+                      const profileObj = profiles.find(p => p.dbKey === dbKey);
+                      showToast(`١ دەنگ + 20 EXP بە ۱۰ گەوهەر بۆ (${profileObj ? profileObj.name : 'بەشداربوو'}) زیادکرا! 💎`);
+                      renderProfiles();
+                  });
+              } else {
+                  alert("گەوهەری پێویستت نییە! (١ دەنگ = ۱۰ گەوهەر) \nدەتوانی لە دوکانی گەوهەر زیاد بکەیت.");
+              }
+          }, { onlyOnce: true });
+      };
+
       window.addVote = function(dbKey, count = 1, ignoreCheck = false) {
           const lastUserVote = localStorage.getItem('last_user_free_vote');
           const now = new Date().getTime();
@@ -1995,15 +2659,9 @@
               }
           }
 
-          const currentHour = new Date().getHours();
-          let actualVotesToAdd = count;
-          if (currentHour === 0 && count === 1 && !ignoreCheck) {
-              actualVotesToAdd = 2;
-          }
-
           const voteRef = ref(db, `profiles/${dbKey}/votes`);
           runTransaction(voteRef, (currentVotes) => {
-              return (currentVotes || 0) + actualVotesToAdd;
+              return (currentVotes || 0) + count;
           }).then(() => {
               if (count === 1 && !ignoreCheck) {
                   localStorage.setItem('last_user_free_vote', now.toString());
@@ -2012,7 +2670,7 @@
               triggerVoteEffects();
 
               const profileObj = profiles.find(p => p.dbKey === dbKey);
-              showToast(`(${actualVotesToAdd}) دەنگ بۆ (${profileObj ? profileObj.name : 'بەشداربوو'}) تۆمارکرا! 💛`);
+              showToast(`(${count}) دەنگ بۆ (${profileObj ? profileObj.name : 'بەشداربوو'}) تۆمارکرا! 💛`);
 
               const imgContainer = document.getElementById(`img-container-${dbKey}`);
               if (imgContainer) {
@@ -2106,10 +2764,19 @@
               let secretsHtml = (profile.secrets || []).map(s => `<div class="secret-item">🕵️‍♂️ "${s}"</div>`).join('');
               let loveNotesHtml = (profile.loveNotes || []).map(l => `<div class="love-note-item">💌 "${l}"</div>`).join('');
 
+              const ownerName = profile.owner || "نادیار";
+              const ownerAvatar = profile.ownerAvatar || "https://i.ibb.co/84DfCgGV/IMG-5666.jpg";
+
               card.innerHTML = `
                   ${isHot ? '<div class="hot-badge">🔥 HOT STREAK</div>' : ''}
                   ${isRising ? '<div class="achievement-badge">🌟 RISING STAR</div>' : ''}
                   <div class="rank-badge">#${index + 1}</div>
+                  
+                  <div class="owner-profile-badge" onclick="event.stopPropagation(); openPublicUserProfile('${ownerName}')">
+                      <img src="${ownerAvatar}">
+                      <span>${ownerName}</span>
+                  </div>
+
                   <div class="card-img-wrapper" id="img-container-${profile.dbKey}" onclick="openModal('${profile.image}')">
                       <img class="card-img" src="${profile.image}" alt="${profile.name}">
                   </div>
@@ -2129,7 +2796,7 @@
                           <button class="btn-free" ${hasVotedToday ? 'disabled' : ''} onclick="addVote('${profile.dbKey}', 1)">
                               ${hasVotedToday ? 'ئەمڕۆ دەنگت داوە' : 'دەنگی بەخۆڕایی'}
                           </button>
-                          <a href="https://t.me/KRDPEZHBRKE" target="_blank" class="btn-paid">کڕینی دەنگ</a>
+                          <button class="btn-paid" onclick="addVoteWithGems('${profile.dbKey}')">💎 دەنگدان (۱۰ گەوهەر)</button>
                           <button class="btn-story-card" onclick="openStoryCard('${profile.name}', '${profile.image}', ${profile.votes})">📸 کارتی ئیدیت</button>
                           <button class="btn-roast" onclick="triggerRoastOrCompliment('${profile.name}')">✨ تەشەر/پێداهەڵدان</button>
                           <button class="btn-crush" onclick="sendSuperCrush('${profile.dbKey}', '${profile.name}')">💌 Crush</button>
@@ -2166,10 +2833,6 @@
               `;
               feed.appendChild(card);
           });
-
-          populateVipProfileDropdown();
-          populateWheelProfileDropdown();
-          populateDedicateProfileDropdown();
       };
 
       window.filterCategory = function(category, event) {
@@ -2177,7 +2840,6 @@
           document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
           event.target.classList.add('active');
           renderProfiles();
-          renderDailyBattle();
       };
 
       window.handleSearch = function() {
@@ -2185,160 +2847,49 @@
           renderProfiles();
       };
 
-      window.populateVipProfileDropdown = function() {
-          const select = document.getElementById('vip-target-profile');
-          if (!select) return;
-          select.innerHTML = '<option value="">کەسێک هەڵبژێرە بۆ پێدانی دەنگەکە...</option>';
-          profiles.forEach(p => {
-              const option = document.createElement('option');
-              option.value = p.dbKey;
-              option.innerText = `${p.name} (${p.category === 'girls' ? 'کچ' : 'کوڕ'})`;
-              select.appendChild(option);
-          });
-      };
+      window.redeemGemCode = function() {
+          const inputCode = document.getElementById('gem-code-input').value.trim().toUpperCase();
+          const loggedUser = localStorage.getItem('logged_in_user');
 
-      window.populateWheelProfileDropdown = function() {
-          const select = document.getElementById('wheel-target-profile');
-          if (!select) return;
-          select.innerHTML = '<option value="">کەسێک هەڵبژێرە...</option>';
-          profiles.forEach(p => {
-              const option = document.createElement('option');
-              option.value = p.dbKey;
-              option.innerText = `${p.name}`;
-              select.appendChild(option);
-          });
-      };
-
-      window.populateDedicateProfileDropdown = function() {
-          const select = document.getElementById('dedicate-target-profile');
-          if (!select) return;
-          select.innerHTML = '<option value="">بۆ کێی دەبەخشیت؟</option>';
-          profiles.forEach(p => {
-              const option = document.createElement('option');
-              option.value = p.name;
-              option.innerText = `${p.name}`;
-              select.appendChild(option);
-          });
-      };
-
-      window.redeemVipCode = function() {
-          const inputCode = document.getElementById('vip-code-input').value.trim();
-          const selectedProfileDbKey = document.getElementById('vip-target-profile').value;
-
-          if (!inputCode || !selectedProfileDbKey) {
-              alert('تکایە کۆدەکە و ناوەکە هەڵبژێرە!');
+          if (!loggedUser) {
+              alert('تکایە سەرەتا بچۆ ژوورەوە بۆ ئەوەی کۆدەکە لەسەر ئەکاونتەکەت پڕبکەیتەوە!');
+              openAuthModal();
               return;
           }
 
-          let usedVipCodes = JSON.parse(localStorage.getItem('used_vip_codes')) || [];
-          if (usedVipCodes.includes(inputCode)) {
-              alert('ئەم کۆدە پێشتر بەکارهاتووە!');
+          if (!inputCode || inputCode.length !== 6) {
+              alert('تکایە کۆدە ٦ پیتی/ژمارەیییەکە بە دروستی بنووسە!');
               return;
           }
 
-          const vipCodesDatabase = {
-              "pkg_5": ["7391048", "2846193", "9150382", "4628195", "8302714", "1947263", "6283915", "5038172", "3719408", "8462019"],
-              "pkg_10": ["8204917", "3915820", "6140392", "7582914", "1093847", "5472019", "9381624", "2604815", "4819370", "7152943"],
-              "pkg_20": ["9418203", "5039281", "1827394", "6392018", "2740195", "8591032", "3104928", "7263910", "4918273", "6029418"]
-          };
+          const usedCodesRef = ref(db, 'used_gem_codes/' + inputCode);
+          onValue(usedCodesRef, (snapshot) => {
+              if (snapshot.exists()) {
+                  alert('ئەم کۆدە پێشتر بەکارهاتووە و ناتوانرێت دووبارە بەکاربێتەوە!');
+                  return;
+              }
 
-          let generatedFreeCodes = JSON.parse(localStorage.getItem('generated_free_vip_codes')) || [];
+              const gemCodes100 = ["7X2M9K", "4W8P3Q", "9L5R1T", "2V6N8B", "8Z1C4V", "3K7J9H", "6F2D8S", "1A5S9D", "4F8G2H", "7J1K5L"];
+              const gemCodes500 = ["G501XA", "G502YB", "G503ZC", "G504WD", "G505VE", "G506RF", "G507TG", "G508YH", "G509UJ", "G510IK"];
 
-          let addedVotes = 0;
-          if (vipCodesDatabase.pkg_5.includes(inputCode)) addedVotes = 10;
-          else if (vipCodesDatabase.pkg_10.includes(inputCode)) addedVotes = 25;
-          else if (vipCodesDatabase.pkg_20.includes(inputCode)) addedVotes = 60;
-          else if (generatedFreeCodes.includes(inputCode)) addedVotes = 5;
-          else {
-              alert('ئەم کۆدە هەڵەیە!');
-              return;
-          }
+              let rewardGems = 0;
+              if (gemCodes100.includes(inputCode)) rewardGems = 100;
+              else if (gemCodes500.includes(inputCode)) rewardGems = 500;
+              else if (inputCode.startsWith("G50")) rewardGems = 50;
+              else {
+                  alert('ئەم کۆدە هەڵەیە یان بوونی نییە!');
+                  return;
+              }
 
-          addVote(selectedProfileDbKey, addedVotes, true);
-          usedVipCodes.push(inputCode);
-          localStorage.setItem('used_vip_codes', JSON.stringify(usedVipCodes));
-          document.getElementById('vip-code-input').value = '';
-          alert(`پیرۆزە! (${addedVotes}) دەنگ بە ڕاستی بۆ بەشداربووەکە بڕا.`);
-      };
-
-      window.vsVote = function(dbKey) {
-          addVote(dbKey, 1);
-          openVSMode();
-      };
-
-      let currentSwipeIndex = 0;
-      window.openSwipeMode = function() {
-          document.getElementById('swipe-screen').style.display = 'flex';
-          currentSwipeIndex = 0;
-          loadSwipeCard();
-      };
-
-      function loadSwipeCard() {
-          const filtered = profiles.filter(p => p.category === currentCategory);
-          if (currentSwipeIndex >= filtered.length) currentSwipeIndex = 0;
-          const profile = filtered[currentSwipeIndex];
-          if(!profile) return;
-
-          document.getElementById('swipe-card-content').innerHTML = `
-              <img src="${profile.image}">
-              <div style="padding:15px; font-weight:bold; font-size:16px; text-align:center;">${profile.name}</div>
-          `;
-      }
-
-      window.nextSwipeCard = function() {
-          currentSwipeIndex++;
-          loadSwipeCard();
-      };
-
-      window.swipeVoteCurrent = function() {
-          const filtered = profiles.filter(p => p.category === currentCategory);
-          const profile = filtered[currentSwipeIndex];
-          if (profile) {
-              addVote(profile.dbKey, 1);
-              nextSwipeCard();
-          }
-      };
-
-      window.openVSMode = function() {
-          document.getElementById('vs-window').style.display = 'flex';
-          const filtered = profiles.filter(p => p.category === currentCategory);
-          if (filtered.length < 2) return;
-
-          const p1 = filtered[Math.floor(Math.random() * filtered.length)];
-          let p2 = filtered[Math.floor(Math.random() * filtered.length)];
-          while (p1.dbKey === p2.dbKey) {
-              p2 = filtered[Math.floor(Math.random() * filtered.length)];
-          }
-
-          document.getElementById('vs-cards-container').innerHTML = `
-              <div style="flex:1; background:var(--card-bg); border-radius:12px; overflow:hidden; cursor:pointer;" onclick="vsVote('${p1.dbKey}')">
-                  <img src="${p1.image}" style="width:100%; height:200px; object-fit:cover;">
-                  <div style="padding:8px; font-weight:bold; font-size:12px;">${p1.name}</div>
-              </div>
-              <div style="flex:1; background:var(--card-bg); border-radius:12px; overflow:hidden; cursor:pointer;" onclick="vsVote('${p2.dbKey}')">
-                  <img src="${p2.image}" style="width:100%; height:200px; object-fit:cover;">
-                  <div style="padding:8px; font-weight:bold; font-size:12px;">${p2.name}</div>
-              </div>
-          `;
-      };
-
-      window.openPrediction = function() {
-          document.getElementById('prediction-screen').style.display = 'flex';
-          const filtered = profiles.filter(p => p.category === currentCategory);
-          const list = document.getElementById('prediction-list');
-          list.innerHTML = '';
-
-          filtered.slice(0, 5).forEach(p => {
-              const btn = document.createElement('button');
-              btn.className = 'btn-free';
-              btn.style.padding = '12px';
-              btn.innerText = `👑 ${p.name}`;
-              btn.onclick = () => {
-                  alert(`پێشبینییەکەت بۆ (${p.name}) بە سەرکەوتوویی تۆمارکرا! 🎯`);
-                  closeOverlay('prediction-screen');
-              };
-              list.appendChild(btn);
-          });
+              update(usedCodesRef, {
+                  usedBy: loggedUser,
+                  usedAt: new Date().getTime()
+              }).then(() => {
+                  addGemsToUser(rewardGems);
+                  document.getElementById('gem-code-input').value = '';
+                  alert(`🎉 پیرۆزە! (${rewardGems}) گەوهەر بۆ ئەکاونتەکەت زیاده‌کرا! 💎`);
+              });
+          }, { onlyOnce: true });
       };
   </script>
 
@@ -2388,6 +2939,13 @@
       function goToWebsite() {
         const landing = document.getElementById('landing-screen');
         landing.classList.add('hidden');
+        window.scrollTo(0, 0);
+
+        const loggedUser = localStorage.getItem('logged_in_user');
+        if (loggedUser) {
+            document.getElementById('user-profile-btn').style.display = 'flex';
+            document.getElementById('header-username-text').innerText = loggedUser;
+        }
       }
 
       function switchAppSection(sectionId, btnElement) {
@@ -2420,25 +2978,6 @@
           musicPlaying = !musicPlaying;
       }
 
-      let targetDate = localStorage.getItem('competition_end_date');
-      if (!targetDate) {
-          targetDate = new Date().getTime() + (30 * 24 * 60 * 60 * 1000);
-          localStorage.setItem('competition_end_date', targetDate);
-      }
-
-      function updateTimer() {
-          const now = new Date().getTime();
-          const diff = targetDate - now;
-          if (diff <= 0) return;
-
-          document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
-          document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          document.getElementById('minutes').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-          document.getElementById('seconds').innerText = Math.floor((diff % (1000 * 60)) / 1000);
-      }
-      setInterval(updateTimer, 1000);
-      updateTimer();
-
       function closeOverlay(id) {
           document.getElementById(id).style.display = 'none';
       }
@@ -2449,51 +2988,6 @@
       }
       function closeModal() {
           document.getElementById('img-modal').style.display = 'none';
-      }
-
-      function openWheel() {
-          document.getElementById('wheel-screen').style.display = 'flex';
-          document.getElementById('wheel-target-box').style.display = 'block';
-      }
-
-      let isSpinning = false;
-      function spinWheel() {
-          if (isSpinning) return;
-
-          const targetProfileDbKey = document.getElementById('wheel-target-profile').value;
-          if (!targetProfileDbKey) {
-              alert('تکایە سەرەتا ناوێک هەڵبژێرە تا دەنگی چانسەکەی بۆ بنێریت!');
-              return;
-          }
-
-          const lastSpin = localStorage.getItem('last_wheel_spin');
-          const now = new Date().getTime();
-
-          if (lastSpin && (now - parseInt(lastSpin) < 24 * 60 * 60 * 1000)) {
-              alert('تۆ ئەمڕۆ چەرخی چانست خولاندۆتەوە! دوای ٢٤ کاتژمێر دەتوانیتەوە بیخولێنیتەوە.');
-              return;
-          }
-
-          isSpinning = true;
-          const spinBtn = document.getElementById('spin-btn');
-          spinBtn.disabled = true;
-
-          const disc = document.getElementById('wheel-disc');
-          const randomDegree = 1800 + Math.floor(Math.random() * 360);
-          disc.style.transform = `rotate(${randomDegree}deg)`;
-
-          setTimeout(() => {
-              const prizes = [1, 2, 3, 5];
-              const wonVotes = prizes[Math.floor(Math.random() * prizes.length)];
-              
-              window.addVote(targetProfileDbKey, wonVotes, true);
-
-              alert(`🎉 پیرۆزە! تۆ ${wonVotes} دەنگی دیاریت بردەوە و بە ڕاستی ڕەوانەی هەڵبژێردراوەکەت کرا!`);
-              localStorage.setItem('last_wheel_spin', now.toString());
-              isSpinning = false;
-              spinBtn.disabled = false;
-              closeOverlay('wheel-screen');
-          }, 3200);
       }
 
       function shareProfile(name) {
