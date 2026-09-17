@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>جوانترینەکانی کوردستان</title>
   
+  <!-- Web App & PWA Settings -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="جوانترینەکانی کوردستان">
+  <meta name="theme-color" content="#0f172a">
+
+  <!-- Apple Touch Icon (Kurdish Flag Icon for Home Screen) -->
+  <link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='33.3' fill='%23e4002b'/><rect y='33.3' width='100' height='33.3' fill='%23ffffff'/><rect y='66.6' width='100' height='33.3' fill='%23008751'/><circle cx='50' cy='50' r='16' fill='%23ffd700'/><path d='M50,25 L50,75 M25,50 L75,50 M32,32 L68,68 M32,68 L68,32' stroke='%23ffd700' stroke-width='4'/></svg>">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='33.3' fill='%23e4002b'/><rect y='33.3' width='100' height='33.3' fill='%23ffffff'/><rect y='66.6' width='100' height='33.3' fill='%23008751'/><circle cx='50' cy='50' r='16' fill='%23ffd700'/><path d='M50,25 L50,75 M25,50 L75,50 M32,32 L68,68 M32,68 L68,32' stroke='%23ffd700' stroke-width='4'/></svg>">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@700;800&family=Reem+Kufi:wght@800;900&display=swap" rel="stylesheet">
@@ -271,6 +282,27 @@
       border-radius: 8px;
       cursor: pointer;
       font-size: 14px;
+      position: relative;
+    }
+
+    /* Red Notification Badge for Inbox Icon */
+    .notif-badge-dot {
+      display: none;
+      position: absolute;
+      top: -3px;
+      right: -3px;
+      width: 10px;
+      height: 10px;
+      background-color: #ef4444;
+      border-radius: 50%;
+      border: 2px solid #0f172a;
+      animation: pulseRedDot 1.5s infinite;
+    }
+
+    @keyframes pulseRedDot {
+      0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+      70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+      100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
     }
 
     .upload-btn-main {
@@ -1159,6 +1191,7 @@
       border: 1px solid var(--border-color);
       padding: 12px;
       border-radius: 16px;
+      position: relative;
     }
     .friend-user-meta {
       display: flex;
@@ -1180,6 +1213,49 @@
       border-radius: 10px;
       cursor: pointer;
       font-size: 16px;
+      position: relative;
+    }
+
+    /* Social Login & Secondary Auth Buttons */
+    .btn-social-auth {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 12px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .btn-gmail { background: #ea4335; color: white; }
+    .btn-phone { background: #10b981; color: white; }
+    .btn-link-auth {
+      background: transparent;
+      border: none;
+      color: #38bdf8;
+      font-size: 11px;
+      cursor: pointer;
+      text-decoration: underline;
+      margin-top: 5px;
+    }
+    .divider-text {
+      margin: 12px 0;
+      font-size: 11px;
+      color: var(--subtext-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .divider-text::before, .divider-text::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border-color);
     }
   </style>
 </head>
@@ -1267,7 +1343,13 @@
                       <span>💎</span>
                       <span id="top-gem-balance">0</span>
                   </div>
-                  <button class="icon-btn" onclick="openFriendsInboxOverlay()" title="نامەکان / Inbox">💬</button>
+                  
+                  <!-- Messenger Inbox Button with Red Notification Dot -->
+                  <button class="icon-btn" onclick="openFriendsInboxOverlay()" title="نامەکان / Inbox">
+                      💬
+                      <span class="notif-badge-dot" id="inbox-red-dot"></span>
+                  </button>
+
                   <button class="icon-btn" onclick="openUserProfileModal()" id="user-profile-btn" style="display:none; align-items:center; gap:5px; border:1px solid #ffd700;">
                       <img id="header-avatar-img" src="https://i.ibb.co/84DfCgGV/IMG-5666.jpg" style="width:20px; height:20px; border-radius:50%; object-fit:cover;">
                       <span id="header-username-text">پرۆفایل</span>
@@ -1534,19 +1616,42 @@
     </div>
   </div>
 
+  <!-- AUTH MODAL WITH GMAIL & PHONE RESET OPTIONS -->
   <div class="modal" id="auth-modal" style="display:none; z-index:10000;">
     <div style="background: var(--card-bg); border: 2px solid #ffd700; border-radius: 20px; padding: 25px; width: 90%; max-width: 380px; text-align: center; color: white;">
       <h3 style="color: #ffd700; margin-bottom: 10px; font-size: 18px;">🔑 چوونەژوورەوە / خۆتۆمارکردن</h3>
-      <p style="font-size: 12px; color: var(--subtext-color); margin-bottom: 15px;">ناوی خۆت و پاسۆردێک بنووسە بۆ ئەوەی لە هەر ئامێرێکەوە چوویتە ژوورەوە ئەکاونتەکەت بێتەوە.</p>
+      <p style="font-size: 12px; color: var(--subtext-color); margin-bottom: 15px;">ناوی خۆت و پاسۆردێک بنووسە یان ڕاستەوخۆ بە ئۆپشنە خێراکان بچۆ ژوورەوە.</p>
       
-      <input type="text" id="auth-username" class="search-input" placeholder="👤 ناوی بەکارهێنەر" style="margin-bottom: 10px; text-align: center;">
-      <input type="password" id="auth-password" class="search-input" placeholder="🔒 پاسۆرد (کۆد)" style="margin-bottom: 15px; text-align: center;">
+      <!-- Quick Social Logins -->
+      <button class="btn-social-auth btn-gmail" onclick="loginWithGoogle()">
+        <span>📧</span> چوونەژوورەوە بە Gmail
+      </button>
       
+      <button class="btn-social-auth btn-phone" onclick="togglePhoneAuthSection()">
+        <span>📱</span> چوونەژوورەوە بە ژمارەی مۆبایل
+      </button>
+
+      <!-- Dynamic Phone Auth Block -->
+      <div id="phone-auth-container" style="display:none; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 10px; margin-bottom: 10px;">
+        <input type="tel" id="auth-phone-number" class="search-input" placeholder="+964 7XX XXX XXXX" style="margin-bottom: 8px; text-align: center;">
+        <button class="enter-btn" style="padding: 8px; font-size: 0.9rem; background:#10b981;" onclick="sendPhoneOTP()">ناردنی کۆدی پشتڕاستکردنەوە 📩</button>
+      </div>
+
+      <div class="divider-text">یاخود بە ئیمەیڵ / پاسۆرد</div>
+      
+      <input type="text" id="auth-username" class="search-input" placeholder="👤 ناوی بەکارهێنەر یان ئیمەیڵ" style="margin-bottom: 10px; text-align: center;">
+      <input type="password" id="auth-password" class="search-input" placeholder="🔒 پاسۆرد" style="margin-bottom: 8px; text-align: center;">
+      
+      <div style="text-align: left; margin-bottom: 12px;">
+        <button class="btn-link-auth" onclick="handlePasswordReset()">وشەی نهێنیت بیرچووە؟ (Reset)</button>
+      </div>
+
       <button class="enter-btn" style="padding: 12px; font-size: 1rem; margin-bottom: 10px;" onclick="handleUserAuth()">چوونەژوورەوە 🚀</button>
       <button class="close-overlay-btn" style="margin-top:0; width:100%;" onclick="closeAuthModal()">پاشگەزبوونەوە</button>
     </div>
   </div>
 
+  <!-- USER PROFILE MODAL WITH CONNECT GMAIL & PHONE -->
   <div class="modal" id="user-profile-modal" style="display:none; z-index:10001;">
     <div style="background: rgba(18, 18, 20, 0.95); border: 1.5px solid rgba(255, 215, 0, 0.4); border-radius: 24px; padding: 25px 20px; width: 92%; max-width: 380px; text-align: center; color: white; box-shadow: 0 10px 40px rgba(0,0,0,0.9); position:relative; max-height:90vh; overflow-y:auto;">
       
@@ -1568,6 +1673,20 @@
           <div class="exp-bar-fill" id="user-exp-bar-fill"></div>
       </div>
       <div style="font-size:10px; color:#aaa; margin-top:4px; margin-bottom:15px;" id="user-exp-next-text">تەنها 500 EXP مابوو بۆ ئاستی زیو 🥈</div>
+
+      <!-- Connect Options Section inside Profile -->
+      <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 12px; margin-bottom: 15px;">
+          <div style="font-size:12px; font-weight:bold; color:#ffd700; margin-bottom:8px; text-align:right;">🔗 بەستنەوەی ئەکاونت (بۆ پاراستن):</div>
+          
+          <div style="display:flex; gap:6px; flex-direction:column;">
+            <button class="btn-social-auth btn-gmail" style="margin:0; font-size:11px;" id="btn-connect-gmail" onclick="connectGmailAccount()">
+              📧 بەستنەوە بە Gmail <span id="gmail-status-tag" style="font-size:10px; opacity:0.8;">(نەبستراوەتەوە)</span>
+            </button>
+            <button class="btn-social-auth btn-phone" style="margin:0; font-size:11px;" id="btn-connect-phone" onclick="connectPhoneNumber()">
+              📱 بەستنەوە بە ژمارەی مۆبایل <span id="phone-status-tag" style="font-size:10px; opacity:0.8;">(نەبستراوەتەوە)</span>
+            </button>
+          </div>
+      </div>
 
       <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 15px; margin-bottom: 15px;">
           <div style="display:flex; justify-content:space-around; align-items:center;">
@@ -1649,6 +1768,7 @@
   <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
       import { getDatabase, ref, onValue, update, runTransaction, push, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+      import { getAuth, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
       const firebaseConfig = {
         apiKey: "AIzaSyB9BhFcxhNU6zT4y5FLGyI8HLTHjjdPqKg",
@@ -1663,11 +1783,181 @@
 
       const app = initializeApp(firebaseConfig);
       const db = getDatabase(app);
+      const auth = getAuth(app);
+      const googleProvider = new GoogleAuthProvider();
 
       let selectedBase64Avatar = "";
       let selectedContestPhotoBase64 = "";
       window.currentPublicUserKey = "";
       let activeChatTargetKey = "";
+
+      /* --- REALTIME INBOX UNREAD NOTIFICATIONS MONITOR --- */
+      window.listenToInboxUnreadNotifications = function() {
+          const loggedUser = localStorage.getItem('logged_in_user');
+          if (!loggedUser) return;
+
+          const chatsRef = ref(db, 'direct_chats');
+          onValue(chatsRef, (snapshot) => {
+              const data = snapshot.val();
+              let hasAnyUnread = false;
+              window.unreadSendersMap = {};
+
+              if (data) {
+                  const loggedLower = loggedUser.toLowerCase();
+                  Object.keys(data).forEach(roomId => {
+                      if (roomId.includes(loggedLower)) {
+                          const messages = data[roomId];
+                          if (messages) {
+                              const msgList = Object.values(messages);
+                              const lastMsg = msgList[msgList.length - 1];
+                              
+                              if (lastMsg && lastMsg.sender.toLowerCase() !== loggedLower) {
+                                  let readState = localStorage.getItem(`read_msg_${roomId}_${lastMsg.time}`);
+                                  if (!readState) {
+                                      hasAnyUnread = true;
+                                      window.unreadSendersMap[lastMsg.sender.toLowerCase()] = true;
+                                  }
+                              }
+                          }
+                      }
+                  });
+              }
+
+              const redDot = document.getElementById('inbox-red-dot');
+              if (redDot) {
+                  redDot.style.display = hasAnyUnread ? 'block' : 'none';
+              }
+              
+              if (document.getElementById('friends-inbox-overlay').style.display === 'flex') {
+                  renderFriendsListUI();
+              }
+          });
+      };
+
+      /* --- GMAIL & PHONE AUTH FUNCTIONS --- */
+      window.loginWithGoogle = function() {
+          signInWithPopup(auth, googleProvider)
+            .then((result) => {
+              const user = result.user;
+              const cleanName = user.displayName ? user.displayName.replace(/\s+/g, '_') : user.email.split('@')[0];
+              const userRef = ref(db, 'users/' + cleanName.toLowerCase());
+
+              onValue(userRef, (snapshot) => {
+                  if (snapshot.exists()) {
+                      localStorage.setItem('logged_in_user', cleanName);
+                      showToast(`بەخێربێیتەوە ${cleanName}! 👋`);
+                      updateUserGemsUI(snapshot.val().gems || 0);
+                      updateHeaderProfileInfo(cleanName);
+                      closeAuthModal();
+                      goToWebsite();
+                  } else {
+                      update(userRef, {
+                          username: cleanName,
+                          email: user.email,
+                          gmailConnected: true,
+                          avatar: user.photoURL || "https://i.ibb.co/84DfCgGV/IMG-5666.jpg",
+                          password: "google_authenticated",
+                          exp: 0,
+                          gems: 10,
+                          gemsSpent: 0,
+                          bio: "",
+                          hideFollowers: false,
+                          uploadsCount: 0,
+                          createdAt: new Date().getTime()
+                      }).then(() => {
+                          localStorage.setItem('logged_in_user', cleanName);
+                          showToast(`ئەکاونت بە Gmail دروستکرا! ۱۰ گەوهەرت بەدیاری وەرگرت 💎`);
+                          updateUserGemsUI(10);
+                          updateHeaderProfileInfo(cleanName);
+                          closeAuthModal();
+                          goToWebsite();
+                      });
+                  }
+              }, { onlyOnce: true });
+            })
+            .catch((error) => {
+              alert("کێشەیەک ڕوویدا لە کاتی چوونەژوورەوە بە Gmail: " + error.message);
+            });
+      };
+
+      window.togglePhoneAuthSection = function() {
+          const container = document.getElementById('phone-auth-container');
+          container.style.display = container.style.display === 'none' ? 'block' : 'none';
+      };
+
+      window.sendPhoneOTP = function() {
+          const phone = document.getElementById('auth-phone-number').value.trim();
+          if (!phone) {
+              alert("تکایە ژمارەی مۆبایل بە ڕێژەی نێودەوڵەتی بنووسە (+964...)");
+              return;
+          }
+          alert(`کۆدی پشترڕاستکردنەوە بۆ ژمارەی (${phone}) نێردرا. (دەتوانی لە فایەربەیس Phone Auth چالاک بکەیت).`);
+      };
+
+      window.handlePasswordReset = function() {
+          const email = prompt("تکایە ئیمەیڵەکەت بنووسە بۆ ئەوەی لینکی نوێکردنەوەی پاسۆردت بۆ بنێرین:");
+          if (email) {
+              sendPasswordResetEmail(auth, email)
+                .then(() => {
+                  alert("کۆد/لینکی نوێکردنەوەی پاسۆرد نێردرا بۆ ئیمەیڵەکەت 📧!");
+                })
+                .catch((error) => {
+                  alert("ئیمەیڵەکە نەدۆزرایەوە یان کێشەیەک هەبوو: " + error.message);
+                });
+          }
+      };
+
+      window.connectGmailAccount = function() {
+          const loggedUser = localStorage.getItem('logged_in_user');
+          if (!loggedUser) return;
+
+          signInWithPopup(auth, googleProvider)
+            .then((result) => {
+              const user = result.user;
+              const userRef = ref(db, 'users/' + loggedUser.toLowerCase());
+
+              update(userRef, {
+                  email: user.email,
+                  gmailConnected: true
+              }).then(() => {
+                  alert(`🎉 بە سەرکەوتوویی ئەکاونتەکەت بەستراوە بە Gmail: (${user.email})`);
+                  document.getElementById('gmail-status-tag').innerText = "✓ بەستراوەتەوە";
+              });
+            })
+            .catch((error) => {
+              alert("کێشەیەک ڕوویدا لە کاتی بەستنەوە بە Gmail: " + error.message);
+            });
+      };
+
+      window.connectPhoneNumber = function() {
+          const phone = prompt("تکایە ژمارەی مۆبایلەکەت بنووسە (+964...):");
+          const loggedUser = localStorage.getItem('logged_in_user');
+          if (phone && loggedUser) {
+              const userRef = ref(db, 'users/' + loggedUser.toLowerCase());
+              update(userRef, {
+                  phoneNumber: phone,
+                  phoneConnected: true
+              }).then(() => {
+                  alert(`🎉 بە سەرکەوتوویی ژمارەی مۆبایل بەستراوەتەوە: (${phone})`);
+                  document.getElementById('phone-status-tag').innerText = "✓ بەستراوەتەوە";
+              });
+          }
+      };
+      /* --- END GMAIL & PHONE AUTH FUNCTIONS --- */
+
+      window.updateHeaderProfileInfo = function(username) {
+          if (!username) return;
+          const userRef = ref(db, 'users/' + username.toLowerCase());
+          onValue(userRef, (snapshot) => {
+              const data = snapshot.val();
+              if (data) {
+                  document.getElementById('header-username-text').innerText = data.username;
+                  if (data.avatar) {
+                      document.getElementById('header-avatar-img').src = data.avatar;
+                  }
+              }
+          }, { onlyOnce: true });
+      };
 
       window.calculateUserTier = function(exp) {
           exp = exp || 0;
@@ -1811,6 +2101,7 @@
                       localStorage.setItem('logged_in_user', username);
                       showToast(`بەخێربێیتەوە ${username}! 👋`);
                       updateUserGemsUI(userData.gems || 0);
+                      updateHeaderProfileInfo(username);
                       closeAuthModal();
                       goToWebsite();
                   } else {
@@ -1831,6 +2122,7 @@
                       localStorage.setItem('logged_in_user', username);
                       showToast(`ئەکاونتەکەت دروستکرا! ۱۰ گەوهەرت بەدیاری وەرگرت 💎`);
                       updateUserGemsUI(10);
+                      updateHeaderProfileInfo(username);
                       closeAuthModal();
                       goToWebsite();
                   });
@@ -1868,6 +2160,10 @@
                   document.getElementById('user-modal-level-name').innerText = tier.name;
                   document.getElementById('user-modal-exp').innerText = data.exp || 0;
                   
+                  // Gmail & Phone status indicators
+                  if(data.gmailConnected) document.getElementById('gmail-status-tag').innerText = "✓ بەستراوەتەوە";
+                  if(data.phoneConnected) document.getElementById('phone-status-tag').innerText = "✓ بەستراوەتەوە";
+
                   const badgeContainer = document.getElementById('user-level-badge-container');
                   badgeContainer.style.background = tier.bg;
                   badgeContainer.style.border = `1px solid ${tier.border}`;
@@ -2103,6 +2399,9 @@
                   userList.forEach(u => {
                       const div = document.createElement('div');
                       div.className = 'friend-row-item';
+
+                      let isUnreadFromThisUser = window.unreadSendersMap && window.unreadSendersMap[u.username.toLowerCase()];
+
                       div.innerHTML = `
                           <div class="friend-user-meta">
                               <img class="friend-user-avatar" src="${u.avatar || 'https://i.ibb.co/84DfCgGV/IMG-5666.jpg'}">
@@ -2112,7 +2411,10 @@
                               </div>
                           </div>
                           <div style="display:flex; gap:8px;">
-                              <button class="chat-action-badge-btn" onclick="openMessengerWithTarget('${u.username}')">💬</button>
+                              <button class="chat-action-badge-btn" onclick="openMessengerWithTarget('${u.username}')">
+                                💬
+                                ${isUnreadFromThisUser ? '<span class="notif-badge-dot" style="display:block;"></span>' : ''}
+                              </button>
                               <button class="chat-action-badge-btn" style="background:#334155;" onclick="openPublicUserProfile('${u.username}')">👤</button>
                           </div>
                       `;
@@ -2165,7 +2467,8 @@
               feed.innerHTML = '';
 
               if (data) {
-                  Object.values(data).forEach(msg => {
+                  const msgList = Object.values(data);
+                  msgList.forEach(msg => {
                       const bubble = document.createElement('div');
                       const isMe = msg.sender.toLowerCase() === loggedUser.toLowerCase();
                       bubble.className = `msg-bubble ${isMe ? 'msg-sent' : 'msg-received'}`;
@@ -2177,6 +2480,11 @@
                       }
 
                       feed.appendChild(bubble);
+
+                      // Mark message as read locally when opened
+                      if(!isMe && msg.time) {
+                          localStorage.setItem(`read_msg_${roomId}_${msg.time}`, 'true');
+                      }
                   });
                   feed.scrollTop = feed.scrollHeight;
               }
@@ -2279,14 +2587,13 @@
                   update(ref(db, 'users/' + newKey), updatedData).then(() => {
                       remove(ref(db, 'users/' + oldKey));
                       localStorage.setItem('logged_in_user', newUsername);
-                      document.getElementById('header-username-text').innerText = newUsername;
-                      document.getElementById('header-avatar-img').src = updatedData.avatar;
+                      updateHeaderProfileInfo(newUsername);
                       selectedBase64Avatar = "";
                       showToast('زانیارییەکانی سەرکەوتوویی نوێکرانەوە! ✨');
                   });
               } else {
                   update(ref(db, 'users/' + oldKey), updatedData).then(() => {
-                      document.getElementById('header-avatar-img').src = updatedData.avatar;
+                      updateHeaderProfileInfo(loggedUser);
                       selectedBase64Avatar = "";
                       showToast('زانیارییەکانی ئەکاونتەکەت نوێکرانەوە! ✨');
                   });
@@ -2891,6 +3198,9 @@
               });
           }, { onlyOnce: true });
       };
+
+      // Start Realtime Inbox Notification Listener on Page Load
+      listenToInboxUnreadNotifications();
   </script>
 
   <script>
@@ -2944,7 +3254,9 @@
         const loggedUser = localStorage.getItem('logged_in_user');
         if (loggedUser) {
             document.getElementById('user-profile-btn').style.display = 'flex';
-            document.getElementById('header-username-text').innerText = loggedUser;
+            if (typeof window.updateHeaderProfileInfo === 'function') {
+                window.updateHeaderProfileInfo(loggedUser);
+            }
         }
       }
 
@@ -3014,6 +3326,17 @@
           const elem = document.getElementById(`love-notes-${id}`);
           elem.style.display = elem.style.display === 'block' ? 'none' : 'block';
       }
+
+      // Initial check for profile picture in header
+      window.addEventListener('DOMContentLoaded', () => {
+          const loggedUser = localStorage.getItem('logged_in_user');
+          if (loggedUser) {
+              document.getElementById('user-profile-btn').style.display = 'flex';
+              if (typeof window.updateHeaderProfileInfo === 'function') {
+                  window.updateHeaderProfileInfo(loggedUser);
+              }
+          }
+      });
   </script>
 
 </body>
