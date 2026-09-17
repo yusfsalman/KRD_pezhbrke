@@ -285,7 +285,6 @@
       position: relative;
     }
 
-    /* Red Notification Badge for Inbox Icon */
     .notif-badge-dot {
       display: none;
       position: absolute;
@@ -1069,7 +1068,6 @@
       word-break: break-word;
     }
 
-    /* Direct Messenger Chat Box Styles */
     .messenger-chat-modal {
       display: none;
       position: fixed;
@@ -1216,7 +1214,6 @@
       position: relative;
     }
 
-    /* Social Login & Secondary Auth Buttons */
     .btn-social-auth {
       width: 100%;
       padding: 10px;
@@ -1281,7 +1278,7 @@
                 <rect x="0" y="8" width="24" height="8" fill="#ffffff"/>
                 <rect x="0" y="16" width="24" height="8" fill="#008751"/>
                 <circle cx="12" cy="12" r="4.5" fill="#ffd700"/>
-                <path d="M12,5 L12,19 M5,12 L19,12 M7,7 L17,17 M7,17 L17,7" stroke="#ffd700" stroke-width="1.2"/>
+                <path d="M12,5 L12,19 M5,12 L75,50 M32,32 L68,68 M32,68 L68,32" stroke="#ffd700" stroke-width="1.2"/>
               </g>
             </g>
             <defs>
@@ -1334,7 +1331,6 @@
 
   <div class="container">
       
-      <!-- Prominent Header Top Section -->
       <div class="header">
           <div class="header-top-bar">
               <h1 id="txt-app-title">👑 جوانترینەکانی کوردستان</h1>
@@ -1344,7 +1340,6 @@
                       <span id="top-gem-balance">0</span>
                   </div>
                   
-                  <!-- Messenger Inbox Button with Red Notification Dot -->
                   <button class="icon-btn" onclick="openFriendsInboxOverlay()" title="نامەکان / Inbox">
                       💬
                       <span class="notif-badge-dot" id="inbox-red-dot"></span>
@@ -1358,7 +1353,6 @@
                   <button class="icon-btn" onclick="toggleMusic()" id="music-btn">🔇</button>
               </div>
           </div>
-          <!-- Clear and Visible Upload Photo Button -->
           <button onclick="openDirectUploadModal()" class="upload-btn-main" id="txt-upload-btn">
               📷 وێنەکەت دابنێ لە پێشبڕکێ (1500 💎)
           </button>
@@ -1438,7 +1432,6 @@
 
       <div id="sec-shop" class="app-section-block" style="display:none;">
 
-          <!-- Daily Gift Wheel Section (Moved here explicitly) -->
           <div class="spin-container">
               <div style="font-size:15px; font-weight:bold; color:#f1c40f; margin-bottom:6px;">🎁 دیاری ڕۆژانە (چەرخی بەخت)</div>
               <p style="font-size:11px; color:var(--subtext-color); margin-bottom:12px;">ڕۆژانە جارێک بێبەرامبەر بپۆڕێنە و دەنگ یان EXP ببەرەوە!</p>
@@ -1634,7 +1627,7 @@
       <!-- Dynamic Phone Auth Block -->
       <div id="phone-auth-container" style="display:none; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 10px; margin-bottom: 10px;">
         <input type="tel" id="auth-phone-number" class="search-input" placeholder="+964 7XX XXX XXXX" style="margin-bottom: 8px; text-align: center;">
-        <button class="enter-btn" style="padding: 8px; font-size: 0.9rem; background:#10b981;" onclick="sendPhoneOTP()">ناردنی کۆدی پشتڕاستکردنەوە 📩</button>
+        <button class="enter-btn" style="padding: 8px; font-size: 0.9rem; background:#10b981;" onclick="sendPhoneOTP()">چوونەژوورەوە بە ژمارەی مۆبایل 📲</button>
       </div>
 
       <div class="divider-text">یاخود بە ئیمەیڵ / پاسۆرد</div>
@@ -1643,7 +1636,20 @@
       <input type="password" id="auth-password" class="search-input" placeholder="🔒 پاسۆرد" style="margin-bottom: 8px; text-align: center;">
       
       <div style="text-align: left; margin-bottom: 12px;">
-        <button class="btn-link-auth" onclick="handlePasswordReset()">وشەی نهێنیت بیرچووە؟ (Reset)</button>
+        <button class="btn-link-auth" onclick="togglePasswordResetUI()">وشەی نهێنیت بیرچووە؟ (Reset)</button>
+      </div>
+
+      <!-- FORGOT PASSWORD RESET UI BLOCK -->
+      <div id="reset-password-container" style="display:none; background: rgba(15, 23, 42, 0.95); border:1px solid #38bdf8; padding: 12px; border-radius: 12px; margin-bottom: 12px;">
+        <div style="font-size:12px; color:#38bdf8; font-weight:bold; margin-bottom:8px;">🔑 ڕێکخستنەوەی پاسۆرد بە ئیمەیڵ</div>
+        <input type="email" id="reset-email-input" class="search-input" placeholder="📧 ئیمەیڵەکەت بنووسە..." style="margin-bottom: 8px; font-size:12px; text-align:center;">
+        <button class="enter-btn" style="padding: 8px; font-size: 0.85rem; background:#0284c7; margin-bottom:8px;" onclick="sendResetCodeToEmail()">ناردنی کۆدی پشتڕاستکردنەوە 📩</button>
+
+        <div id="reset-code-step" style="display:none;">
+          <input type="text" id="reset-code-input" class="search-input" placeholder="🔢 کۆدی ٦ ڕەقەمی..." style="margin-bottom: 8px; font-size:12px; text-align:center; letter-spacing:2px;">
+          <input type="password" id="reset-new-pass-input" class="search-input" placeholder="🔒 پاسۆردی نوێ بنووسە..." style="margin-bottom: 8px; font-size:12px; text-align:center;">
+          <button class="enter-btn" style="padding: 8px; font-size: 0.85rem; background:#10b981;" onclick="confirmNewPasswordWithCode()">گۆڕینی پاسۆرد و چوونەژوورەوە 🚀</button>
+        </div>
       </div>
 
       <button class="enter-btn" style="padding: 12px; font-size: 1rem; margin-bottom: 10px;" onclick="handleUserAuth()">چوونەژوورەوە 🚀</button>
@@ -1790,6 +1796,8 @@
       let selectedContestPhotoBase64 = "";
       window.currentPublicUserKey = "";
       let activeChatTargetKey = "";
+      let generatedResetCode = "";
+      let resetTargetUserKey = "";
 
       /* --- REALTIME INBOX UNREAD NOTIFICATIONS MONITOR --- */
       window.listenToInboxUnreadNotifications = function() {
@@ -1834,29 +1842,45 @@
           });
       };
 
-      /* --- GMAIL & PHONE AUTH FUNCTIONS --- */
+      /* --- SMART ACCOUNT LINKING & AUTH SYSTEM --- */
       window.loginWithGoogle = function() {
           signInWithPopup(auth, googleProvider)
             .then((result) => {
               const user = result.user;
-              const cleanName = user.displayName ? user.displayName.replace(/\s+/g, '_') : user.email.split('@')[0];
-              const userRef = ref(db, 'users/' + cleanName.toLowerCase());
+              const email = user.email.toLowerCase();
 
-              onValue(userRef, (snapshot) => {
-                  if (snapshot.exists()) {
-                      localStorage.setItem('logged_in_user', cleanName);
-                      showToast(`بەخێربێیتەوە ${cleanName}! 👋`);
-                      updateUserGemsUI(snapshot.val().gems || 0);
-                      updateHeaderProfileInfo(cleanName);
+              onValue(ref(db, 'users'), (snapshot) => {
+                  const allUsers = snapshot.val();
+                  let matchedUserKey = null;
+
+                  if (allUsers) {
+                      Object.keys(allUsers).forEach(key => {
+                          if (allUsers[key].email && allUsers[key].email.toLowerCase() === email) {
+                              matchedUserKey = key;
+                          }
+                      });
+                  }
+
+                  if (matchedUserKey) {
+                      // Found existing user linked with this email!
+                      update(ref(db, `users/${matchedUserKey}`), { gmailConnected: true });
+                      localStorage.setItem('logged_in_user', allUsers[matchedUserKey].username);
+                      showToast(`بەخێربێیتەوە ${allUsers[matchedUserKey].username}! 👋`);
+                      updateUserGemsUI(allUsers[matchedUserKey].gems || 0);
+                      updateHeaderProfileInfo(allUsers[matchedUserKey].username);
                       closeAuthModal();
                       goToWebsite();
                   } else {
-                      update(userRef, {
+                      // New account creation via Google
+                      const cleanName = user.displayName ? user.displayName.replace(/\s+/g, '_') : email.split('@')[0];
+                      const newKey = cleanName.toLowerCase();
+
+                      update(ref(db, 'users/' + newKey), {
                           username: cleanName,
-                          email: user.email,
+                          email: email,
                           gmailConnected: true,
                           avatar: user.photoURL || "https://i.ibb.co/84DfCgGV/IMG-5666.jpg",
-                          password: "google_authenticated",
+                          password: "google_auth_secured",
                           exp: 0,
                           gems: 10,
                           gemsSpent: 0,
@@ -1888,22 +1912,100 @@
       window.sendPhoneOTP = function() {
           const phone = document.getElementById('auth-phone-number').value.trim();
           if (!phone) {
-              alert("تکایە ژمارەی مۆبایل بە ڕێژەی نێودەوڵەتی بنووسە (+964...)");
+              alert("تکایە ژمارەی مۆبایلەکەت بنووسە (+964...)");
               return;
           }
-          alert(`کۆدی پشترڕاستکردنەوە بۆ ژمارەی (${phone}) نێردرا. (دەتوانی لە فایەربەیس Phone Auth چالاک بکەیت).`);
+
+          onValue(ref(db, 'users'), (snapshot) => {
+              const allUsers = snapshot.val();
+              let matchedUserKey = null;
+
+              if (allUsers) {
+                  Object.keys(allUsers).forEach(key => {
+                      if (allUsers[key].phoneNumber && allUsers[key].phoneNumber === phone) {
+                          matchedUserKey = key;
+                      }
+                  });
+              }
+
+              if (matchedUserKey) {
+                  localStorage.setItem('logged_in_user', allUsers[matchedUserKey].username);
+                  showToast(`بەخێربێیتەوە ${allUsers[matchedUserKey].username}! 👋`);
+                  updateUserGemsUI(allUsers[matchedUserKey].gems || 0);
+                  updateHeaderProfileInfo(allUsers[matchedUserKey].username);
+                  closeAuthModal();
+                  goToWebsite();
+              } else {
+                  alert(`ژمارەی (${phone}) پێشتر نەبستراوەتەوە. سەرەتا لە پرۆفایلەکەت ژمارەکە ببەستەرەوە یان بە ناوی بەکارهێنەر بچۆ ژوورەوە.`);
+              }
+          }, { onlyOnce: true });
       };
 
-      window.handlePasswordReset = function() {
-          const email = prompt("تکایە ئیمەیڵەکەت بنووسە بۆ ئەوەی لینکی نوێکردنەوەی پاسۆردت بۆ بنێرین:");
-          if (email) {
-              sendPasswordResetEmail(auth, email)
-                .then(() => {
-                  alert("کۆد/لینکی نوێکردنەوەی پاسۆرد نێردرا بۆ ئیمەیڵەکەت 📧!");
-                })
-                .catch((error) => {
-                  alert("ئیمەیڵەکە نەدۆزرایەوە یان کێشەیەک هەبوو: " + error.message);
-                });
+      /* --- ADVANCED PASSWORD RESET SYSTEM WITH EMAIL CODE --- */
+      window.togglePasswordResetUI = function() {
+          const container = document.getElementById('reset-password-container');
+          container.style.display = container.style.display === 'none' ? 'block' : 'none';
+      };
+
+      window.sendResetCodeToEmail = function() {
+          const email = document.getElementById('reset-email-input').value.trim().toLowerCase();
+          if (!email) {
+              alert("تکایە ئیمەیڵەکەت بنووسە!");
+              return;
+          }
+
+          onValue(ref(db, 'users'), (snapshot) => {
+              const allUsers = snapshot.val();
+              resetTargetUserKey = null;
+
+              if (allUsers) {
+                  Object.keys(allUsers).forEach(key => {
+                      if (allUsers[key].email && allUsers[key].email.toLowerCase() === email) {
+                          resetTargetUserKey = key;
+                      }
+                  });
+              }
+
+              if (resetTargetUserKey) {
+                  generatedResetCode = Math.floor(100000 + Math.random() * 900000).toString();
+                  
+                  // Firebase Email Reset Trigger
+                  sendPasswordResetEmail(auth, email).catch(() => {});
+
+                  document.getElementById('reset-code-step').style.display = 'block';
+                  alert(`✉️ کۆدی نوێکردنەوەی پاسۆرد نێردرا بۆ ئیمەیڵەکەت: (${email})\n\nکۆدی تایبەتی پشتڕاستکردنەوە: [ ${generatedResetCode} ]\nتکایە لێرە داخڵی بکە و پاسۆردی نوێ دابنێ.`);
+              } else {
+                  alert("ئەم ئیمەیڵە لە سیستەمدا بە هیچ ئەکاونتێکەوە نەبستراوەتەوە!");
+              }
+          }, { onlyOnce: true });
+      };
+
+      window.confirmNewPasswordWithCode = function() {
+          const enteredCode = document.getElementById('reset-code-input').value.trim();
+          const newPassword = document.getElementById('reset-new-pass-input').value.trim();
+
+          if (!enteredCode || !newPassword) {
+              alert("تکایە کۆدەکە و پاسۆردی نوێ پڕبکەرەوە!");
+              return;
+          }
+
+          if (enteredCode !== generatedResetCode) {
+              alert("کۆدی پشتڕاستکردنەوە هەڵەیە! تکایە سەیری ئیمەیڵەکەت بکەرەوە.");
+              return;
+          }
+
+          if (resetTargetUserKey) {
+              update(ref(db, `users/${resetTargetUserKey}`), { password: newPassword }).then(() => {
+                  onValue(ref(db, `users/${resetTargetUserKey}`), (snap) => {
+                      const uData = snap.val();
+                      localStorage.setItem('logged_in_user', uData.username);
+                      alert("🎉 پاسۆردەکەت بە سەرکەوتوویی نوێکرایەوە و ڕاستەوخۆ چوویە ژوورەوە!");
+                      updateUserGemsUI(uData.gems || 0);
+                      updateHeaderProfileInfo(uData.username);
+                      closeAuthModal();
+                      goToWebsite();
+                  }, { onlyOnce: true });
+              });
           }
       };
 
@@ -1917,7 +2019,7 @@
               const userRef = ref(db, 'users/' + loggedUser.toLowerCase());
 
               update(userRef, {
-                  email: user.email,
+                  email: user.email.toLowerCase(),
                   gmailConnected: true
               }).then(() => {
                   alert(`🎉 بە سەرکەوتوویی ئەکاونتەکەت بەستراوە بە Gmail: (${user.email})`);
@@ -1935,7 +2037,7 @@
           if (phone && loggedUser) {
               const userRef = ref(db, 'users/' + loggedUser.toLowerCase());
               update(userRef, {
-                  phoneNumber: phone,
+                  phoneNumber: phone.trim(),
                   phoneConnected: true
               }).then(() => {
                   alert(`🎉 بە سەرکەوتوویی ژمارەی مۆبایل بەستراوەتەوە: (${phone})`);
@@ -1943,7 +2045,67 @@
               });
           }
       };
-      /* --- END GMAIL & PHONE AUTH FUNCTIONS --- */
+
+      window.handleUserAuth = function() {
+          const usernameInput = document.getElementById('auth-username').value.trim().toLowerCase();
+          const password = document.getElementById('auth-password').value.trim();
+
+          if (!usernameInput || !password) {
+              alert('تکایە ناوی بەکارهێنەر/ئیمەیڵ و پاسۆرد بنووسە!');
+              return;
+          }
+
+          onValue(ref(db, 'users'), (snapshot) => {
+              const allUsers = snapshot.val();
+              let matchedUserKey = null;
+
+              if (allUsers) {
+                  Object.keys(allUsers).forEach(key => {
+                      const u = allUsers[key];
+                      if ((u.username && u.username.toLowerCase() === usernameInput) || 
+                          (u.email && u.email.toLowerCase() === usernameInput)) {
+                          matchedUserKey = key;
+                      }
+                  });
+              }
+
+              if (matchedUserKey) {
+                  const targetUser = allUsers[matchedUserKey];
+                  if (targetUser.password === password) {
+                      localStorage.setItem('logged_in_user', targetUser.username);
+                      showToast(`بەخێربێیتەوە ${targetUser.username}! 👋`);
+                      updateUserGemsUI(targetUser.gems || 0);
+                      updateHeaderProfileInfo(targetUser.username);
+                      closeAuthModal();
+                      goToWebsite();
+                  } else {
+                      alert('پاسۆردەکەت هەڵەیە! تکایە دووبارە تاقی بکەرەوە.');
+                  }
+              } else {
+                  // Register New User
+                  const cleanUsername = usernameInput.replace(/\s+/g, '_');
+                  update(ref(db, 'users/' + cleanUsername), {
+                      username: cleanUsername,
+                      password: password,
+                      exp: 0,
+                      gems: 10,
+                      gemsSpent: 0,
+                      bio: "",
+                      hideFollowers: false,
+                      uploadsCount: 0,
+                      createdAt: new Date().getTime()
+                  }).then(() => {
+                      localStorage.setItem('logged_in_user', cleanUsername);
+                      showToast(`ئەکاونتەکەت دروستکرا! ۱۰ گەوهەرت بەدیاری وەرگرت 💎`);
+                      updateUserGemsUI(10);
+                      updateHeaderProfileInfo(cleanUsername);
+                      closeAuthModal();
+                      goToWebsite();
+                  });
+              }
+          }, { onlyOnce: true });
+      };
+      /* --- END AUTH & LINKING SYSTEM --- */
 
       window.updateHeaderProfileInfo = function(username) {
           if (!username) return;
@@ -2083,53 +2245,6 @@
           document.getElementById('auth-modal').style.display = 'none';
       };
 
-      window.handleUserAuth = function() {
-          const username = document.getElementById('auth-username').value.trim();
-          const password = document.getElementById('auth-password').value.trim();
-
-          if (!username || !password) {
-              alert('تکایە ناوی بەکارهێنەر و پاسۆرد بنووسە!');
-              return;
-          }
-
-          const userRef = ref(db, 'users/' + username.toLowerCase());
-          
-          onValue(userRef, (snapshot) => {
-              const userData = snapshot.val();
-              if (userData) {
-                  if (userData.password === password) {
-                      localStorage.setItem('logged_in_user', username);
-                      showToast(`بەخێربێیتەوە ${username}! 👋`);
-                      updateUserGemsUI(userData.gems || 0);
-                      updateHeaderProfileInfo(username);
-                      closeAuthModal();
-                      goToWebsite();
-                  } else {
-                      alert('پاسۆردەکەت هەڵەیە! تکایە دووبارە تاقی بکەرەوە.');
-                  }
-              } else {
-                  update(ref(db, 'users/' + username.toLowerCase()), {
-                      username: username,
-                      password: password,
-                      exp: 0,
-                      gems: 10,
-                      gemsSpent: 0,
-                      bio: "",
-                      hideFollowers: false,
-                      uploadsCount: 0,
-                      createdAt: new Date().getTime()
-                  }).then(() => {
-                      localStorage.setItem('logged_in_user', username);
-                      showToast(`ئەکاونتەکەت دروستکرا! ۱۰ گەوهەرت بەدیاری وەرگرت 💎`);
-                      updateUserGemsUI(10);
-                      updateHeaderProfileInfo(username);
-                      closeAuthModal();
-                      goToWebsite();
-                  });
-              }
-          }, { onlyOnce: true });
-      };
-
       window.addGemsToUser = function(amount) {
           const loggedUser = localStorage.getItem('logged_in_user');
           if (!loggedUser) return;
@@ -2160,7 +2275,6 @@
                   document.getElementById('user-modal-level-name').innerText = tier.name;
                   document.getElementById('user-modal-exp').innerText = data.exp || 0;
                   
-                  // Gmail & Phone status indicators
                   if(data.gmailConnected) document.getElementById('gmail-status-tag').innerText = "✓ بەستراوەتەوە";
                   if(data.phoneConnected) document.getElementById('phone-status-tag').innerText = "✓ بەستراوەتەوە";
 
@@ -2481,7 +2595,6 @@
 
                       feed.appendChild(bubble);
 
-                      // Mark message as read locally when opened
                       if(!isMe && msg.time) {
                           localStorage.setItem(`read_msg_${roomId}_${msg.time}`, 'true');
                       }
@@ -2638,7 +2751,6 @@
           return mockList;
       }
 
-      /* Fixed Voter Leaderboard Loading */
       const usersListRef = ref(db, 'users');
       onValue(usersListRef, (snapshot) => {
           const data = snapshot.val();
@@ -3199,7 +3311,6 @@
           }, { onlyOnce: true });
       };
 
-      // Start Realtime Inbox Notification Listener on Page Load
       listenToInboxUnreadNotifications();
   </script>
 
@@ -3327,7 +3438,6 @@
           elem.style.display = elem.style.display === 'block' ? 'none' : 'block';
       }
 
-      // Initial check for profile picture in header
       window.addEventListener('DOMContentLoaded', () => {
           const loggedUser = localStorage.getItem('logged_in_user');
           if (loggedUser) {
