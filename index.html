@@ -1271,7 +1271,7 @@
               </div>
           </div>
           <button onclick="openDirectUploadModal()" class="upload-btn-main" id="txt-upload-btn">
-              📷 کەسایەتیی نوێ دابنێ لە پێشبڕکێ (1500 💎)
+              📷 کەسایەتیی نوێ دابنێ لە پێشبڕکێ (بەخۆڕایی 🎁)
           </button>
       </div>
 
@@ -1503,7 +1503,7 @@
   <div class="modal" id="direct-upload-modal" style="display:none; z-index:10003;">
     <div style="background: var(--card-bg); border: 2px solid #f39c12; border-radius: 20px; padding: 25px; width: 90%; max-width: 380px; text-align: center; color: white;">
       <h3 style="color: #f39c12; margin-bottom: 10px; font-size: 18px;">📸 زیادکردنی کەسایەتی بەناوبانگ</h3>
-      <p style="font-size: 12px; color: var(--subtext-color); margin-bottom: 15px;">نرخی دانانی کەسایەتی نوێ: <b>١٥٠٠ 💎 گەوهەر</b></p>
+      <p style="font-size: 12px; color: #10b981; font-weight: bold; margin-bottom: 15px;">نرخی دانانی کەسایەتی نوێ: <b>بەخۆڕایی (0 💎)</b></p>
       
       <input type="text" id="contest-entry-name" class="search-input" placeholder="👤 ناوی کەسایەتی..." style="margin-bottom: 10px; text-align: center;">
       
@@ -1521,7 +1521,7 @@
 
       <img id="contest-photo-preview" src="" style="width:100px; height:100px; border-radius:12px; object-fit:cover; display:none; margin:0 auto 15px auto; border:2px solid #f39c12;">
 
-      <button class="enter-btn" style="padding: 12px; font-size: 1rem; margin-bottom: 10px; background:linear-gradient(135deg, #f59e0b, #d97706);" onclick="submitDirectContestPhoto()">زیادکردن بڕی ١٥٠0 💎</button>
+      <button class="enter-btn" style="padding: 12px; font-size: 1rem; margin-bottom: 10px; background:linear-gradient(135deg, #10b981, #059669);" onclick="submitDirectContestPhoto()">زیادکردنی کەسایەتی بەخۆڕایی 🚀</button>
       <button class="close-overlay-btn" style="margin-top:0; width:100%;" onclick="closeDirectUploadModal()">پاشگەزبوونەوە</button>
     </div>
   </div>
@@ -2085,6 +2085,7 @@
           reader.readAsDataURL(file);
       };
 
+      /* --- FREE DIRECT PHOTO UPLOAD FUNCTION --- */
       window.submitDirectContestPhoto = function() {
           const loggedUser = localStorage.getItem('logged_in_user');
           if (!loggedUser) return;
@@ -2099,36 +2100,29 @@
 
           const userRef = ref(db, 'users/' + loggedUser.toLowerCase());
           onValue(userRef, (snapshot) => {
-              const userData = snapshot.val();
-              if (userData && (userData.gems || 0) >= 1500) {
-                  let newGems = userData.gems - 1500;
-                  let newUploadsCount = (userData.uploadsCount || 0) + 1;
+              const userData = snapshot.val() || {};
+              let newUploadsCount = (userData.uploadsCount || 0) + 1;
 
-                  update(userRef, { 
-                      gems: newGems,
-                      uploadsCount: newUploadsCount
-                  });
-                  updateUserGemsUI(newGems);
+              update(userRef, { 
+                  uploadsCount: newUploadsCount
+              });
 
-                  const newProfileRef = push(ref(db, 'profiles'));
-                  update(newProfileRef, {
-                      name: entryName,
-                      category: category,
-                      image: selectedContestPhotoBase64,
-                      votes: 1,
-                      owner: loggedUser,
-                      ownerAvatar: userData.avatar || "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='35' r='20' fill='%2364748b'/><path d='M20,85 C20,65 35,55 50,55 C65,55 80,65 80,85 Z' fill='%2364748b'/></svg>",
-                      createdAt: new Date().getTime()
-                  }).then(() => {
-                      closeDirectUploadModal();
-                      selectedContestPhotoBase64 = "";
-                      document.getElementById('contest-entry-name').value = '';
-                      document.getElementById('contest-photo-preview').style.display = 'none';
-                      alert("🎉 پیرۆزە! کەسایەتییەکە بە سەرکەوتوویی بە ١٥٠٠ گەوهەر لە پێشبڕکێکە جێگیرکرا!");
-                  });
-              } else {
-                  alert("گەوهەری پێویستت نییە! نرخەکەی ١٥٠٠ گەوهەرە. دەتوانی لە دوکان بڕی گەوهەر بکڕیت.");
-              }
+              const newProfileRef = push(ref(db, 'profiles'));
+              update(newProfileRef, {
+                  name: entryName,
+                  category: category,
+                  image: selectedContestPhotoBase64,
+                  votes: 1,
+                  owner: loggedUser,
+                  ownerAvatar: userData.avatar || "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='35' r='20' fill='%2364748b'/><path d='M20,85 C20,65 35,55 50,55 C65,55 80,65 80,85 Z' fill='%2364748b'/></svg>",
+                  createdAt: new Date().getTime()
+              }).then(() => {
+                  closeDirectUploadModal();
+                  selectedContestPhotoBase64 = "";
+                  document.getElementById('contest-entry-name').value = '';
+                  document.getElementById('contest-photo-preview').style.display = 'none';
+                  alert("🎉 پیرۆزە! کەسایەتیییەکە بە سەرکەوتوویی و بە بێبەرامبەر لە پێشبڕکێکە جێگیرکرا!");
+              });
           }, { onlyOnce: true });
       };
 
