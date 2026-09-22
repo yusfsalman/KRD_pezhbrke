@@ -1271,7 +1271,7 @@
               </div>
           </div>
           <button onclick="openDirectUploadModal()" class="upload-btn-main" id="txt-upload-btn">
-              📷 کەسایەتیی نوێ دابنێ لە پێشبڕکێ (بەخۆڕایی 🎁)
+              📷 کەسایەتیی نوێ دابنێ لە پێشبڕکێ (١٥٠٠ 💎)
           </button>
       </div>
 
@@ -1503,7 +1503,7 @@
   <div class="modal" id="direct-upload-modal" style="display:none; z-index:10003;">
     <div style="background: var(--card-bg); border: 2px solid #f39c12; border-radius: 20px; padding: 25px; width: 90%; max-width: 380px; text-align: center; color: white;">
       <h3 style="color: #f39c12; margin-bottom: 10px; font-size: 18px;">📸 زیادکردنی کەسایەتی بەناوبانگ</h3>
-      <p style="font-size: 12px; color: #10b981; font-weight: bold; margin-bottom: 15px;">نرخی دانانی کەسایەتی نوێ: <b>بەخۆڕایی (0 💎)</b></p>
+      <p style="font-size: 12px; color: #38bdf8; font-weight: bold; margin-bottom: 15px;">نرخی دانانی کەسایەتی نوێ: <b>١٥٠٠ گەوهەر 💎</b></p>
       
       <input type="text" id="contest-entry-name" class="search-input" placeholder="👤 ناوی کەسایەتی..." style="margin-bottom: 10px; text-align: center;">
       
@@ -1521,7 +1521,7 @@
 
       <img id="contest-photo-preview" src="" style="width:100px; height:100px; border-radius:12px; object-fit:cover; display:none; margin:0 auto 15px auto; border:2px solid #f39c12;">
 
-      <button class="enter-btn" style="padding: 12px; font-size: 1rem; margin-bottom: 10px; background:linear-gradient(135deg, #10b981, #059669);" onclick="submitDirectContestPhoto()">زیادکردنی کەسایەتی بەخۆڕایی 🚀</button>
+      <button class="enter-btn" style="padding: 12px; font-size: 1rem; margin-bottom: 10px; background:linear-gradient(135deg, #0284c7, #0369a1);" onclick="submitDirectContestPhoto()">زیادکردنی کەسایەتی (١٥٠٠ گەوهەر) 🚀</button>
       <button class="close-overlay-btn" style="margin-top:0; width:100%;" onclick="closeDirectUploadModal()">پاشگەزبوونەوە</button>
     </div>
   </div>
@@ -2015,6 +2015,8 @@
                       goToWebsite();
                   });
               }
+          }, (error) => {
+              alert('کێشەیەک لە پەیوەندی لەگەڵ داتابەیس: ' + error.message + '\n(زۆرجار ئەمە بەهۆی Firebase Database Rulesـەوەیە)');
           }, { onlyOnce: true });
       };
 
@@ -2085,7 +2087,7 @@
           reader.readAsDataURL(file);
       };
 
-      /* --- FREE DIRECT PHOTO UPLOAD FUNCTION --- */
+      /* --- GEM-COST DIRECT PHOTO UPLOAD FUNCTION --- */
       window.submitDirectContestPhoto = function() {
           const loggedUser = localStorage.getItem('logged_in_user');
           if (!loggedUser) return;
@@ -2098,14 +2100,26 @@
               return;
           }
 
+          const UPLOAD_COST = 1500;
           const userRef = ref(db, 'users/' + loggedUser.toLowerCase());
           onValue(userRef, (snapshot) => {
               const userData = snapshot.val() || {};
+
+              if ((userData.gems || 0) < UPLOAD_COST) {
+                  alert(`گەوهەری پێویستت نییە! زیادکردنی کەسایەتی نوێ پێویستی بە (${UPLOAD_COST}) گەوهەرە.\nباڵانسی ئێستات: ${userData.gems || 0} 💎\nدەتوانیت لە دوکانی گەوهەر زیاد بکەیت.`);
+                  return;
+              }
+
+              let newGems = (userData.gems || 0) - UPLOAD_COST;
+              let newSpent = (userData.gemsSpent || 0) + UPLOAD_COST;
               let newUploadsCount = (userData.uploadsCount || 0) + 1;
 
               update(userRef, { 
+                  gems: newGems,
+                  gemsSpent: newSpent,
                   uploadsCount: newUploadsCount
               });
+              updateUserGemsUI(newGems);
 
               const newProfileRef = push(ref(db, 'profiles'));
               update(newProfileRef, {
@@ -2121,7 +2135,7 @@
                   selectedContestPhotoBase64 = "";
                   document.getElementById('contest-entry-name').value = '';
                   document.getElementById('contest-photo-preview').style.display = 'none';
-                  alert("🎉 پیرۆزە! کەسایەتیییەکە بە سەرکەوتوویی و بە بێبەرامبەر لە پێشبڕکێکە جێگیرکرا!");
+                  showToast(`کەسایەتییەکە زیادکرا! (${UPLOAD_COST}) گەوهەر کەمکرایەوە 💎`);
               });
           }, { onlyOnce: true });
       };
